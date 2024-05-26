@@ -3,7 +3,7 @@
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = "rgu";
+$database = "lanbased";
 // Create database connection
 $conn = mysqli_connect($host, $username, $password, $database);
 

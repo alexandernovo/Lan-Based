@@ -1,0 +1,50 @@
+.login-border {
+  width: 45%;
+  height: 500px;
+  padding: 20px 50px;
+  border-radius: 9px;
+  background-color: white;
+  margin: 50px auto;
+}
+
+.login-button {
+  letter-spacing: 2px;
+}
+
+.font-bold {
+  font-weight: 500;
+  font-size: 14px;
+}
+.logo {
+  width: 160px;
+  height: 160px;
+}
+
+.login-title {
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.navbar-vertical.navbar-expand-lg .navbar-collapse {
+  display: block;
+  overflow: auto;
+  height: calc(100vh - 500px) !important;
+}
+
+.navbar-vertical.navbar-expand-md .navbar-collapse {
+  display: block;
+  overflow: auto;
+  height: calc(100vh - 500px) !important;
+}
+
+.navbar-vertical.navbar-expand-sm .navbar-collapse {
+  display: block;
+  overflow: auto;
+  height: calc(100vh - 500px) !important;
+}
+
+.navbar-vertical.navbar-expand-xs .navbar-collapse {
+  display: block;
+  overflow: auto;
+  height: 100% !important;
+}
