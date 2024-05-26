@@ -53,3 +53,10 @@ $(document).ready(function () {
         }
     });
 });
+
+
+$(document).ready(function () {
+    $('#people').on('click', '#userid_all', function () {
+        $('.userid').prop('checked', this.checked);
+    });
+});
