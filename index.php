@@ -47,7 +47,7 @@
             <div class="collapse navbar-collapse w-auto " id="sidenav-collapse-main">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="../pages/dashboard.html">
+                        <a class="nav-link active" href="?page=classes">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
                             </div>
@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="../pages/tables.html">
+                        <a class="nav-link " href="?page=calendar">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                             </div>
@@ -63,7 +63,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="../pages/billing.html">
+                        <a class="nav-link " href="?page=notification">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa fa-bell cursor-pointer text-success text-sm opacity-10"></i>
                             </div>
@@ -71,7 +71,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link align-items-center" href="../pages/virtual-reality.html">
+                        <a class="nav-link align-items-center" href="?page=offline files">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa fa-file cursor-pointer text-secondary text-sm opacity-10"></i>
                             </div>
@@ -79,7 +79,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="../pages/rtl.html">
+                        <a class="nav-link " href="?page=archive classes">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa fa-cloud-download cursor-pointer text-primary text-sm opacity-10"></i>
                             </div>
@@ -90,7 +90,7 @@
                         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="../pages/profile.html">
+                        <a class="nav-link " href="?page=settings">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa fa-cog text-dark text-sm opacity-10"></i>
                             </div>
@@ -98,7 +98,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="../pages/profile.html">
+                        <a class="nav-link " href="?page=help">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa fa-question-circle text-dark text-sm opacity-10"></i>
                             </div>
@@ -261,6 +261,8 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!--===============================================================================================-->
     <script src="public/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+    <!--===============================================================================================-->
+    <script src="public/assets/js/datatable.js"></script>
     <!--===============================================================================================-->
     <script src="public/assets/js/main.js"></script>
     <!--===============================================================================================-->

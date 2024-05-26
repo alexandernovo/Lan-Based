@@ -89,6 +89,29 @@ function generateRandomString($length = 6)
 
     return $randomString;
 }
+function move_file($file, $directory)
+{
+    // Check if file was uploaded
+    if (!isset($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
+        return false;
+    }
+    // Get the extension of the uploaded file
+    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+
+    // Generate a unique random name
+    $newName = uniqid(rand(), true) . '.' . $extension;
+
+    // Create the new path
+    $newPath = '../public/assets/' . $directory . '/' . $newName;
+    $returnPath = 'public/assets/' . $directory . '/' . $newName;
+
+    // Move the uploaded file
+    if (move_uploaded_file($file['tmp_name'], $newPath)) {
+        return $returnPath;
+    } else {
+        return false;
+    }
+}
 
 
 function getPage()
@@ -96,6 +119,11 @@ function getPage()
     if (isset($_GET['pages'])) {
         echo $_GET['pages'];
     }
+}
+
+function echoObject($data)
+{
+    echo '<pre>' . print_r($data, true) . '</pre>';
 }
 // $randomString = generateRandomString();
 // echo $randomString;
