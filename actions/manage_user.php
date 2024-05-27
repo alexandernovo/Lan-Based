@@ -17,6 +17,6 @@ if (isset($_POST['register'])) {
     $user = save('users', $data);
     if ($user) {
         setFlash('success',  $_POST['firstname'] . ' is Registered Successfully');
-        redirect('../index', ['page' => 'users', 'class_id' => $_POST['class_id']]);
+        redirect('../index', ['page' => 'users']);
     }
 }

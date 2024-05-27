@@ -1,5 +1,10 @@
 <?php require_once('config/config.php');
 
+
+if (isset($_GET['class_id'])) {
+    $class_settings = first('class', ['class_id' => $_GET['class_id']]);
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -123,7 +128,7 @@
         <?php
         if (isset($_SESSION['username'])) {
         ?>
-            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+            <nav class="navbar navbar-main navbar-expand-lg px-0 me-2 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
                 <div class="container-fluid py-1 px-3">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">

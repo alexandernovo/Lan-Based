@@ -8,7 +8,7 @@ if (isset($_POST['login'])) {
     if ($users) {
         if (password_verify($_POST['password'], $users['password'])) {
             setSession($users);
-            setFlash('success', 'Welcome Back' . $users['firstname']);
+            setFlash('success', 'Welcome Back ' . $users['firstname']);
             redirect('../index', ['page' => 'classes']);
         } else {
             retainValue();

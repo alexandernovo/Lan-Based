@@ -1,10 +1,15 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
+            <p class="m-0 text-white class_header"><?= $class_settings['subject'] ?> (<?= $class_settings['section'] ?>)</p>
             <div class="card mb-4">
                 <div class="card-header d-flex p-2  align-items-center justify-content-between">
                     <div class="d-flex justify-content-between align-items-center w-100">
                         <div class="d-flex gap-1">
+                            <a href="?page=class settings&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "class settings" ? "btn-primary" : "btn-outline-primary" ?> btn-sm px-2 mb-0">
+                                <i class="fa fa-cog"></i>
+                                Class Settings
+                            </a>
                             <a href="?page=stream&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "stream" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">Stream</a>
                             <a href="?page=class work&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "class work" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">Class Work</a>
                             <a href="?page=people&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "people" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">People</a>
@@ -31,7 +36,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $peoples = findAll('users');
+                                $peoples = joinTable('users', [['class_people', 'class_people.user_id', 'users.user_id']], ['class_people.class_id' => $_GET['class_id']]);
                                 ?>
                                 <?php foreach ($peoples as $people) : ?>
                                     <tr>
@@ -53,11 +58,12 @@
                                             <span class="badge badge-sm <?= $people['userstatus'] == 1 ? "bg-gradient-success" : "bg-gradient-danger" ?>"><?= $people['userstatus'] == 1 ? "Active" : "Inactive" ?></span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold"><?php echo date('F j, Y', strtotime($people['registereddate'])); ?></span>
+                                            <span class="text-secondary text-xs font-weight-bold"><?php echo date('F j, Y', strtotime($people['added_date'])); ?></span>
                                         </td>
                                         <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
+                                            <a href="actions/manage_people.php?remove&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center justify-content-center gap-1 remove-button text-danger">
+                                                <i class="fa fa-times"></i>
+                                                Remove
                                             </a>
                                         </td>
                                     </tr>
@@ -78,7 +84,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Add People</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="POST">
+            <form action="actions/manage_people.php" method="POST">
                 <div class="px-4 py-2">
                     <table class="table align-items-center mb-0 table-data">
                         <thead>
@@ -91,12 +97,25 @@
                         </thead>
                         <tbody>
                             <?php
-                            $peoples = findAll('users');
+                            $class_id = $_GET['class_id'];
+                            $query = "
+                            SELECT * FROM users 
+                            WHERE users.user_id NOT IN (
+                                SELECT class_people.user_id 
+                                FROM class 
+                                INNER JOIN class_people ON class.class_id = class_people.class_id 
+                                WHERE class.class_id = '$class_id'
+                            )
+                            AND users.usertype = 0
+                            ";
+                            $result = mysqli_query($conn, $query);
                             ?>
-                            <?php foreach ($peoples as $people) : ?>
+
+                            <?php while ($people = mysqli_fetch_assoc($result)) : ?>
                                 <tr>
                                     <td width="5%">
-                                        <input type="checkbox" class="userid" value="<?= $people['user_id'] ?>" name="userid[]">
+                                        <input type="checkbox" class="userid" value="<?= $people['user_id'] ?>" name="user_id[]">
+                                        <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
                                     </td>
                                     <td>
                                         <div class="d-flex px-2 py-1">
@@ -110,13 +129,13 @@
                                         </div>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endwhile; ?>
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm  px-3 btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
-                    <button type="submit" class="btn btn-sm  px-3 btn-primary" name="register"><i class="fa fa-plus-circle"></i> Add</button>
+                    <button type="submit" class="btn btn-sm  px-3 btn-primary" name="add_people"><i class="fa fa-plus-circle"></i> Add</button>
                 </div>
             </form>
         </div>

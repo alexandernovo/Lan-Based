@@ -29,8 +29,8 @@ $classes = find_where('class', ['user_id' => $_SESSION['user_id']]);
                             <?php endif; ?>
 
                             <?php if ($classes) : ?>
-                                <?php foreach ($classes as $class) : ?>
-                                    <div class="row mt-3">
+                                <div class="row mt-3">
+                                    <?php foreach ($classes as $class) : ?>
                                         <div class="col-4 mb-xl-0 mb-4">
                                             <div class="card">
                                                 <div class="card-body p-3">
@@ -41,15 +41,15 @@ $classes = find_where('class', ['user_id' => $_SESSION['user_id']]);
                                                     <p class="m-0 class-room text-secondary"><?= $class['room'] ?></p>
                                                 </div>
                                                 <div class="card-footer py-0 py-2 px-2">
-                                                    <a href="?page=class work&class_id=<?= $class['class_id'] ?>" class="btn btn-sm btn-success w-100 mb-0">
+                                                    <a href="?page=class work&class_id=<?= $class['class_id'] ?>" class="btn btn-sm btn-success w-100 mb-0 btn-options-text">
                                                         <i class="fa fa-eye"></i>
                                                         View Class
                                                     </a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>
