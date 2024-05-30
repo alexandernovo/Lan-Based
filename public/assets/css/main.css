@@ -33,7 +33,7 @@
 }
 
 .font-bold {
-  font-weight: 500;
+  font-weight: bold;
   font-size: 14px;
 }
 .logo {
@@ -165,4 +165,49 @@
 
 .btn-options-text {
   font-weight: bold;
+}
+
+/* activities */
+
+.activities-images {
+  width: 100%;
+  height: 90px;
+}
+.description-activity {
+  height: 90px;
+}
+.activity-due {
+  font-size: 11px;
+  margin: 0;
+}
+.attachment_text {
+  font-size: 14px;
+  font-weight: bold;
+}
+.activity-file {
+  font-size: 13px;
+}
+.title-activity {
+  font-size: 15px;
+  font-weight: bold;
+}
+.activity-description {
+  font-size: 14px;
+}
+
+.h-height-100 {
+  height: 100vh !important;
+}
+.fc-center h2 {
+  font-size: 20px !important;
+}
+.fc-prev-button,
+.fc-next-button {
+  border: 1px solid #fff !important;
+  background-image: none !important;
+  background-color: #1a8755 !important;
+}
+.fc-icon-left-single-arrow,
+.fc-icon-right-single-arrow {
+  color: #fff !important;
 }

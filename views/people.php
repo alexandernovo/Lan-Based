@@ -1,19 +1,13 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
-            <p class="m-0 text-white class_header"><?= $class_settings['subject'] ?> (<?= $class_settings['section'] ?>)</p>
+            <p class="m-0 text-white class_header"><?= $class_settings['classname'] ?> (<?= $class_settings['section'] ?>)</p>
             <div class="card mb-4">
                 <div class="card-header d-flex p-2  align-items-center justify-content-between">
                     <div class="d-flex justify-content-between align-items-center w-100">
-                        <div class="d-flex gap-1">
-                            <a href="?page=class settings&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "class settings" ? "btn-primary" : "btn-outline-primary" ?> btn-sm px-2 mb-0">
-                                <i class="fa fa-cog"></i>
-                                Class Settings
-                            </a>
-                            <a href="?page=stream&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "stream" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">Stream</a>
-                            <a href="?page=class work&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "class work" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">Class Work</a>
-                            <a href="?page=people&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "people" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">People</a>
-                        </div>
+                        <?php
+                        include 'class-header.php';
+                        ?>
                         <div>
                             <button data-bs-toggle="modal" data-bs-target="#people" class="btn btn-outline-success btn-sm mb-0">
                                 <i class="fa fa-plus-circle"></i>
@@ -61,7 +55,7 @@
                                             <span class="text-secondary text-xs font-weight-bold"><?php echo date('F j, Y', strtotime($people['added_date'])); ?></span>
                                         </td>
                                         <td class="align-middle">
-                                            <a href="actions/manage_people.php?remove&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center justify-content-center gap-1 remove-button text-danger">
+                                            <a href="actions/manage_people.php?remove&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-danger">
                                                 <i class="fa fa-times"></i>
                                                 Remove
                                             </a>

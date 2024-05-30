@@ -9,7 +9,7 @@ function getValue($fieldName)
 }
 function redirect($location, $data = [])
 {
-    $url = "../views/" . $location . ".php";
+    $url = $location . ".php";
     if (!empty($data)) {
         $url .= "?" . http_build_query($data);
     }

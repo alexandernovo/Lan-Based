@@ -1,5 +1,6 @@
 <?php
 //include the config.php at the top of your views
+// require_once 'websocket_starter.php';
 require_once 'routes.php';
 require_once 'session.php';
 require_once 'functions.php';

@@ -60,3 +60,8 @@ $(document).ready(function () {
         $('.userid').prop('checked', this.checked);
     });
 });
+
+
+$("#close-broadcast").on("click", function () {
+    $("#liveToast").hide();
+});

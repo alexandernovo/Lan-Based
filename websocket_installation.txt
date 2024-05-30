@@ -1,0 +1,11 @@
+extension=sockets
+php -q C:\xampp\htdocs\LanBased\php-socket.php
+
+
+C:\xampp\apache\conf
+httpd.conf
+uncomment
+mod_proxy_wstunnel 
+
+
+C:\xampp\apache\conf\extra

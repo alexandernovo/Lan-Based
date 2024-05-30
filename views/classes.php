@@ -35,7 +35,7 @@ $classes = find_where('class', ['user_id' => $_SESSION['user_id']]);
                                             <div class="card">
                                                 <div class="card-body p-3">
                                                     <div class="class-images">
-                                                        <img src="<?= $class['class_image'] ?>" class="preview-image ">
+                                                        <img src="<?= empty($class['class_image']) || $class['class_image'] == ""  ? "public/assets/img/class_default.jpg" :  $class['class_image'] ?>" class="preview-image ">
                                                     </div>
                                                     <p class="m-0 mt-1 class-title"><?= $class['classname'] ?> (<?= $class['section'] ?>)</p>
                                                     <p class="m-0 class-room text-secondary"><?= $class['room'] ?></p>
@@ -45,6 +45,7 @@ $classes = find_where('class', ['user_id' => $_SESSION['user_id']]);
                                                         <i class="fa fa-eye"></i>
                                                         View Class
                                                     </a>
+                                                    <button class="btn btn-outline-success btn-sm w-100 mb-0 mt-1 btn-options-text">Class Code: <?= $class['classcode'] ?></button>
                                                 </div>
                                             </div>
                                         </div>

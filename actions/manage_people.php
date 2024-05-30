@@ -12,7 +12,7 @@ if (isset($_POST['add_people'])) {
         $save = save('class_people', $data);
     }
 
-    setFlash('success', 'People is Registered Successfully');
+    setFlash('success', 'Added Successfully');
     redirect('../index', ['page' => 'people', 'class_id' => $_POST['class_id']]);
 }
 

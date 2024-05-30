@@ -1,17 +1,13 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
-            <p class="m-0 text-white class_header"><?= $class_settings['subject'] ?> (<?= $class_settings['section'] ?>)</p>
+            <p class="m-0 text-white class_header"><?= $class_settings['classname'] ?> (<?= $class_settings['section'] ?>)</p>
             <div class="card mb-4">
                 <div class="card-header d-flex p-2  align-items-center justify-content-between">
                     <div class="flex">
-                        <a href="?page=class settings&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "class settings" ? "btn-primary" : "btn-outline-primary" ?> btn-sm px-2 mb-0">
-                            <i class="fa fa-cog"></i>
-                            Class Settings
-                        </a>
-                        <a href="?page=stream&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "stream" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">Stream</a>
-                        <a href="?page=class work&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "class work" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">Class Work</a>
-                        <a href="?page=people&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "people" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">People</a>
+                        <?php
+                        include 'class-header.php';
+                        ?>
                     </div>
                 </div>
                 <div class="card-body">
@@ -25,7 +21,7 @@
                                     <p class="m-0 mt-1 class-title">LAB-Activities</p>
                                 </div>
                                 <div class="card-footer py-0 py-2 px-2">
-                                    <a href="#" class="btn btn-sm btn-options-text btn-success w-100 mb-0">
+                                    <a href="?page=lab activities&class_id=<?php echo $_GET['class_id'] ?>" class="btn btn-sm btn-options-text btn-success w-100 mb-0">
                                         <i class="fa fa-eye"></i>
                                         View LAB-Activities
                                     </a>
@@ -41,7 +37,7 @@
                                     <p class="m-0 mt-1 class-title">Questions</p>
                                 </div>
                                 <div class="card-footer py-0 py-2 px-2">
-                                    <a href="#" class="btn btn-sm btn-options-text btn-success w-100 mb-0">
+                                    <a href="?page=questions&class_id=<?php echo $_GET['class_id'] ?>" class="btn btn-sm btn-options-text btn-success w-100 mb-0">
                                         <i class="fa fa-eye"></i>
                                         View Questions
                                     </a>
@@ -57,7 +53,7 @@
                                     <p class="m-0 mt-1 class-title">Material</p>
                                 </div>
                                 <div class="card-footer py-0 py-2 px-2">
-                                    <a href="#" class="btn btn-sm btn-options-text btn-success w-100 mb-0">
+                                    <a href="?page=materials&class_id=<?php echo $_GET['class_id'] ?>" class="btn btn-sm btn-options-text btn-success w-100 mb-0">
                                         <i class="fa fa-eye"></i>
                                         View Material
                                     </a>

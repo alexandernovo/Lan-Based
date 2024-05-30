@@ -32,10 +32,14 @@ if (isset($_GET['class_id'])) {
     <!--===============================================================================================-->
     <link rel="stylesheet" href="public/assets/css/main.css">
     <!--===============================================================================================-->
-    <title>Resource Generation Unit Management System</title>
+    <?php if (isset($_GET['page']) == 'calendar') : ?>
+        <link rel="stylesheet" href="public/assets/fullcalendar/fullcalendar.min.css" />
+    <?php endif; ?>
+    <!--===============================================================================================-->
+    <title>LAN-Based Academic Files Repository System</title>
 </head>
 
-<body class="g-sidenav-show bg-gray-100">
+<body class="g-sidenav-show bg-gray-100 h-height-100">
     <div class="min-height-300 bg-success position-absolute w-100"></div>
     <?php
     if (isset($_SESSION['username'])) {
@@ -124,7 +128,7 @@ if (isset($_GET['class_id'])) {
     <?php
     }
     ?>
-    <main class="main-content position-relative border-radius-lg ">
+    <main class="main-content position-relative border-radius-lg h-height-100">
         <?php
         if (isset($_SESSION['username'])) {
         ?>
@@ -165,7 +169,7 @@ if (isset($_GET['class_id'])) {
                                         <a class="dropdown-item border-radius-md" href="javascript:;">
                                             <div class="d-flex py-1">
                                                 <div class="my-auto">
-                                                    <img src="../assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                                                    <img src="public/assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="text-sm font-weight-normal mb-1">
@@ -183,7 +187,7 @@ if (isset($_GET['class_id'])) {
                                         <a class="dropdown-item border-radius-md" href="javascript:;">
                                             <div class="d-flex py-1">
                                                 <div class="my-auto">
-                                                    <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
+                                                    <img src="public/assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="text-sm font-weight-normal mb-1">
@@ -249,6 +253,21 @@ if (isset($_GET['class_id'])) {
         ?>
     </main>
     <!--===============================================================================================-->
+    <!-- Toast Message Notification -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="..." class="rounded me-2" alt="...">
+                <strong class="me-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" data-bs-toggle="#liveToast" id="close-broadcast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+    </div>
+    <!--===============================================================================================-->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!--===============================================================================================-->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
@@ -277,7 +296,16 @@ if (isset($_GET['class_id'])) {
     <!--===============================================================================================-->
     <script src="public/assets/js/datatable.js"></script>
     <!--===============================================================================================-->
+    <script src="public/assets/js/websocket.js"></script>
+    <!--===============================================================================================-->
     <script src="public/assets/js/main.js"></script>
+    <!--===============================================================================================-->
+    <?php if (isset($_GET['page']) == 'calendar') : ?>
+        <script src="public/assets/fullcalendar/lib/jquery.min.js"></script>
+        <script src="public/assets/fullcalendar/lib/moment.min.js"></script>
+        <script src="public/assets/fullcalendar/fullcalendar.min.js"></script>
+        <script src="public/assets/fullcalendar/calendarCode.js"></script>
+    <?php endif; ?>
     <!--===============================================================================================-->
     <?php if ($flash = getFlash('success')) : ?>
         <script>

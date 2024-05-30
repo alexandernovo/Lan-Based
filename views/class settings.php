@@ -1,22 +1,47 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
-            <p class="m-0 text-white class_header"><?= $class_settings['subject'] ?> (<?= $class_settings['section'] ?>)</p>
+            <p class="m-0 text-white class_header"><?= $class_settings['classname'] ?> (<?= $class_settings['section'] ?>)</p>
             <div class="card mb-4">
                 <div class="card-header d-flex p-2  align-items-center justify-content-between">
                     <div class="d-flex justify-content-between align-items-center w-100">
-                        <div class="d-flex gap-1">
-                            <a href="?page=class settings&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "class settings" ? "btn-primary" : "btn-outline-primary" ?> btn-sm px-2 mb-0">
-                                <i class="fa fa-cog"></i>
-                                Class Settings
-                            </a>
-                            <a href="?page=stream&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "stream" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">Stream</a>
-                            <a href="?page=class work&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "class work" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">Class Work</a>
-                            <a href="?page=people&class_id=<?php echo $_GET['class_id'] ?>" class="btn <?php echo $_GET['page'] == "people" ? "btn-success" : "btn-outline-success" ?> btn-sm px-4 mb-0">People</a>
+                        <div class="flex">
+                            <?php
+                            include 'class-header.php';
+                            ?>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="mx-auto class-add-card">
+                        <form method="POST" action="actions/manage_class.php" enctype="multipart/form-data">
+                            <div class="image-now mt-4" id="image-container">
+                                <img class="img-fluid h-100 border" src="<?= empty($class_settings['class_image']) || $class_settings['class_image'] == ""  ? "public/assets/img/default.jpg" :  $class_settings['class_image'] ?>" id="preview-image">
+                                <input type="file" name="image" class="d-none" id="image-upload">
+                                <label for="image-upload" type="button" class="btn btn-sm btn-secondary mt-1 mx-0 px-3">Upload</;>
+                            </div>
+                            <input type="hidden" value="<?php echo $_GET['class_id'] ?>" name="class_id">
+                            <div class="form-row mt-5">
+                                <label class="mx-0">Class name</label>
+                                <input required name="classname" value="<?= $class_settings['classname'] ?>" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <label class="mx-0">Section</label>
+                                <input required name="section" value="<?= $class_settings['section'] ?>" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <label class="mx-0">Room</label>
+                                <input required name="room" value="<?= $class_settings['room'] ?>" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <label class="mx-0">Subject</label>
+                                <input required name="subject" value="<?= $class_settings['subject'] ?>" class="form-control">
+                            </div>
+                            <div class="form-row mt-3 mb-5">
+                                <button name="update_class" class="btn btn-success w-100 button-text-size">Update Class</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
