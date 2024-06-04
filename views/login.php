@@ -13,7 +13,7 @@
         </div>
         <div class="form-row">
             <label>Password</label>
-            <input name="password" class="form-control">
+            <input name="password" type="password" class="form-control">
             <?php if (showError('password')) :
                 echo showError('password');
             endif; ?>

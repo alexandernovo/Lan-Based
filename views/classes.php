@@ -1,5 +1,9 @@
 <?php
-$classes = find_where('class', ['user_id' => $_SESSION['user_id']]);
+if ($_SESSION['usertype'] == 1) {
+    $classes = find_where('class', ['user_id' => $_SESSION['user_id']]);
+} else {
+    $classes = joinTable('class', [['class_people', 'class_people.class_id', 'class.class_id']], ['class_people.user_id' => $_SESSION['user_id']]);
+}
 ?>
 <div class="container-fluid py-4">
     <div class="row">
@@ -10,22 +14,45 @@ $classes = find_where('class', ['user_id' => $_SESSION['user_id']]);
                         <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
                         <h6 class="mb-0">Classes</h6>
                     </div>
-                    <a href="?page=add class" class="btn btn-sm btn-outline-success mb-0 btn-outline">
-                        <i class="fa fa-plus-circle"></i>
-                        Create Class
-                    </a>
+                    <?php if ($_SESSION['usertype'] == 1) : ?>
+                        <a href="?page=add class" class="btn font-bold btn-sm btn-outline-success mb-0 btn-outline">
+                            <i class="fa fa-plus-circle"></i>
+                            Create Class
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['usertype'] == 0) : ?>
+                        <a href="?page=join class" class="btn font-bold btn-sm btn-outline-success mb-0 btn-outline">
+                            <i class="fa fa-object-group"></i>
+                            Join Class
+                        </a>
+                    <?php endif; ?>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2 px-4 classes-card">
                     <div class="d-flex">
                         <div class="h-100 w-100">
-                            <?php if (!$classes) : ?>
-                                <div class="d-flex justify-content-center flex-column classes-icon-add">
-                                    <a href="?page=add class" class="text-center">
-                                        <i class="fa fa-plus-square-o text-secondary text-sm opacity-10 text-center class-add-icons"></i>
-                                    </a>
-                                    <h5 class="text-secondary text-center">You have no existing class</h5>
-                                    <h6 class="text-secondary text-center">Add Class to Get Started</h6>
-                                </div>
+
+                            <?php if ($_SESSION['usertype'] == 1) : ?>
+                                <?php if (!$classes) : ?>
+                                    <div class="d-flex justify-content-center flex-column classes-icon-add">
+                                        <a href="?page=add class" class="text-center">
+                                            <i class="fa fa-plus-square-o text-secondary text-sm opacity-10 text-center class-add-icons"></i>
+                                        </a>
+                                        <h5 class="text-secondary text-center">You have no existing class</h5>
+                                        <h6 class="text-secondary text-center">Add Class to Get Started</h6>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+
+                            <?php if ($_SESSION['usertype'] == 0) : ?>
+                                <?php if (!$classes) : ?>
+                                    <div class="d-flex justify-content-center flex-column classes-icon-add">
+                                        <a href="?page=join class" class="text-center">
+                                            <i class="fa fa-object-group text-secondary text-sm opacity-10 text-center class-add-icons"></i>
+                                        </a>
+                                        <h5 class="text-secondary text-center">You have no existing joined class</h5>
+                                        <h6 class="text-secondary text-center">Join a Class to Get Started</h6>
+                                    </div>
+                                <?php endif; ?>
                             <?php endif; ?>
 
                             <?php if ($classes) : ?>

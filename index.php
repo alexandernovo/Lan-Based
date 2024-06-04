@@ -63,14 +63,18 @@ if (isset($_GET['class_id'])) {
                             <span class="nav-link-text ms-1">Classes</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?page=users">
-                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fa fa-users text-primary text-sm opacity-10"></i>
-                            </div>
-                            <span class="nav-link-text ms-1">Users</span>
-                        </a>
-                    </li>
+
+                    <?php if ($_SESSION['usertype'] == 1) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?page=users">
+                                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                    <i class="fa fa-users text-primary text-sm opacity-10"></i>
+                                </div>
+                                <span class="nav-link-text ms-1">Users</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
                     <li class="nav-item">
                         <a class="nav-link " href="?page=calendar">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -155,11 +159,26 @@ if (isset($_GET['class_id'])) {
                                     </div>
                                 </a>
                             </li>
-                            <li class="nav-item px-3 d-flex align-items-center">
-                                <a href="javascript:;" class="nav-link text-white p-0">
+                            <li class="nav-item px-3 d-flex align-items-center dropdown dropstart">
+                                <button type="button" class="btn btn-transparent shadow-none px-1 dropdown-toggle mb-0 text-white" id="dropdownMenuLink" aria-expanded="false">
                                     <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-                                </a>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                                    <li>
+                                        <button class="dropdown-item" type="button">
+                                            <i class="fa fa-cog "></i>
+                                            Settings
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <a href="actions/login.php?logout" class="dropdown-item" type="button">
+                                            <i class="fa fa-sign-out "></i>
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
                             <li class="nav-item dropdown pe-2 d-flex align-items-center">
                                 <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-bell cursor-pointer"></i>
@@ -257,13 +276,15 @@ if (isset($_GET['class_id'])) {
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <img src="..." class="rounded me-2" alt="...">
-                <strong class="me-auto">Bootstrap</strong>
-                <small>11 mins ago</small>
+                <i class="fa fa-bell me-2"></i>
+                <strong class="me-auto">Notification</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" data-bs-toggle="#liveToast" id="close-broadcast" aria-label="Close"></button>
             </div>
             <div class="toast-body">
-                Hello, world! This is a toast message.
+                <p id="title_announcement" class="font-bold-free">
+                </p>
+                <p id="description_announcement">
+                </p>
             </div>
         </div>
     </div>

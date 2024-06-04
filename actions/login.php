@@ -20,3 +20,10 @@ if (isset($_POST['login'])) {
         redirect('../index', ['page' => 'login']);
     }
 }
+
+
+if (isset($_GET['logout'])) {
+    session_destroy();
+    redirect('../index', ['page' => 'login']);
+    exit;
+}

@@ -36,6 +36,10 @@
   font-weight: bold;
   font-size: 14px;
 }
+.font-bold-free {
+  font-weight: bold;
+  font-size: 16px;
+}
 .logo {
   width: 160px;
   height: 160px;
@@ -210,4 +214,36 @@
 .fc-icon-left-single-arrow,
 .fc-icon-right-single-arrow {
   color: #fff !important;
+}
+
+.search-center-classcode {
+  width: 35%;
+  padding: 10px 20px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  font-size: 14px;
+}
+
+.btn-search-code {
+  padding: 10px 20px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.font-instruction {
+  font-size: 17px;
+}
+.under-instruction {
+  width: 42% !important;
+}
+.font-instruction-li {
+  font-size: 13px;
+}
+.icon-size {
+  font-size: 80px;
+  margin-bottom: 20px;
 }

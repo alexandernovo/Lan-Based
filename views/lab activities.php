@@ -9,10 +9,12 @@
                             <i class="fa fa-arrow-left"></i>
                             Back
                         </a>
-                        <a href="?page=create activity&class_id=<?php echo $_GET['class_id'] ?>" class="btn btn-outline-success btn-sm px-4 mb-0">
-                            <i class="fa fa-plus-circle"></i>
-                            Create Activity
-                        </a>
+                        <?php if ($_SESSION['usertype'] == 1) : ?>
+                            <a href="?page=create activity&class_id=<?php echo $_GET['class_id'] ?>" class="btn font-bold btn-outline-success btn-sm px-4 mb-0">
+                                <i class="fa fa-plus-circle"></i>
+                                Create Activity
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="card-body">

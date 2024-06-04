@@ -9,10 +9,12 @@
                             <i class="fa fa-arrow-left"></i>
                             Back
                         </a>
-                        <a href="?page=create question&class_id=<?php echo $_GET['class_id'] ?>" class="btn btn-outline-success btn-sm px-4 mb-0">
-                            <i class="fa fa-plus-circle"></i>
-                            Create Question
-                        </a>
+                        <?php if ($_SESSION['usertype'] == 1) : ?>
+                            <a href="?page=create question&class_id=<?php echo $_GET['class_id'] ?>" class="btn font-bold btn-outline-success btn-sm px-4 mb-0">
+                                <i class="fa fa-plus-circle"></i>
+                                Create Question
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="card-body">
@@ -32,7 +34,7 @@
                                         <p class="m-0 mt-1 activity-due">Due Date: <?= $activity['isDueDate'] == 1 ? date('F d Y h:i a', strtotime($activity['dueDate'])) : 'No due date'  ?></p>
                                     </div>
                                     <div class="card-footer py-0 py-2 px-2">
-                                        <a href="?page=activity&activity_id=<?php echo $activity['activity_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="btn btn-sm btn-options-text btn-success w-100 mb-0">
+                                        <a href="?page=questions activity&activity_id=<?php echo $activity['activity_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="btn btn-sm btn-options-text btn-success w-100 mb-0">
                                             <i class="fa fa-eye"></i>
                                             View Question
                                         </a>

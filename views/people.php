@@ -9,7 +9,7 @@
                         include 'class-header.php';
                         ?>
                         <div>
-                            <button data-bs-toggle="modal" data-bs-target="#people" class="btn btn-outline-success btn-sm mb-0">
+                            <button data-bs-toggle="modal" data-bs-target="#people" class="btn btn-outline-success btn-sm mb-0 font-bold">
                                 <i class="fa fa-plus-circle"></i>
                                 Add People
                             </button>
@@ -55,10 +55,23 @@
                                             <span class="text-secondary text-xs font-weight-bold"><?php echo date('F j, Y', strtotime($people['added_date'])); ?></span>
                                         </td>
                                         <td class="align-middle">
-                                            <a href="actions/manage_people.php?remove&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-danger">
-                                                <i class="fa fa-times"></i>
-                                                Remove
-                                            </a>
+                                            <?php if ($people['class_people_status'] == 0) { ?>
+                                                <div class="d-flex gap-3 justify-content-center">
+                                                    <a href="actions/manage_people.php?approve&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-success">
+                                                        <i class="fa fa-check"></i>
+                                                        Approved
+                                                    </a>
+                                                    <a href="actions/manage_people.php?remove&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-danger">
+                                                        <i class="fa fa-times"></i>
+                                                        Decline
+                                                    </a>
+                                                </div>
+                                            <?php } else { ?>
+                                                <a href="actions/manage_people.php?remove&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-danger">
+                                                    <i class="fa fa-times"></i>
+                                                    Remove
+                                                </a>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

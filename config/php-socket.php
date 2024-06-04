@@ -1,5 +1,9 @@
 <?php
-define('HOST_NAME', '127.0.0.1'); // Use IP address instead of 'localhost'
+$config_data = file_get_contents('../config.json');
+$config_json = json_decode($config_data, true);
+$ip_address = $config_json['ip_address'];
+echo $ip_address;
+define('HOST_NAME', $ip_address); // Use IP address instead of 'localhost'
 define('PORT', 8090);
 $null = NULL;
 

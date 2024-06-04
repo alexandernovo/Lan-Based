@@ -1,26 +1,34 @@
-let ws = new WebSocket('ws://localhost:8090');
+let ws; // Define the WebSocket variable
 
-ws.onopen = () => {
-    console.log('Connected to WebSocket server');
-};
+fetch('config.json')
+    .then(response => response.json())
+    .then(data => {
+        var ipAddress = data.ip_address;
+        ws = new WebSocket(`ws://${ipAddress}:8090`);
+        ws.onopen = () => {
+            console.log('Connected to WebSocket server');
+        };
 
-ws.onmessage = (event) => {
-    let message = JSON.parse(event.data);
+        ws.onmessage = (event) => {
+            let message = JSON.parse(event.data);
 
-    // Check if the message is an announcement
-    if (message.name === 'announcement') {
-        let announcementData = message.data;
-        console.log('Received announcement:', announcementData);
-        $("#liveToast").show();
-        setTimeout(() => {
-            $("#liveToast").hide();
-        }, 2000)
-    } else {
-        // Handle other types of messages (e.g., chat messages)
-        console.log('Received message:', message);
-    }
-};
-
+            if (message.name === 'announcement') {
+                let announcementData = message.data;
+                console.log('Received announcement:', announcementData);
+                $("#title_announcement").text(announcementData.title)
+                $("#description_announcement").text(announcementData.description)
+                $("#liveToast").show();
+                setTimeout(() => {
+                    $("#liveToast").hide();
+                }, 4000)
+            } else {
+                console.log('Received message:', message);
+            }
+        };
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 
 function sendAnnouncement(announcementData) {
     // Create the announcement message object

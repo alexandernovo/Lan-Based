@@ -21,3 +21,8 @@ if (isset($_GET['remove'])) {
     $delete = delete('class_people', ['class_people_id' => $_GET['class_people_id']]);
     redirect('../index', ['page' => 'people', 'class_id' => $_GET['class_id']]);
 }
+
+if (isset($_GET['approve'])) {
+    $update = update('class_people', ['class_people_id' => $_GET['class_people_id']], ['class_people_status' => 1]);
+    redirect('../index', ['page' => 'people', 'class_id' => $_GET['class_id']]);
+}

@@ -113,7 +113,21 @@ function move_file($file, $directory)
     }
 }
 
-
+function deleteFile($filePath)
+{
+    // Check if the file exists and is a file (not a directory)
+    if (is_file($filePath)) {
+        // Attempt to delete the file
+        if (unlink($filePath)) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        // The file does not exist or is not a file
+        return false;
+    }
+}
 function getPage()
 {
     if (isset($_GET['pages'])) {

@@ -55,3 +55,16 @@ if (isset($_POST['update_class'])) {
     }
     // echoObject($data);
 }
+
+if (isset($_GET['join_class'])) {
+    $data = [
+        'user_id' => $_SESSION['user_id'],
+        'class_id' => $_GET['class_id'],
+        'added_date' => date('Y-m-d h:i:s'),
+        'class_people_status' => 0
+    ];
+
+    $save = save('class_people', $data);
+    setFlash('success', 'Requested to Join Successfully');
+    redirect('../index', ['page' => 'join class', 'search_code' => $_GET['class_code']]);
+}

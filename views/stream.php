@@ -7,7 +7,7 @@
                     <?php
                     include 'class-header.php';
                     ?>
-                    <button data-bs-toggle="modal" data-bs-target="#broadcast" class="btn btn-outline-primary mb-0 btn-sm">
+                    <button data-bs-toggle="modal" data-bs-target="#broadcast" class="btn btn-outline-primary mb-0 btn-sm font-bold">
                         <i class="fa fa-bullhorn "></i>
                         Announce
                     </button>

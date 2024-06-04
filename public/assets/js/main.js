@@ -65,3 +65,26 @@ $(document).ready(function () {
 $("#close-broadcast").on("click", function () {
     $("#liveToast").hide();
 });
+
+
+$(document).ready(function () {
+    document.getElementById('dropdownMenuLink').addEventListener('click', function (event) {
+        event.preventDefault();
+        var dropdownMenu = this.nextElementSibling;
+        if (dropdownMenu.classList.contains('show')) {
+            dropdownMenu.classList.remove('show');
+        } else {
+            dropdownMenu.classList.add('show');
+        }
+    });
+
+    // Close the dropdown if the user clicks outside of it
+    window.addEventListener('click', function (event) {
+        var dropdown = document.querySelector('.dropdown-menu');
+        if (!event.target.matches('#dropdownMenuLink')) {
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            }
+        }
+    });
+})
