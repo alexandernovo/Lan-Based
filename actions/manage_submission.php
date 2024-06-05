@@ -1,7 +1,6 @@
 <?php
-
 require_once('../config/config.php');
-if (isset($_POST['add_submission'])) {
+if (isset($_POST['add_submission']) || isset($_POST['add_submission_question'])) {
     $index = last('submission', ['user_id' => $_POST['user_id'], 'activity_id' => $_POST['activity_id']], 'submission_index');
     $index_no = 0;
 
@@ -34,6 +33,12 @@ if (isset($_POST['add_submission'])) {
             $save = save('submission', $data);
         }
     }
-    setFlash('success', 'Activity Submitted Successfully');
-    redirect('../index', ['page' => 'activity', 'class_id' => $_POST['class_id'], 'activity_id' => $_POST['activity_id']]);
+    if (isset($_POST['add_submission'])) {
+        setFlash('success', 'Activity Submitted Successfully');
+        redirect('../index', ['page' => 'activity', 'class_id' => $_POST['class_id'], 'activity_id' => $_POST['activity_id']]);
+    }
+    if (isset($_POST['add_submission_question'])) {
+        setFlash('success', 'Questions Activity Submitted Successfully');
+        redirect('../index', ['page' => 'questions activity', 'class_id' => $_POST['class_id'], 'activity_id' => $_POST['activity_id']]);
+    }
 }

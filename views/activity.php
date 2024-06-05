@@ -57,7 +57,9 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                             <i class="fa fa-folder mt-2"></i>
                             Submission
                         </p>
-                        <button style="font-size: 11px;" class="btn shadow-none mb-0 cursor-pointer">Edit Submission</button>
+                        <?php if ($submission_check) : ?>
+                            <button style="font-size: 11px;" class="btn shadow-none mb-0 cursor-pointer">Edit Submission</button>
+                        <?php endif; ?>
                     </div>
 
                     <?php if ($_SESSION['usertype'] == 0) : ?>
@@ -91,6 +93,60 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                     <?php endforeach;
                         }
                     endif; ?>
+
+                    <?php if ($_SESSION['usertype'] == 1) : ?>
+                        <div class="border rounded p-3 ">
+                            <div class="table-responsive p-0">
+                                <table class="table align-items-center mb-0 table-data">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Submission Date</th>
+                                            <th class="text-secondary opacity-7"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $activity_id = $_GET['activity_id'];
+                                        $query = "SELECT * FROM users 
+                                                    INNER JOIN submission ON users.user_id = submission.user_id 
+                                                    WHERE submission.activity_id = '$activity_id'
+                                                    GROUP BY submission.submission_index, submission.activity_id";
+                                        $result = mysqli_query($conn, $query);
+                                        ?>
+                                        <?php while ($people = mysqli_fetch_assoc($result)) : ?>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div>
+                                                            <img src="public/assets/img/team-4.jpg" class="avatar avatar-sm me-3" alt="user6">
+                                                        </div>
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <h6 class="mb-0 text-sm"><?= $people['firstname'] . ' ' . $people['lastname'] ?></h6>
+                                                            <p class="text-xs text-secondary mb-0"><?= $people['email'] ?></p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td class="align-middle text-center text-sm">
+                                                    <span class="badge badge-sm <?= $people['userstatus'] == 1 ? "bg-gradient-success" : "bg-gradient-danger" ?>">Pending</span>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <span class="text-secondary text-xs font-weight-bold"><?php echo date('F j, Y', strtotime($people['submission_date'])); ?></span>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <a class="btn btn-primary btn-sm px-4 rounded mb-0 py-1">View</a>
+                                                </td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+
                 </div>
             </div>
         </div>

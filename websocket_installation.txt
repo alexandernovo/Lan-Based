@@ -1,3 +1,2 @@
-extension=sockets
+change ip in config.json
 php -q C:\xampp\htdocs\LanBased\config\php-socket.php
-chrome://flags
