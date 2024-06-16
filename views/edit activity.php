@@ -56,7 +56,7 @@ $attachments = find_where('attachments', ['activity_id' => $_GET['activity_id']]
                             <div class="w-50">
                                 <div class="form-row">
                                     <label class="mx-0">Add Attachment</label>
-                                    <input required type="file" value="" name="attachments[]" class="form-control" multiple />
+                                    <input type="file" value="" name="attachments[]" class="form-control" multiple />
                                 </div>
                                 <?php foreach ($attachments as $attachment) : ?>
                                     <div class="activity-file text-decoration-none d-flex gap-1 justify-content-between align-items-center mb-1 text-dark border w-full p-3 rounded mt-1 shadow shadow-sm">

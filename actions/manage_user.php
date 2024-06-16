@@ -20,3 +20,43 @@ if (isset($_POST['register'])) {
         redirect('../index', ['page' => 'users']);
     }
 }
+
+
+
+if (isset($_POST['update_profile'])) {
+    updateUser($_POST);
+    $users = first('users', ['user_id' => $_SESSION['user_id']]);
+    setSession($users);
+    setFlash('success',  "Profile Updated Successfully");
+    redirect('../index', ['page' => 'account settings']);
+}
+
+if (isset($_POST['update_user'])) {
+    updateUser($_POST);
+    setFlash('success',  "User Updated Successfully");
+    redirect('../index', ['page' => 'users']);
+}
+
+
+function updateUser($_data)
+{
+    $data = [
+        'firstname' => $_data['firstname'],
+        'middlename' => $_data['middlename'],
+        'lastname' => $_data['lastname'],
+        'email' => $_data['email'],
+        'username' => $_data['username'],
+    ];
+
+    if (isset($_data['password'])  && $_data['password'] !== "") {
+        $data['password'] = password_hash($_data['password'], PASSWORD_DEFAULT);
+    }
+
+    if ($_data['update_profile']) {
+        update('users', ['user_id' => $_SESSION['user_id']], $data);
+    } else {
+        update('users', ['user_id' => $_data['user_id']], $data);
+    }
+
+    return true;
+}

@@ -30,7 +30,6 @@ if ($_SESSION['usertype'] == 1) {
                 <div class="card-body px-0 pt-0 pb-2 px-4 classes-card">
                     <div class="d-flex">
                         <div class="h-100 w-100">
-
                             <?php if ($_SESSION['usertype'] == 1) : ?>
                                 <?php if (!$classes) : ?>
                                     <div class="d-flex justify-content-center flex-column classes-icon-add">
@@ -58,7 +57,7 @@ if ($_SESSION['usertype'] == 1) {
                             <?php if ($classes) : ?>
                                 <div class="row mt-3">
                                     <?php foreach ($classes as $class) : ?>
-                                        <div class="col-4 mb-xl-0 mb-4">
+                                        <div class="col-sm-12 col-md-4  mb-xl-0 mb-4">
                                             <div class="card">
                                                 <div class="card-body p-3">
                                                     <div class="class-images">

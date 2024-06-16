@@ -88,3 +88,28 @@ $(document).ready(function () {
         }
     });
 })
+
+
+
+function showPopup(id) {
+    var $popup = $(`#${id}`);
+    $popup.toggleClass('show');
+}
+
+$(document).ready(function () {
+    $('body').on('click', function (e) {
+        $('.popup').each(function () {
+            if (!$(e.target).closest(this).length) {
+                $(this).removeClass('show');
+            }
+        });
+    });
+
+    // Prevent the popup from closing when clicking inside it
+    $('.popup').on('click', function (e) {
+        e.stopPropagation();
+    });
+    $('#dropdownMenuButton').on('click', function (e) {
+        e.stopPropagation();
+    });
+});

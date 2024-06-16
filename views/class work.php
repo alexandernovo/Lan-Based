@@ -3,7 +3,7 @@
         <div class="col-12">
             <p class="m-0 text-white class_header"><?= $class_settings['classname'] ?> (<?= $class_settings['section'] ?>)</p>
             <div class="card mb-4">
-                <div class="card-header d-flex p-2  align-items-center justify-content-between">
+                <div class="card-header d-flex p-2 align-items-center justify-content-between">
                     <div class="flex">
                         <?php
                         include 'class-header.php';
@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row mt-3">
-                        <div class="col-4 mb-xl-0 mb-4">
+                        <div class="col-sm-12 col-md-4 mb-xl-0 mb-4">
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="class-images">
@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 mb-xl-0 mb-4">
+                        <div class="col-sm-12 col-md-4 mb-xl-0 mb-4">
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="class-images">
@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 mb-xl-0 mb-4">
+                        <div class="col-sm-12 col-md-4 mb-xl-0 mb-4">
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="class-images">

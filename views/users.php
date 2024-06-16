@@ -55,11 +55,64 @@
                                             <span class="text-secondary text-xs font-weight-bold"><?php echo date('F j, Y', strtotime($people['registereddate'])); ?></span>
                                         </td>
                                         <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                            <a class="text-secondary font-weight-bold text-xs cursor-pointer" data-bs-toggle="modal" data-bs-target="#people_<?= $people['user_id'] ?>">
                                                 Edit
                                             </a>
                                         </td>
                                     </tr>
+                                    <div class="modal fade" id="people_<?= $people['user_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update Users</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form action="actions/manage_user.php" method="POST">
+                                                    <div class="px-4 py-2">
+                                                        <div class="form-row">
+                                                            <label class="mb-1 mx-0">Type</label>
+                                                            <select name="usertype" class="form-select">
+                                                                <option <?= $people['usertype'] == 0 ? "selected" : "" ?> value="0">Student</option>
+                                                                <option <?= $people['usertype'] == 1 ? "selected" : "" ?> value="1">Teacher</option>
+                                                            </select>
+                                                        </div>
+                                                        <input name="user_id" value="<?= $people['user_id'] ?>" type="hidden">
+                                                        <div class="form-row">
+                                                            <label class="mb-1 mx-0">Firstname</label>
+                                                            <input name="firstname" value="<?= $people['firstname'] ?>" class="form-control" placeholder="Firstname">
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <label class="mb-1 mx-0">Middlename</label>
+                                                            <input name="middlename" value="<?= $people['middlename'] ?>" class="form-control" placeholder="Middlename">
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <label class="mb-1 mx-0">Lastname</label>
+                                                            <input name="lastname" value="<?= $people['lastname'] ?>" class="form-control" placeholder="Lastname">
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <label class="mb-1 mx-0">Email</label>
+                                                            <input name="email" value="<?= $people['email'] ?>" type="email" class="form-control" placeholder="Email">
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <label class="mb-1 mx-0">Username</label>
+                                                            <input name="username" value="<?= $people['username'] ?>" class="form-control" placeholder="Username">
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <label class="mb-1 mx-0">Password</label>
+                                                            <div class="d-flex position-relative align-items-center">
+                                                                <input name="password" id="password" type="password" class="form-control" placeholder="Password">
+                                                                <i class="fa fa-eye position-absolute password-class-icon cursor-pointer text-secondary" onclick="seePassword('password')"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-sm  px-3 btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                                                        <button type="submit" class="btn btn-sm  px-3 btn-primary" name="update_user"><i class="fa fa-check"></i> Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
@@ -74,7 +127,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Register People</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Register Users</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="actions/manage_user.php" method="POST">
@@ -108,7 +161,10 @@
                     </div>
                     <div class="form-row">
                         <label class="mb-1 mx-0">Password</label>
-                        <input name="password" type="password" class="form-control" placeholder="Password">
+                        <div class="d-flex position-relative align-items-center">
+                            <input name="password" id="password" type="password" class="form-control" placeholder="Password">
+                            <i class="fa fa-eye position-absolute password-class-icon cursor-pointer text-secondary" onclick="seePassword('password')"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

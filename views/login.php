@@ -6,14 +6,17 @@
     <form method="POST" action="actions/login.php">
         <div class="form-row">
             <label>Username</label>
-            <input name="username" value="<?php echo getValue('username') ?>" class="form-control">
+            <input name="username" placeholder="Username" value="<?php echo getValue('username') ?>" class="form-control">
             <?php if (showError('username')) :
                 echo showError('username');
             endif; ?>
         </div>
         <div class="form-row">
             <label>Password</label>
-            <input name="password" type="password" class="form-control">
+            <div class="d-flex position-relative align-items-center">
+                <input name="password" placeholder="Password" id="password" type="password" class="form-control">
+                <i class="fa fa-eye position-absolute password-class-icon cursor-pointer text-secondary" onclick="seePassword('password')"></i>
+            </div>
             <?php if (showError('password')) :
                 echo showError('password');
             endif; ?>
