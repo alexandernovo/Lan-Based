@@ -213,35 +213,65 @@ function makeValuesReferenced($arr)
     return $refs;
 }
 
-function joinTable($table, $joins, $conditions = [])
+function joinTable($table, $joins, $conditions = [], $noIn = [])
 {
     global $conn;
     $query = "SELECT * FROM $table";
     foreach ($joins as $join) {
         $query .= " INNER JOIN $join[0] ON $join[1] = $join[2]";
     }
+
+    $where_clauses = [];
+    $params = [];
+    $types = '';
+
     if (!empty($conditions)) {
-        $where_clauses = array();
-        $params = array();
         foreach ($conditions as $column => $value) {
             $where_clauses[] = "$column = ?";
             $params[] = $value;
+            $types .= 's'; // Assuming string type for simplicity
         }
-        $query .= " WHERE " . implode(" AND ", $where_clauses);
-        $stmt = mysqli_prepare($conn, $query);
-        $types = str_repeat("s", count($params));
-        $stmt->bind_param($types, ...$params);
-    } else {
-        $stmt = mysqli_prepare($conn, $query);
     }
+
+    if (!empty($noIn)) {
+        foreach ($noIn as $column => $values) {
+            if (!is_array($values)) {
+                throw new InvalidArgumentException('The noIn parameter values must be an array.');
+            }
+            if (count($values) > 0) {
+                $placeholders = implode(',', array_fill(0, count($values), '?'));
+                $where_clauses[] = "$column NOT IN ($placeholders)";
+                $params = array_merge($params, $values);
+                $types .= str_repeat('s', count($values)); // Assuming string type for simplicity
+            }
+        }
+    }
+
+    if (!empty($where_clauses)) {
+        $query .= " WHERE " . implode(" AND ", $where_clauses);
+    }
+
+    $stmt = mysqli_prepare($conn, $query);
+
+    if ($stmt === false) {
+        throw new Exception('Failed to prepare statement: ' . mysqli_error($conn));
+    }
+
+    if (!empty($params)) {
+        $stmt->bind_param($types, ...$params);
+    }
+
     $stmt->execute();
     $result = $stmt->get_result();
-    $rows = array();
+    $rows = [];
     while ($row = $result->fetch_assoc()) {
         $rows[] = $row;
     }
+
     return $rows;
 }
+
+
 function countResutlt($table, $conditions)
 {
     global $conn;

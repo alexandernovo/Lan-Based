@@ -95,4 +95,10 @@ class BroadcastHandler
         $announcementMessage = $this->seal(json_encode($messageArray));
         return $announcementMessage;
     }
+    function createNotificationtMessage($announcement_data)
+    {
+        $messageArray = array('name' => 'notification', 'data' => $announcement_data);
+        $announcementMessage = $this->seal(json_encode($messageArray));
+        return $announcementMessage;
+    }
 }

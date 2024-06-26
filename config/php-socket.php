@@ -80,6 +80,11 @@ while (true) {
 				$chat_box_message = $broadcastHandler->createAnnouncementMessage($messageObj->data);
 				$broadcastHandler->send($chat_box_message, $clientSocketArray);
 			}
+			if (isset($messageObj->name) && $messageObj->name === 'notification') {
+				// Create announcement message and broadcast it
+				$chat_box_message = $broadcastHandler->createNotificationtMessage($messageObj->data);
+				$broadcastHandler->send($chat_box_message, $clientSocketArray);
+			}
 			break 2;
 		}
 

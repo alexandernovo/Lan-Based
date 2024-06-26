@@ -1,3 +1,6 @@
+<?php
+$find_archive = first('archive_class', ['user_id' => $_SESSION['user_id'], 'class_id' => $_GET['class_id']]);
+?>
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
@@ -9,6 +12,12 @@
                         include 'class-header.php';
                         ?>
                     </div>
+                    <?php if ($_SESSION['usertype'] == 0) : ?>
+                        <button class="btn  <?php echo !isset($find_archive) ? "btn-danger" : "btn-primary" ?> mb-0 btn-sm" data-bs-toggle="modal" data-bs-target="#confirmation">
+                            <i class="fa fa-archive"></i>
+                            <?php echo !isset($find_archive) ? "Archive Class" : "Unarchive Class" ?>
+                        </button>
+                    <?php endif; ?>
                 </div>
                 <div class="card-body">
                     <div class="row mt-3">
@@ -78,6 +87,39 @@
                     </div> -->
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    <i class="fa fa-archive "></i>
+                    <?php echo $class_settings['class_status'] == 1 ? "Archive Class" : "Unarchive Class" ?>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Are you sure you want to <?php echo !isset($find_archive) == 1 ? "archive" : "unarchive" ?> this class?
+                </p>
+            </div>
+            <form method="POST" action="actions/manage_class.php">
+                <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
+                <input type="hidden" name="status" value="<?php echo !isset($find_archive) == 1 ? 2 : 1 ?>">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fa fa-times"></i>
+                        Cancel
+                    </button>
+                    <button type="submit" name="archive_class" class="btn <?php echo !isset($find_archive) == 1 ? "btn-danger" : "btn-primary" ?>">
+                        <i class="fa fa-archive"></i>
+                        <?php echo !isset($find_archive) == 1 ? "Archive" : "Unarchive" ?>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

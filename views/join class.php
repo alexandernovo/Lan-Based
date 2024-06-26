@@ -36,7 +36,7 @@ if (isset($_GET['search_code'])) {
                                             Use a class code with 6-8 letters or numbers, no space or symbol
                                         </li>
                                     </ul>
-                                    <p class="mb-0 mt-2 mb-2 text-secondary font-instruction ">If you have problem join the course subject</p>
+                                    <p class="mb-0 mt-2 mb-2 text-secondary font-instruction ">If you have problem joining the course subject</p>
                                     <ul>
                                         <li class="font-instruction-li text-secondary ">
                                             Ask for the advice of teacher in-charge
@@ -63,7 +63,7 @@ if (isset($_GET['search_code'])) {
                                 <p class="text-center mt-2 text-secondary font-instruction">There's no class with the class code of <i><?php echo $_GET['search_code'] ?></i></p>
                             <?php } else { ?>
                                 <div class="d-flex justify-content-center mt-3">
-                                    <div class="card col-5">
+                                    <div class="card col-sm-12 col-md-5 col-lg-5">
                                         <div class="card-body p-3">
                                             <div class="class-images">
                                                 <img src="<?= empty($class['class_image']) || $class['class_image'] == ""  ? "public/assets/img/class_default.jpg" :  $class['class_image'] ?>" class="preview-image ">
@@ -76,10 +76,15 @@ if (isset($_GET['search_code'])) {
                                             $find_class = first('class_people', ['class_id' => $class['class_id'], 'user_id' => $_SESSION['user_id']])
                                             ?>
                                             <?php if (!$find_class) { ?>
-                                                <a href="actions/manage_class.php?join_class&class_id=<?= $class['class_id'] ?>&class_code=<?= $class['classcode'] ?>" class="btn btn-sm btn-success w-100 mb-0 btn-options-text">
-                                                    <i class="fa fa-cubes me-1" style="font-size:14px"></i>
-                                                    Join Class
-                                                </a>
+                                                <form id="join_class">
+                                                    <input type="hidden" name="join_class">
+                                                    <input type="hidden" name="class_id" value="<?= $class['class_id'] ?>">
+                                                    <input type="hidden" name="classcode" value="<?= $class['classcode'] ?>">
+                                                    <button type="submit" class="btn btn-sm btn-success w-100 mb-0 btn-options-text">
+                                                        <i class="fa fa-cubes me-1" style="font-size:14px"></i>
+                                                        Join Class
+                                                    </button>
+                                                </form>
                                             <?php } else if ($find_class['class_people_status'] == 0) { ?>
                                                 <button disabled href="?page=class work&class_id=<?= $class['class_id'] ?>" class="btn btn-sm btn-secondary w-100 mb-0 btn-options-text">
                                                     <i class="fa fa-spinner me-1"></i>

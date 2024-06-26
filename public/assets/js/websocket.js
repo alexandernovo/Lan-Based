@@ -11,8 +11,8 @@ fetch('config.json')
 
         ws.onmessage = (event) => {
             let message = JSON.parse(event.data);
-
             if (message.name === 'announcement') {
+                console.log("announce");
                 let announcementData = message.data;
                 console.log('Received announcement:', announcementData);
                 $("#title_announcement").text(announcementData.title)
@@ -21,7 +21,21 @@ fetch('config.json')
                 setTimeout(() => {
                     $("#liveToast").hide();
                 }, 4000)
-            } else {
+            }
+            else if (message.name === 'notification') {
+                console.log("notif");
+                let user_id = localStorage.getItem('user_id');
+                if (user_id == message.data.user_id) {
+                    $("#title_announcement").text(message.data.title)
+                    $("#description_announcement").text(message.data.description)
+                    $("#liveToast").show();
+                    setTimeout(() => {
+                        $("#liveToast").hide();
+                    }, 4000)
+                }
+
+            }
+            else {
                 console.log('Received message:', message);
             }
         };
@@ -33,12 +47,23 @@ fetch('config.json')
 function sendAnnouncement(announcementData) {
     // Create the announcement message object
     let message = {
-        name: 'announcement', // Specify the name of the message type
+        name: "announcement", // Specify the name of the message type
         data: announcementData // Include the announcement data
     };
 
     ws.send(JSON.stringify(message));
 }
+
+function sendNotif(announcementData) {
+    // Create the announcement message object
+    let message = {
+        name: 'notification', // Specify the name of the message type
+        data: announcementData // Include the announcement data
+    };
+
+    ws.send(JSON.stringify(message));
+}
+
 
 
 $("#announcement_form").on("submit", function (e) {
@@ -54,7 +79,8 @@ $("#announcement_form").on("submit", function (e) {
 
     let content = {
         title: $title,
-        description: $description
+        description: $description,
+        name: "announcement"
     };
 
     sendAnnouncement(content);
@@ -84,4 +110,117 @@ const saveAnnouncement = () => {
             console.error("Error:", error);
         }
     });
+}
+
+
+
+
+
+$('#join_class').on('submit', function (e) {
+    e.preventDefault();
+
+    // Create FormData object to collect form data
+    let formData = new FormData(this);
+
+    $.ajax({
+        url: "actions/manage_class.php",
+        type: "POST",
+        data: formData,
+        processData: false,  // Prevent jQuery from processing the data
+        contentType: false,  // Prevent jQuery from setting contentType
+        success: function (response) {
+            if (response.status == "success") {
+                let $notif = response.data;
+                let content = {
+                    name: 'notification',
+                    title: $notif.title,
+                    description: $notif.description,
+                    user_id: $notif.user_id
+                };
+                sendNotif(content);
+                success("Please wait for the teacher to accept your request");
+                setTimeout(() => {
+                    location.reload();  // Reload the page on success
+                }, 1000);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+});
+
+$("#approved").on("submit", function (e) {
+    e.preventDefault();
+    let formData = new FormData(this);
+
+    $.ajax({
+        url: "actions/manage_people.php",
+        type: "POST",
+        data: formData,
+        processData: false,  // Prevent jQuery from processing the data
+        contentType: false,  // Prevent jQuery from setting contentType
+        success: function (response) {
+            if (response.status == "success") {
+                let $notif = response.data;
+                let content = {
+                    name: 'notification',
+                    title: $notif.title,
+                    description: $notif.description,
+                    user_id: $notif.user_id
+                };
+                sendNotif(content);
+                // success("Please wait for the teacher to accept your request");
+                setTimeout(() => {
+                    location.reload();  // Reload the page on success
+                }, 1000);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+});
+
+
+$("#reject").on("submit", function (e) {
+    e.preventDefault();
+    let formData = new FormData(this);
+
+    $.ajax({
+        url: "actions/manage_people.php",
+        type: "POST",
+        data: formData,
+        processData: false,  // Prevent jQuery from processing the data
+        contentType: false,  // Prevent jQuery from setting contentType
+        success: function (response) {
+            if (response.status == "success") {
+                let $notif = response.data;
+                let content = {
+                    name: 'notification',
+                    title: $notif.title,
+                    description: $notif.description,
+                    user_id: $notif.user_id
+                };
+                sendNotif(content);
+                // success("Please wait for the teacher to accept your request");
+                setTimeout(() => {
+                    location.reload();  // Reload the page on success
+                }, 1000);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+});
+
+function success(message) {
+    Swal.fire({
+        title: 'Success',
+        text: message,
+        icon: 'success',
+        confirmButtonText: 'Yes',
+        cancelButtonText: false
+    })
 }

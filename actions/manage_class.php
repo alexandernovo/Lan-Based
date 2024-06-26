@@ -1,7 +1,6 @@
 <?php
 require_once('../config/config.php');
 if (isset($_POST['add_class'])) {
-
     $image = "";
     if ($_FILES['image']['size'] != 0) {
         $image = move_file($_FILES['image'], 'class_image');
@@ -56,15 +55,42 @@ if (isset($_POST['update_class'])) {
     // echoObject($data);
 }
 
-if (isset($_GET['join_class'])) {
+if (isset($_POST['join_class'])) {
+
     $data = [
         'user_id' => $_SESSION['user_id'],
-        'class_id' => $_GET['class_id'],
+        'class_id' => $_POST['class_id'],
         'added_date' => date('Y-m-d h:i:s'),
         'class_people_status' => 0
     ];
 
+    $find_teacher = first('class', ['class_id' => $_POST['class_id']]);
+
     $save = save('class_people', $data);
-    setFlash('success', 'Requested to Join Successfully');
-    redirect('../index', ['page' => 'join class', 'search_code' => $_GET['class_code']]);
+    $message = [
+        'user_id' => $find_teacher['user_id'],
+        'description' => $_SESSION['firstname'] . ' asked permission to join class',
+        'title' => 'Joining Class'
+    ];
+
+    header('Content-Type: application/json');
+    echo json_encode(['status' => 'success', 'data' => $message]);
+}
+
+
+if (isset($_POST['archive_class'])) {
+
+    $data = [
+        "user_id" => $_SESSION['user_id'],
+        "class_id" => $_POST['class_id'],
+    ];
+    if ($_POST['status'] == 1) {
+        $delete = delete('archive_class', $data);
+    } else {
+        $save = save('archive_class', $data);
+    }
+
+    $message = $_POST['status'] == 1 ? "Class Unarchived Successfully" : "Class Archived Successfully";
+    setFlash('success', $message);
+    redirect('../index', ['page' => 'archive classes']);
 }

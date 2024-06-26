@@ -113,3 +113,34 @@ $(document).ready(function () {
         e.stopPropagation();
     });
 });
+
+$("#submission_disable").on('click', function () {
+    $(".submission").prop("disabled", function (_, val) {
+        return !val;
+    });
+});
+
+
+$('#activity_click').on('click', function () {
+    $('#activity_now').toggleClass('d-none');
+    $('#activity_edit').toggleClass('d-none');
+    if ($('#activity_now').hasClass('d-none')) {
+        $(this).text('Cancel Edit');
+    }
+    else {
+        $(this).text('Edit Submission');
+    }
+});
+
+
+$(document).ready(function () {
+    $('#copyButton').on('click', function () {
+        var buttonText = $(this).attr('class-code');
+        navigator.clipboard.writeText(buttonText).then(function () {
+            alert('Class code has been copied: ' + buttonText);
+        }).catch(function (err) {
+            console.error('Could not copy text: ', err);
+        });
+    });
+});
+

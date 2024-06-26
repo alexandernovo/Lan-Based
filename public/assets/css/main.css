@@ -271,6 +271,12 @@
     font-size: 8px !important;
     display: flex;
   }
+  .under-instruction {
+    width: 100% !important;
+  }
+  .search-center-classcode {
+    width: 55%;
+  }
 }
 /* .fc-today-button {
   background-color: #1a8755 !important;

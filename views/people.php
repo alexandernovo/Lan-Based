@@ -57,14 +57,24 @@
                                         <td class="align-middle">
                                             <?php if ($people['class_people_status'] == 0) { ?>
                                                 <div class="d-flex gap-3 justify-content-center">
-                                                    <a href="actions/manage_people.php?approve&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-success">
-                                                        <i class="fa fa-check"></i>
-                                                        Approved
-                                                    </a>
-                                                    <a href="actions/manage_people.php?remove&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-danger">
-                                                        <i class="fa fa-times"></i>
-                                                        Decline
-                                                    </a>
+                                                    <form id="approved" method="POST">
+                                                        <input type="hidden" name="approve">
+                                                        <input type="hidden" name="class_people_id" value="<?= $people['class_people_id'] ?>">
+                                                        <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
+                                                        <button type="submit" class="btn btn-transparent mb-0 shadow-none d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-success">
+                                                            <i class="fa fa-check"></i>
+                                                            Approved
+                                                        </button>
+                                                    </form>
+                                                    <form id="reject" method="POST">
+                                                        <input type="hidden" name="remove">
+                                                        <input type="hidden" name="class_people_id" value="<?= $people['class_people_id'] ?>">
+                                                        <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
+                                                        <button type="submit" class=" btn btn-transparent mb-0 shadow-none d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-danger">
+                                                            <i class="fa fa-times"></i>
+                                                            Decline
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             <?php } else { ?>
                                                 <a href="actions/manage_people.php?remove&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-danger">

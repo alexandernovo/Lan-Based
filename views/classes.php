@@ -2,8 +2,11 @@
 if ($_SESSION['usertype'] == 1) {
     $classes = find_where('class', ['user_id' => $_SESSION['user_id']]);
 } else {
-    $classes = joinTable('class', [['class_people', 'class_people.class_id', 'class.class_id']], ['class_people.user_id' => $_SESSION['user_id']]);
+    $archive_class = find_where('archive_class', ['user_id' => $_SESSION['user_id']]);
+    $ids = array_column($archive_class, 'class_id');
+    $classes = joinTable('class', [['class_people', 'class_people.class_id', 'class.class_id']], ['class_people.user_id' => $_SESSION['user_id'], 'class.class_status' => 1, 'class_people.class_people_status' => 1],  ['class.class_id' => $ids]);
 }
+
 ?>
 <div class="container-fluid py-4">
     <div class="row">
@@ -71,7 +74,7 @@ if ($_SESSION['usertype'] == 1) {
                                                         <i class="fa fa-eye"></i>
                                                         View Class
                                                     </a>
-                                                    <button class="btn btn-outline-success btn-sm w-100 mb-0 mt-1 btn-options-text">Class Code: <?= $class['classcode'] ?></button>
+                                                    <button id="copyButton" class-code="<?= $class['classcode'] ?>" class="btn btn-outline-success btn-sm w-100 mb-0 mt-1 btn-options-text">Class Code: <?= $class['classcode'] ?></button>
                                                 </div>
                                             </div>
                                         </div>

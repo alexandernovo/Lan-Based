@@ -51,6 +51,15 @@ if (isset($_POST['edit_material'])) {
     $save = update('material', ['material_id' => $_POST['material_id']], $data);
 
     if ($save) {
+
+        if ($_FILES['material_file']['size'][0] != 0) {
+            $file_to_remove = find_where('material_attachment', ['material_id' => $_POST['material_id']]);
+            foreach ($file_to_remove as $remove) {
+                $delete = deleteFile('../' . $remove['material_file']);
+                $delete1 = delete('material_attachment', ['material_attachment_id' => $remove['material_attachment_id']]);
+            }
+        }
+
         foreach ($_FILES['material_file']['name'] as $key => $name) {
             $file = [
                 'name' => $_FILES['material_file']['name'][$key],
@@ -61,11 +70,6 @@ if (isset($_POST['edit_material'])) {
             ];
 
             if ($file['size'] != 0) {
-                $file_to_remove = find_where('material_attachment', ['material_id' => $_POST['material_id']]);
-                foreach ($file_to_remove as $remove) {
-                    $delete = deleteFile('../' . $remove['material_file']);
-                    $delete1 = delete('material_attachment', ['material_file' => $remove['material_file']]);
-                }
                 $image = move_file($file, 'material');
                 if ($image) {
                     $materials = [

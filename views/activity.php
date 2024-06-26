@@ -58,7 +58,7 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                             Submission
                         </p>
                         <?php if ($submission_check) : ?>
-                            <button style="font-size: 11px;" class="btn shadow-none mb-0 cursor-pointer">Edit Submission</button>
+                            <button style="font-size: 11px;" id="activity_click" class="btn shadow-none mb-0 cursor-pointer">Edit Submission</button>
                         <?php endif; ?>
                     </div>
 
@@ -70,7 +70,7 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                                     <input type="hidden" name="activity_id" value="<?php echo $_GET['activity_id'] ?>">
                                     <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
                                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
-                                    <input name="submission_file[]" type="file" class="form-control" multiple />
+                                    <input name="submission_file[]" required type="file" class="form-control" multiple />
                                     <button type="submit" name="add_submission" class="btn btn-success btn-sm mt-2 px-4">
                                         <i class="fa fa-check"></i>
                                         Submit
@@ -78,21 +78,40 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                                 </form>
                             </div>
                         <?php } else { ?>
-                            <?php
-                            $submissions = find_where('submission', ['activity_id' => $submission_check['activity_id'], 'submission_index' => $submission_check['submission_index']]);
-                            foreach ($submissions as $submission) : ?>
-                                <div class="activity-file text-decoration-none d-flex gap-1 justify-content-between align-items-center mb-1 text-dark border w-50 p-3 rounded mt-1 shadow shadow-sm">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <i class="fa fa-paperclip"></i>
-                                        <?= $submission['submission_fileName'] ?>
+                            <div id="activity_now">
+                                <?php
+                                $submissions = joinTable('submission', [['submission_file', 'submission_file.submission_id', 'submission.submission_id']], ['activity_id' => $submission_check['activity_id'], 'submission_index' => $submission_check['submission_index']]);
+                                foreach ($submissions as $submission) : ?>
+                                    <div class="activity-file text-decoration-none d-flex gap-1 justify-content-between align-items-center mb-1 text-dark border w-50 p-3 rounded mt-1 shadow shadow-sm">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fa fa-paperclip"></i>
+                                            <?= $submission['submission_fileName'] ?>
+                                        </div>
+                                        <a href="<?= $submission['submission_file'] ?>" download class="text-black download-hover">
+                                            <i class="fa fa-arrow-circle-o-down"></i>
+                                        </a>
                                     </div>
-                                    <a href="<?= $submission['submission_file'] ?>" download class="text-black download-hover">
-                                        <i class="fa fa-arrow-circle-o-down"></i>
-                                    </a>
-                                </div>
-                    <?php endforeach;
-                        }
+                                <?php endforeach; ?>
+                            </div>
+                    <?php }
                     endif; ?>
+
+                    <?php if ($submission_check) : ?>
+                        <div class="border rounded p-3 w-50 d-none" id="activity_edit">
+                            <form method="POST" action="actions/manage_submission.php" enctype="multipart/form-data">
+                                <label class="mb-0 mx-0">Submission File</label>
+                                <input type="hidden" name="activity_id" value="<?php echo $_GET['activity_id'] ?>">
+                                <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
+                                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
+                                <input type="hidden" name="submission_id" value="<?php echo $submission_check['submission_id'] ?>">
+                                <input name="submission_file[]" required type="file" class="form-control" multiple />
+                                <button type="submit" name="edit_submission" class="btn btn-success btn-sm mt-2 px-4">
+                                    <i class="fa fa-check"></i>
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
+                    <?php endif; ?>
 
                     <?php if ($_SESSION['usertype'] == 1) : ?>
                         <div class="border rounded p-3 ">
@@ -109,10 +128,19 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                                     <tbody>
                                         <?php
                                         $activity_id = $_GET['activity_id'];
-                                        $query = "SELECT * FROM users 
-                                                    INNER JOIN submission ON users.user_id = submission.user_id 
-                                                    WHERE submission.activity_id = '$activity_id'
-                                                    GROUP BY submission.submission_index, submission.activity_id";
+                                        $query = "
+                                            SELECT u.*, s.*
+                                            FROM users u
+                                            INNER JOIN submission s ON u.user_id = s.user_id
+                                            INNER JOIN (
+                                                SELECT user_id, MAX(submission_index) AS max_submission_index
+                                                FROM submission
+                                                WHERE activity_id = '$activity_id'
+                                                GROUP BY user_id
+                                            ) max_submission ON s.user_id = max_submission.user_id AND s.submission_index = max_submission.max_submission_index
+                                            WHERE s.activity_id = '$activity_id';
+                                        ";
+
                                         $result = mysqli_query($conn, $query);
                                         ?>
                                         <?php while ($people = mysqli_fetch_assoc($result)) : ?>
@@ -136,7 +164,10 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                                                     <span class="text-secondary text-xs font-weight-bold"><?php echo date('F j, Y', strtotime($people['submission_date'])); ?></span>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <a class="btn btn-primary btn-sm px-4 rounded mb-0 py-1">View</a>
+                                                    <a href="?page=submission&submission_id=<?= $people['submission_id'] ?>" class="btn btn-primary btn-sm px-4 rounded mb-0 py-1">
+                                                        <i class="fa fa-eye"></i>
+                                                        View
+                                                    </a>
                                                 </td>
                                             </tr>
                                         <?php endwhile; ?>
@@ -145,8 +176,6 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                             </div>
                         </div>
                     <?php endif; ?>
-
-
                 </div>
             </div>
         </div>
