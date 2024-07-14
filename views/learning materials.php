@@ -41,9 +41,22 @@ $material = first('material', ['material_id' => $_GET['material_id']]);
                                     <i class="fa fa-paperclip"></i>
                                     <?= $mat['material_fileName'] ?>
                                 </div>
-                                <a href="<?= $mat['material_file'] ?>" download class="text-black download-hover">
-                                    <i class="fa fa-arrow-circle-o-down"></i>
-                                </a>
+                                <div class="d-flex gap-4">
+                                    <a href="<?= $mat['material_file'] ?>" download class="download-hover">
+                                        <i class="fa fa-arrow-circle-o-down"></i>
+                                        Download
+                                    </a>
+                                    <?php
+                                    $find_save = first('saved_file', ['user_id' => $_SESSION['user_id'], 'attachment_id' => $mat['material_attachment_id'], 'attachment_type' => 'material']);
+                                    ?>
+
+                                    <?php if (!$find_save) : ?>
+                                        <a href="actions/manage_saved_file.php?save_file&attachment_id=<?= $mat['material_attachment_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>&material_id=<?php echo $_GET['material_id'] ?>">
+                                            <i class="fa fa-check"></i>
+                                            Save
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         <?php endforeach; ?>
                     </div>

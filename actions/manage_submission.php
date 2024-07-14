@@ -16,7 +16,7 @@ if (isset($_POST['add_submission']) || isset($_POST['add_submission_question']))
         'activity_id' => $_POST['activity_id'],
         'submission_index' =>  $index_no,
         'submission_status' => 1,
-        'submission_score' => 0,
+        'submission_score' => null,
         'submission_date' => date('Y-m-d h:i:s')
     ];
 

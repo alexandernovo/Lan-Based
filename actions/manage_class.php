@@ -67,6 +67,18 @@ if (isset($_POST['join_class'])) {
     $find_teacher = first('class', ['class_id' => $_POST['class_id']]);
 
     $save = save('class_people', $data);
+
+    $notification = [
+        'user_id' => $find_teacher['user_id'],
+        'notification_title' => "Joining Class",
+        'notification_description' => $_SESSION['firstname'] . ' asked permission to join class',
+        'notification_type' => 'class',
+        'included_id' =>  $_POST['class_id'],
+        'notification_datetime' => date('Y-m-d')
+    ];
+
+    save('notification', $notification);
+
     $message = [
         'user_id' => $find_teacher['user_id'],
         'description' => $_SESSION['firstname'] . ' asked permission to join class',

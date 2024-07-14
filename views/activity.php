@@ -51,14 +51,22 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                     </div>
                     <?php
                     $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], 'user_id' => $_SESSION['user_id']], 'submission_index');
+                    $dueDate = date('Y-m-d h:i:s') > $activity['dueDate'];
                     ?>
-                    <div class="d-flex justify-content-between align-items-center w-50">
+                    <div class="d-flex justify-content-between align-items-center w-50 ">
                         <p class="title-activity mb-0">
                             <i class="fa fa-folder mt-2"></i>
                             Submission
                         </p>
+                        <?php if ($_SESSION['usertype'] == 0) : ?>
+                            <?php if ($dueDate) : ?>
+                                <p class="text-danger mb-0 warning-text">The submission period for this activity has ended.</p>
+                            <?php endif; ?>
+                        <?php endif; ?>
                         <?php if ($submission_check) : ?>
-                            <button style="font-size: 11px;" id="activity_click" class="btn shadow-none mb-0 cursor-pointer">Edit Submission</button>
+                            <?php if (!$dueDate) : ?>
+                                <button style="font-size: 11px; width:140px" id="activity_click" class="btn shadow-none mb-0 cursor-pointer text-end pe-0">Edit Submission</button>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
 
@@ -70,8 +78,8 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                                     <input type="hidden" name="activity_id" value="<?php echo $_GET['activity_id'] ?>">
                                     <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
                                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?>">
-                                    <input name="submission_file[]" required type="file" class="form-control" multiple />
-                                    <button type="submit" name="add_submission" class="btn btn-success btn-sm mt-2 px-4">
+                                    <input <?php echo $dueDate ? "disabled" : "" ?> name="submission_file[]" required type="file" class="form-control" multiple />
+                                    <button <?php echo $dueDate ? "disabled" : "" ?> type="submit" name="add_submission" class="btn btn-success btn-sm mt-2 px-4">
                                         <i class="fa fa-check"></i>
                                         Submit
                                     </button>
@@ -92,7 +100,20 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                                         </a>
                                     </div>
                                 <?php endforeach; ?>
+                                <?php
+                                if (isset($submission_check['activity_id'])) :
+                                    $submission_first = first('submission', ['activity_id' => $submission_check['activity_id']]);
+                                    if (isset($submission_first['submission_score'])) : ?>
+                                        <div class="border rounded p-3 w-50 mt-1">
+                                            <p class="feedback">Score: <span class="font-bold feedback"><?= $submission_first['submission_score'] ?> / <?= $activity['total_points'] ?></span></p>
+                                            <p class="feedback mb-0">Remarks: <?= $submission_first['submission_remarks'] ?></p>
+                                        </div>
+                                <?php
+                                    endif;
+                                endif;
+                                ?>
                             </div>
+
                     <?php }
                     endif; ?>
 

@@ -29,6 +29,16 @@ if (isset($_POST['approve'])) {
         $find_class = first('class', ['class_id' => $_POST['class_id']]);
         $find_student = first('class_people', ['class_people_id' => $_POST['class_people_id']]);
 
+        $notification = [
+            'user_id' => $find_student['user_id'],
+            'notification_title' => "Joining Class",
+            'notification_description' => $_SESSION['firstname'] . ' accept your request to join class ' . $find_class['classname'],
+            'notification_type' => 'people',
+            'included_id' =>  $_POST['class_id'],
+            'notification_datetime' => date('Y-m-d')
+        ];
+        save('notification', $notification);
+
         $message = [
             'user_id' => $find_student['user_id'],
             'description' => $_SESSION['firstname'] . ' accept your request to join class ' . $find_class['classname'],
@@ -48,6 +58,16 @@ if (isset($_POST['remove'])) {
         $find_student = first('class_people', ['class_people_id' => $_POST['class_people_id']]);
         $delete = delete('class_people', ['class_people_id' => $_POST['class_people_id']]);
         $find_class = first('class', ['class_id' => $_POST['class_id']]);
+
+        $notification = [
+            'user_id' => $find_student['user_id'],
+            'notification_title' => "Joining Class",
+            'notification_description' => $_SESSION['firstname'] . ' reject your request to join class ' . $find_class['classname'],
+            'notification_type' => 'people',
+            'included_id' =>  $_POST['class_id'],
+            'notification_datetime' => date('Y-m-d')
+        ];
+        save('notification', $notification);
 
         $message = [
             'user_id' => $find_student['user_id'],

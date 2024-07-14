@@ -260,6 +260,12 @@
   margin-right: 15px;
 }
 
+.warning-text {
+  font-size: 12px;
+}
+.feedback {
+  font-size: 13px;
+}
 .settings-items {
   width: 40%;
 }
