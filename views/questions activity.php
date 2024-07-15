@@ -1,5 +1,6 @@
 <?php
 $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_type' => 'question']);
+$submission_check = last('submission', ['activity_id' => $_GET['activity_id'], 'user_id' => $_SESSION['user_id']], 'submission_index');
 ?>
 <div class="container-fluid py-4">
     <div class="row">
@@ -30,6 +31,15 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                     <li class="activity-description">
                         <?= $activity['activity_description'] ?>
                     </li>
+                    <p class="m-0 mt-3 attachment_text">
+                        <i class="fa fa-calendar"></i>
+                        Last day of submission: <?= date("F d, Y", strtotime($activity['dueDate'])) ?>
+                        <?php
+                        if (!isset($submission_check) && $_SESSION['usertype'] == 0) {
+                            echo "(" . dateDue($activity['dueDate']) . ")";
+                        }
+                        ?>
+                    </p>
                     <?php
                     $attachments = find_where('attachments', ['activity_id' => $_GET['activity_id']]);
                     ?>
@@ -51,25 +61,24 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                         <?php endforeach; ?>
                     </div>
                     <?php
-                    $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], 'user_id' => $_SESSION['user_id']], 'submission_index');
                     $dueDate = date('Y-m-d h:i:s') > $activity['dueDate'];
                     ?>
-                    <div class="d-flex justify-content-between align-items-center w-50">
+                    <div class="d-flex justify-content-between align-items-center mb-2 <?php echo $_SESSION['usertype'] == 0 ? "w-50" : "" ?>">
                         <p class="title-activity mb-0">
                             <i class="fa fa-folder mt-2"></i>
                             Submission
                         </p>
-                        <?php if ($_SESSION['usertype'] == 0) : ?>
-                            <?php if ($dueDate) : ?>
-                                <p class="text-danger mb-0 warning-text">The submission period for this activity has ended.</p>
-                            <?php endif; ?>
+                        <?php if ($_SESSION['usertype'] == 1) : ?>
+                            <button class="btn btn-sm btn-primary mb-0 d-flex gap-1 align-items-center font-bold"><i class="fa fa-print"></i>Print Activity Results</button>
                         <?php endif; ?>
-                        <?php if ($submission_check) : ?>
-                            <?php if (!$dueDate) : ?>
-                                <button style="font-size: 11px; width:140px" id="activity_click" class="btn shadow-none mb-0 cursor-pointer text-end pe-0">Edit Submission</button>
-                            <?php endif; ?>
+                        <?php if ($_SESSION['usertype'] == 0 && $dueDate) : ?>
+                            <p class="text-danger mb-0 warning-text">The submission period for this activity has ended.</p>
+                        <?php endif; ?>
+                        <?php if ($submission_check && !$dueDate) : ?>
+                            <button style="font-size: 11px; width:140px" id="activity_click" class="btn shadow-none mb-0 cursor-pointer text-end pe-0">Edit Submission</button>
                         <?php endif; ?>
                     </div>
+
                     <?php if ($_SESSION['usertype'] == 0) : ?>
                         <?php if (!$submission_check) { ?>
                             <div class="border rounded p-3 w-50">
@@ -140,6 +149,7 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                                         <thead>
                                             <tr>
                                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Score</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Submission Date</th>
                                                 <th class="text-secondary opacity-7"></th>
@@ -176,9 +186,11 @@ $activity = first('activity', ['activity_id' => $_GET['activity_id'], 'activity_
                                                             </div>
                                                         </div>
                                                     </td>
-
                                                     <td class="align-middle text-center text-sm">
-                                                        <span class="badge badge-sm <?= $people['userstatus'] == 1 ? "bg-gradient-success" : "bg-gradient-danger" ?>">Pending</span>
+                                                        <?= isset($people['submission_score']) ? $people['submission_score'] : 0 ?>
+                                                    </td>
+                                                    <td class="align-middle text-center text-sm">
+                                                        <span class="badge badge-sm <?= $people['submission_status'] == 1 ? "bg-gradient-primary" : ($people['submission_status'] == 3  ? "bg-gradient-success" : "bg-gradient-danger") ?>"><?= $people['submission_status'] == 1 ? "Pending" : ($people['submission_status'] == 3  ? "Done" : "Rejected") ?></span>
                                                     </td>
                                                     <td class="align-middle text-center">
                                                         <span class="text-secondary text-xs font-weight-bold"><?php echo date('F j, Y', strtotime($people['submission_date'])); ?></span>

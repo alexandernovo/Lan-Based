@@ -139,6 +139,26 @@ function echoObject($data)
 {
     echo '<pre>' . print_r($data, true) . '</pre>';
 }
+
+function dateDue($date)
+{
+    // Current date
+    $currentDate = new DateTime(date('Y-m-d'));
+    // Provided date
+    $dueDate = new DateTime($date);
+
+    // Calculate the difference
+    $interval = $currentDate->diff($dueDate);
+
+    if ($date > date('Y-m-d')) {
+        // If the date is in the future
+        return "<span class='text-primary attachment_text'>" . $interval->days . " days left</span>";
+    } else {
+        // If the date is in the past
+        return "<span class='text-danger attachment_text'>Overdue by " . $interval->days . " days</span>";
+    }
+}
+
 // $randomString = generateRandomString();
 // echo $randomString;
 
