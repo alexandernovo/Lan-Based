@@ -1,8 +1,26 @@
 <?php
-$config_data = file_get_contents('../config.json');
+// Get the absolute path to the root directory
+$rootPath = realpath(dirname(__FILE__) . '/..');
+
+// Absolute path to config.json
+$configFilePath = $rootPath . '/config.json';
+
+if (!file_exists($configFilePath)) {
+	die('Error: config.json file not found');
+}
+
+$config_data = file_get_contents($configFilePath);
+if ($config_data === false) {
+	die('Error reading config.json');
+}
+
 $config_json = json_decode($config_data, true);
+if ($config_json === null && json_last_error() !== JSON_ERROR_NONE) {
+	die('Error decoding config.json: ' . json_last_error_msg());
+}
+
 $ip_address = $config_json['ip_address'];
-echo $ip_address;
+// echo $ip_address;
 define('HOST_NAME', $ip_address); // Use IP address instead of 'localhost'
 define('PORT', 8090);
 $null = NULL;

@@ -69,7 +69,7 @@ $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], '
                             Submission
                         </p>
                         <?php if ($_SESSION['usertype'] == 1) : ?>
-                            <button class="btn btn-sm btn-primary mb-0 d-flex gap-1 align-items-center font-bold"><i class="fa fa-print"></i>Print Activity Results</button>
+                            <a href="?page=print activity&activity_id=<?php echo $_GET['activity_id'] ?>" class="btn btn-sm btn-primary mb-0 d-flex gap-1 align-items-center font-bold"><i class="fa fa-print"></i>Print Activity Results</a>
                         <?php endif; ?>
                         <?php if ($_SESSION['usertype'] == 0 && $dueDate) : ?>
                             <p class="text-danger mb-0 warning-text">The submission period for this activity has ended.</p>

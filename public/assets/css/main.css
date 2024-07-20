@@ -284,6 +284,14 @@
     width: 55%;
   }
 }
+.paper_long {
+  background-color: white;
+  width: 8.5in;
+  height: 13in;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 2px;
+  padding: 60px;
+}
 /* .fc-today-button {
   background-color: #1a8755 !important;
 } */
