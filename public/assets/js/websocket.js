@@ -14,6 +14,9 @@ fetch('config.json')
             if (message.name === 'announcement') {
                 console.log("announce");
                 let announcementData = message.data;
+                let user_id = localStorage.getItem('user_id');
+                getNotifNumber();
+                getNotifData();
                 console.log('Received announcement:', announcementData);
                 $("#title_announcement").text(announcementData.title)
                 $("#description_announcement").text(announcementData.description)
@@ -26,6 +29,8 @@ fetch('config.json')
                 console.log("notif");
                 let user_id = localStorage.getItem('user_id');
                 if (user_id == message.data.user_id) {
+                    getNotifNumber();
+                    getNotifData();
                     $("#title_announcement").text(message.data.title)
                     $("#description_announcement").text(message.data.description)
                     $("#liveToast").show();
@@ -224,3 +229,86 @@ function success(message) {
         cancelButtonText: false
     })
 }
+
+function getNotifNumber() {
+    $.ajax({
+        url: `actions/manage_notification.php?notification_id=${user_id}&count`,
+        type: "GET",
+        success: function (response) {
+            response = JSON.parse(response);
+            console.log(response.status);
+            if (response.status == "success") {
+                let notif = response.data;
+                console.log(notif.number);
+                $("#notif_num").text(notif.number);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+}
+
+function getNotifData() {
+    $.ajax({
+        url: `actions/manage_notification.php?notification_id=${user_id}&notif_data`,
+        type: "GET",
+        success: function (response) {
+            response = JSON.parse(response);
+            console.log(response.status);
+            if (response.status == "success") {
+                let notifications = response.data; // Assuming response.data is an array of notifications
+
+                // Clear existing notifications in #notif container
+                $('#notif').empty();
+
+                // Map over the notifications array to generate the HTML for each notification
+                let notifItems = notifications.map(notification => {
+                    let date = new Date(notification.notification_datetime);
+                    let formattedDate = date.toLocaleString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        hour12: true
+                    });
+
+                    return `
+                        <li class="mb-2">
+                            <a class="dropdown-item border-radius-md" href="javascript:;">
+                                <div class="d-flex py-1">
+                                    <div class="my-auto">
+                                        <i class="fa fa-bell" style="font-size:25px; margin-right:10px"></i>
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="text-sm font-weight-normal mb-1">
+                                            <span class="font-weight-bold">${notification.notification_title}</span>
+                                            </br>
+                                            <span>${notification.notification_description}</span>
+                                        </h6>
+                                        <p class="text-xs text-secondary mb-0">
+                                            <i class="fa fa-clock me-1"></i>
+                                            ${formattedDate}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    `;
+                });
+
+                // Append the generated HTML to the #notif container
+                $('#notif').append(notifItems.join(''));
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+}
+
+
+
+getNotifNumber();
+getNotifData();

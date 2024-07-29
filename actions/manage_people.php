@@ -35,7 +35,7 @@ if (isset($_POST['approve'])) {
             'notification_description' => $_SESSION['firstname'] . ' accept your request to join class ' . $find_class['classname'],
             'notification_type' => 'people',
             'included_id' =>  $_POST['class_id'],
-            'notification_datetime' => date('Y-m-d')
+            'notification_datetime' => date('Y-m-d h:i:s')
         ];
         save('notification', $notification);
 
@@ -65,7 +65,7 @@ if (isset($_POST['remove'])) {
             'notification_description' => $_SESSION['firstname'] . ' reject your request to join class ' . $find_class['classname'],
             'notification_type' => 'people',
             'included_id' =>  $_POST['class_id'],
-            'notification_datetime' => date('Y-m-d')
+            'notification_datetime' => date('Y-m-d h:i:s')
         ];
         save('notification', $notification);
 
