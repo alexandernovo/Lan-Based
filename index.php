@@ -22,6 +22,7 @@ if (isset($_GET['class_id'])) {
     <link href="public/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="public/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="public/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
@@ -191,7 +192,7 @@ if (isset($_GET['class_id'])) {
                                     <i class="fa fa-bell cursor-pointer"><span class="ms-1 rounded-circle bg-danger border border-danger px-2" id="notif_num"></span></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4 popup" id="notif" aria-labelledby="dropdownMenuButton">
-                                  
+
 
                                 </ul>
                             </li>
@@ -236,13 +237,11 @@ if (isset($_GET['class_id'])) {
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!--===============================================================================================-->
     <script>
-        $(document).ready(function() {
-            <?php if (isset($_SESSION['user_id'])) : ?>
-                localStorage.setItem('user_id', <?php echo $_SESSION['user_id'] ?>);
-            <?php endif; ?>
-        });
-
-        let user_id = <?php echo $_SESSION['user_id'] ?>;
+        let user_id = 0;
+        <?php if (isset($_SESSION['user_id'])) : ?>
+            localStorage.setItem('user_id', <?php echo $_SESSION['user_id'] ?>);
+            user_id = <?php echo $_SESSION['user_id'] ?>;
+        <?php endif; ?>
     </script>
     <!--===============================================================================================-->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
