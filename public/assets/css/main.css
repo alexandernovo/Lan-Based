@@ -33,6 +33,13 @@
   margin: 50px auto;
 }
 
+@media (max-width: 537px) {
+  .login-border {
+    width: 85%;
+    height: auto;
+  }
+}
+
 .login-button {
   letter-spacing: 2px;
 }
