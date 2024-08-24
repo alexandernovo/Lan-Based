@@ -26,6 +26,7 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Registered Date</th>
                                     <th class="text-secondary opacity-7"></th>
+                                    <th class="text-secondary opacity-7"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -58,6 +59,9 @@
                                             <a class="text-secondary font-weight-bold text-xs cursor-pointer" data-bs-toggle="modal" data-bs-target="#people_<?= $people['user_id'] ?>">
                                                 Edit
                                             </a>
+                                        </td>
+                                        <td class="align-middle text-center text-sm">
+                                            <a href="actions/manage_user.php?activation&user_id=<?= $people['user_id'] ?>&userstatus=<?= $people['userstatus'] ?>" class="btn py-2 px-3 badge badge-sm <?= $people['userstatus'] == 1 ? "bg-gradient-danger" : "bg-gradient-success" ?>"><?= $people['userstatus'] == 1 ? "Deactivate" : "Activate" ?></a>
                                         </td>
                                     </tr>
                                     <div class="modal fade" id="people_<?= $people['user_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

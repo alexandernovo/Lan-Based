@@ -23,6 +23,7 @@
         </div>
         <div class="form-row mb-3">
             <button name="login" type="submit" class="btn btn-success w-100 mt-3 login-button font-bold py-2">LOGIN</button>
+            <p class="text-center mt-2">No Acccount? <a class="text-decoration-none" href="?page=signup">Register Here</a></p>
         </div>
     </form>
 </div>

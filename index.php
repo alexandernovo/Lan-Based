@@ -173,10 +173,10 @@ if (isset($_GET['class_id'])) {
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
                                     <li>
-                                        <button class="dropdown-item" type="button">
+                                        <a href="?page=settings" class="dropdown-item" type="button">
                                             <i class="fa fa-cog "></i>
                                             Settings
-                                        </button>
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="actions/login.php?logout" class="dropdown-item" type="button">
@@ -206,7 +206,11 @@ if (isset($_GET['class_id'])) {
         <?php
         if (isset($_GET['page'])) {
             if (!isset($_SESSION['username'])) {
-                require_once("views/login.php");
+                if ($_GET['page'] == "signup") {
+                    require_once("views/signup.php");
+                } else {
+                    require_once("views/login.php");
+                }
             } else {
                 require_once("views/" . $_GET['page'] . ".php");
             }

@@ -26,7 +26,15 @@
 
 .login-border {
   width: 45%;
-  height: 500px;
+  height: 550px;
+  padding: 20px 50px;
+  border-radius: 9px;
+  background-color: white;
+  margin: 50px auto;
+}
+
+.signup-border {
+  width: 45%;
   padding: 20px 50px;
   border-radius: 9px;
   background-color: white;

@@ -118,9 +118,6 @@ const saveAnnouncement = () => {
 }
 
 
-
-
-
 $('#join_class').on('submit', function (e) {
     e.preventDefault();
 
@@ -143,10 +140,11 @@ $('#join_class').on('submit', function (e) {
                     user_id: $notif.user_id
                 };
                 sendNotif(content);
-                success("Please wait for the teacher to accept your request");
+                // success("Please wait for the teacher to accept your request");
+                success("You have join the class successfully");
                 setTimeout(() => {
                     location.reload();  // Reload the page on success
-                }, 1000);
+                }, 1500);
             }
         },
         error: function (xhr, status, error) {

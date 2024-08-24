@@ -61,7 +61,7 @@ if (isset($_POST['join_class'])) {
         'user_id' => $_SESSION['user_id'],
         'class_id' => $_POST['class_id'],
         'added_date' => date('Y-m-d h:i:s'),
-        'class_people_status' => 0
+        'class_people_status' => 1
     ];
 
     $find_teacher = first('class', ['class_id' => $_POST['class_id']]);

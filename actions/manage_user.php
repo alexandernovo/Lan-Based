@@ -60,3 +60,17 @@ function updateUser($_data)
 
     return true;
 }
+
+
+if (isset($_GET['activation'])) {
+    if ($_GET['userstatus'] == 1) {
+        $message = "User Deactivated Successfully";
+        $user_status = 0;
+    } else {
+        $message = "User Activated Successfully";
+        $user_status = 1;
+    }
+    $update = update('users', ['user_id' => $_GET['user_id']], ['userstatus' => $user_status]);
+    setFlash('success', $message);
+    redirect('../index', ['page' => 'users']);
+}
