@@ -1,6 +1,8 @@
 <?php
 if ($_SESSION['usertype'] == 1) {
     $classes = find_where('class', ['user_id' => $_SESSION['user_id']]);
+} else if ($_SESSION['usertype'] == 2) {
+    $classes = findAll('class');
 } else {
     $archive_class = find_where('archive_class', ['user_id' => $_SESSION['user_id']]);
     $ids = array_column($archive_class, 'class_id');

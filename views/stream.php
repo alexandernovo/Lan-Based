@@ -25,7 +25,11 @@
                             </thead>
                             <tbody>
                                 <?php
-                                $announcments = find_where('announcement', ['user_id' => $_SESSION['user_id']]);
+                                if ($_SESSION['usertype'] == 1) {
+                                    $announcments = find_where('announcement', ['user_id' => $_SESSION['user_id']]);
+                                } else {
+                                    $announcments = findAll('announcement');
+                                }
                                 ?>
                                 <?php foreach ($announcments as $announcement) : ?>
                                     <tr>

@@ -12,8 +12,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="actions/manage_activity.php" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
+                    <form action="actions/manage_activity.php" method="post" id="add_activity" enctype="multipart/form-data">
+                        <input type="hidden" name="class_id" id="class_id" value="<?php echo $_GET['class_id'] ?>">
                         <div class="d-flex gap-2">
                             <div class="w-50">
                                 <div class="form-row">

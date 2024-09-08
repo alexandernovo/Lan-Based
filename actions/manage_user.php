@@ -32,6 +32,7 @@ if (isset($_POST['update_profile'])) {
 }
 
 if (isset($_POST['update_user'])) {
+    // var_dump($_POST);
     updateUser($_POST);
     setFlash('success',  "User Updated Successfully");
     redirect('../index', ['page' => 'users']);
@@ -46,6 +47,7 @@ function updateUser($_data)
         'lastname' => $_data['lastname'],
         'email' => $_data['email'],
         'username' => $_data['username'],
+        'usertype' => $_data['usertype'],
     ];
 
     if (isset($_data['password'])  && $_data['password'] !== "") {

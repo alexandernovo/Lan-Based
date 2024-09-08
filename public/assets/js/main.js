@@ -144,3 +144,23 @@ $(document).ready(function () {
     });
 });
 
+$(".delete-class").on("click", function (e) {
+    e.preventDefault();
+    let $link = $(this).attr("href");
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete this class!",
+        customClass: {
+            confirmButton: "red-color-confirm",
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            location.href = $link;
+        }
+    });
+})

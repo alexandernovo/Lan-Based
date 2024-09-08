@@ -1,0 +1,7 @@
+included_id (int)
+notification_datetime (datetime)
+notification_description (longtext)
+notification_id (PRI, int)
+notification_title (varchar)
+notification_type (varchar)
+user_id (int)

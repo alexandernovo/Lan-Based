@@ -19,17 +19,42 @@
                                 <input required name="classname" class="form-control">
                             </div>
                             <div class="form-row mt-2">
-                                <label class="mx-0">Section</label>
+                                <label class="mx-0">Year and Section</label>
                                 <input required name="section" class="form-control">
-                            </div>
-                            <div class="form-row mt-2">
-                                <label class="mx-0">Room</label>
-                                <input required name="room" class="form-control">
                             </div>
                             <div class="form-row mt-2">
                                 <label class="mx-0">Subject</label>
                                 <input required name="subject" class="form-control">
                             </div>
+
+                            <div class="form-row mt-2">
+                                <label class="mx-0">Course</label>
+                                <input name="course" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <label class="mx-0">Program</label>
+                                <input name="program" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <p class="mb-0 font-bold">Schedule of Classes</p>
+                                <label class="mx-0">Lecture</label>
+                                <input name="schedclass_lecture" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <label class="mx-0">Lab</label>
+                                <input name="schedclass_lab" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <p class="mb-0 font-bold">Class Room</p>
+                                <label class="mx-0">Lecture</label>
+                                <input name="room" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <label class="mx-0">Lab</label>
+                                <input name="room_lab" class="form-control">
+                            </div>
+
+
                             <div class="form-row mt-3 mb-5">
                                 <button name="add_class" class="btn btn-success w-100 button-text-size">Create Class</button>
                             </div>

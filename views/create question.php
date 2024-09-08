@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="actions/manage_activity.php" method="post" enctype="multipart/form-data">
+                    <form action="actions/manage_activity.php" id="add_question" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
                         <div class="d-flex gap-2">
                             <div class="w-50">

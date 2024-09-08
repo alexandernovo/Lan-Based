@@ -9,7 +9,7 @@
                             <i class="fa fa-arrow-left"></i>
                             Back
                         </a>
-                        <?php if ($_SESSION['usertype'] == 1) : ?>
+                        <?php if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) : ?>
                             <a href="?page=create activity&class_id=<?php echo $_GET['class_id'] ?>" class="btn font-bold btn-outline-success btn-sm px-4 mb-0">
                                 <i class="fa fa-plus-circle"></i>
                                 Create Activity
@@ -27,7 +27,7 @@
                                 <div class="card">
                                     <div class="card-body p-3">
                                         <div class="activities-images">
-                                            <img src="public/assets/img/lab_activity.jpg" class="preview-image-options border">
+                                            <img src="public/assets/img/lab_activity.jpeg" class="preview-image-options border">
                                         </div>
                                         <p class="m-0 mt-1 class-title"><?= $activity['activity_title'] ?></p>
                                         <p class="m-0 mt-1 activity-due">Due Date: <?= $activity['isDueDate'] == 1 ? date('F d Y h:i a', strtotime($activity['dueDate'])) : 'No due date'  ?></p>

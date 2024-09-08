@@ -47,7 +47,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0"><?= $people['usertype'] == 1 ? "Teacher" : "Student" ?></p>
+                                            <p class="text-xs font-weight-bold mb-0"><?= $people['usertype'] == 1 ? "Teacher" : ($people['usertype'] == 2 ? "Admin" : "Student") ?></p>
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <span class="badge badge-sm <?= $people['userstatus'] == 1 ? "bg-gradient-success" : "bg-gradient-danger" ?>"><?= $people['userstatus'] == 1 ? "Active" : "Inactive" ?></span>
@@ -78,6 +78,7 @@
                                                             <select name="usertype" class="form-select">
                                                                 <option <?= $people['usertype'] == 0 ? "selected" : "" ?> value="0">Student</option>
                                                                 <option <?= $people['usertype'] == 1 ? "selected" : "" ?> value="1">Teacher</option>
+                                                                <option <?= $people['usertype'] == 2 ? "selected" : "" ?> value="2">Admin</option>
                                                             </select>
                                                         </div>
                                                         <input name="user_id" value="<?= $people['user_id'] ?>" type="hidden">
@@ -127,7 +128,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="people" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="people" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -141,6 +142,7 @@
                         <select name="usertype" class="form-select">
                             <option value="0">Student</option>
                             <option value="1">Teacher</option>
+                            <option value="2">Admin</option>
                         </select>
                     </div>
                     <div class="form-row">
@@ -166,8 +168,8 @@
                     <div class="form-row">
                         <label class="mb-1 mx-0">Password</label>
                         <div class="d-flex position-relative align-items-center">
-                            <input name="password" id="password" type="password" class="form-control" placeholder="Password">
-                            <i class="fa fa-eye position-absolute password-class-icon cursor-pointer text-secondary" onclick="seePassword('password')"></i>
+                            <input name="password" id="password123" type="password" class="form-control" placeholder="Password">
+                            <i class="fa fa-eye position-absolute password-class-icon cursor-pointer text-secondary" onclick="seePassword('password123')"></i>
                         </div>
                     </div>
                 </div>

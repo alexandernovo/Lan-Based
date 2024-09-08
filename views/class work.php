@@ -25,7 +25,7 @@ $find_archive = first('archive_class', ['user_id' => $_SESSION['user_id'], 'clas
                             <div class="card">
                                 <div class="card-body p-3">
                                     <div class="class-images">
-                                        <img src="public/assets/img/lab_activity.jpg" class="preview-image-options border">
+                                        <img src="public/assets/img/lab_activity.jpeg" class="preview-image-options border">
                                     </div>
                                     <p class="m-0 mt-1 class-title">LAB-Activities</p>
                                 </div>

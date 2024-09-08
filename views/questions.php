@@ -9,7 +9,7 @@
                             <i class="fa fa-arrow-left"></i>
                             Back
                         </a>
-                        <?php if ($_SESSION['usertype'] == 1) : ?>
+                        <?php if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) : ?>
                             <a href="?page=create question&class_id=<?php echo $_GET['class_id'] ?>" class="btn font-bold btn-outline-success btn-sm px-4 mb-0">
                                 <i class="fa fa-plus-circle"></i>
                                 Create Question

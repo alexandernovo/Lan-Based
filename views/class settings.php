@@ -5,10 +5,11 @@
             <div class="card mb-4">
                 <div class="card-header d-flex p-2  align-items-center justify-content-between">
                     <div class="d-flex justify-content-between align-items-center w-100">
-                        <div class="flex">
+                        <div class="d-flex justify-content-between w-100">
                             <?php
                             include 'class-header.php';
                             ?>
+                            <a href="actions/manage_class.php?delete_class&class_id=<?php echo $_GET['class_id'] ?>" class="delete-class btn btn-danger align-items-center btn-sm px-4 mb-0 d-flex align-items-center gap-2"><i class="fa fa-trash"></i>Delete Class</a>
                         </div>
                     </div>
                 </div>
@@ -26,16 +27,38 @@
                                 <input required name="classname" value="<?= $class_settings['classname'] ?>" class="form-control">
                             </div>
                             <div class="form-row mt-2">
-                                <label class="mx-0">Section</label>
+                                <label class="mx-0">Year and Section</label>
                                 <input required name="section" value="<?= $class_settings['section'] ?>" class="form-control">
-                            </div>
-                            <div class="form-row mt-2">
-                                <label class="mx-0">Room</label>
-                                <input required name="room" value="<?= $class_settings['room'] ?>" class="form-control">
                             </div>
                             <div class="form-row mt-2">
                                 <label class="mx-0">Subject</label>
                                 <input required name="subject" value="<?= $class_settings['subject'] ?>" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <label class="mx-0">Course</label>
+                                <input name="course" value="<?= $class_settings['course'] ?>" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <label class="mx-0">Program</label>
+                                <input value="<?= $class_settings['program'] ?>" name="program" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <p class="mb-0 font-bold">Schedule of Classes</p>
+                                <label class="mx-0">Lecture</label>
+                                <input value="<?= $class_settings['schedclass_lecture'] ?>" name="schedclass_lecture" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <label class="mx-0">Lab</label>
+                                <input value="<?= $class_settings['schedclass_lab'] ?>" name="schedclass_lab" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <p class="mb-0 font-bold">Class Room</p>
+                                <label class="mx-0">Lecture</label>
+                                <input value="<?= $class_settings['room'] ?>" name="room" class="form-control">
+                            </div>
+                            <div class="form-row mt-2">
+                                <label class="mx-0">Lab</label>
+                                <input value="<?= $class_settings['room_lab'] ?>" name="room_lab" class="form-control">
                             </div>
                             <div class="form-row mt-3 mb-5">
                                 <button name="update_class" class="btn btn-success w-100 button-text-size">Update Class</button>

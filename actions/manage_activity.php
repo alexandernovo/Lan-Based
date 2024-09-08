@@ -68,13 +68,40 @@ if (isset($_POST['add_activity'])) {
                     }
                 }
             }
-            setFlash('success', 'Activity Created Successfully');
-            redirect('../index', ['page' => 'lab activities', 'class_id' => $_POST['class_id']]);
+            $class = first("class", ['class_id' => $_POST['class_id']]);
+
+            $notification = [
+                'user_id' => $_SESSION['user_id'],
+                'notification_title' => "Created Activity",
+                'notification_description' => $class['classname'] . ' (' . $class['section'] . ')' . ' ' . $_POST['activity_title'] . " Activity Created",
+                'notification_type' => 'activity',
+                'included_id' =>  $_POST['class_id'],
+                'notification_datetime' => date('Y-m-d')
+            ];
+
+            save('notifications', $notification);
+
+            $notif = [
+                'title' =>  $class['classname'] . ' (' . $class['section'] . ')' . ' ' . $_POST['activity_title'] . "Activity Created",
+                "description" => $_POST['activity_description'],
+                "route" => "?page=lab activities&class_id=" . $_POST['class_id']
+            ];
+
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'success', 'data' => $notif]);
+            // setFlash('success', 'Activity Created Successfully');
+            // redirect('../index', ['page' => 'lab activities', 'class_id' => $_POST['class_id']]);
         }
     } else {
         retainValue();
         returnError($errors);
-        redirect('../index', ['page' => 'create activity', 'class_id' => $_POST['class_id']]);
+
+        $notif = [
+            "route" => "index.php?page=create activity&class_id=" . $_POST['class_id']
+        ];
+
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'failed', 'data' => $notif]);
     }
 }
 
@@ -132,6 +159,7 @@ if (isset($_POST['add_question'])) {
                     'size' => $_FILES['attachments']['size'][$key],
                 ];
 
+
                 if ($file['size'] != 0) {
                     $image = move_file($file, 'attachments');
                     if ($image) {
@@ -147,13 +175,43 @@ if (isset($_POST['add_question'])) {
                     }
                 }
             }
-            setFlash('success', 'Question Created Successfully');
-            redirect('../index', ['page' => 'questions', 'class_id' => $_POST['class_id']]);
+
+            $class = first("class", ['class_id' => $_POST['class_id']]);
+
+            $notification = [
+                'user_id' => $_SESSION['user_id'],
+                'notification_title' => "Created Question",
+                'notification_description' => $class['classname'] . ' (' . $class['section'] . ')' . ' ' . $_POST['activity_title'] . " Question Created",
+                'notification_type' => 'activity',
+                'included_id' =>  $_POST['class_id'],
+                'notification_datetime' => date('Y-m-d')
+            ];
+            save('notifications', $notification);
+            // setFlash('success', 'Question Created Successfully');
+            // redirect('../index', ['page' => 'questions', 'class_id' => $_POST['class_id']]);
+            $notif = [
+                'title' =>  $class['classname'] . ' (' . $class['section'] . ')' . ' ' . $_POST['activity_title'] . "Question Created",
+                "description" => $_POST['activity_description'],
+                "route" => "?page=questions&class_id=" . $_POST['class_id']
+            ];
+
+            header('Content-Type: application/json');
+            echo json_encode(['status' => 'success', 'data' => $notif]);
         }
     } else {
+        // retainValue();
+        // returnError($errors);
+        // redirect('../index', ['page' => 'create question', 'class_id' => $_POST['class_id']]);
+
         retainValue();
         returnError($errors);
-        redirect('../index', ['page' => 'create question', 'class_id' => $_POST['class_id']]);
+
+        $notif = [
+            "route" => "index.php?page=create question&class_id=" . $_POST['class_id']
+        ];
+
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'failed', 'data' => $notif]);
     }
 }
 

@@ -14,7 +14,7 @@ $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], '
                             Back
                         </a>
                     </div>
-                    <?php if ($_SESSION['usertype'] == 1) : ?>
+                    <?php if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) : ?>
                         <a href="?page=edit question&class_id=<?php echo $_GET['class_id'] ?>&activity_id=<?php echo $_GET['activity_id'] ?>" class="btn btn-outline-success btn-sm px-4 mb-0 font-bold">
                             <i class="fa fa-edit"></i>
                             Edit Question
@@ -68,7 +68,7 @@ $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], '
                             <i class="fa fa-folder mt-2"></i>
                             Submission
                         </p>
-                        <?php if ($_SESSION['usertype'] == 1) : ?>
+                        <?php if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) : ?>
                             <a href="?page=print activity&activity_id=<?php echo $_GET['activity_id'] ?>" class="btn btn-sm btn-primary mb-0 d-flex gap-1 align-items-center font-bold"><i class="fa fa-print"></i>Print Activity Results</a>
                         <?php endif; ?>
                         <?php if ($_SESSION['usertype'] == 0 && $dueDate) : ?>
@@ -142,7 +142,7 @@ $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], '
                             </div>
                         <?php endif; ?>
 
-                        <?php if ($_SESSION['usertype'] == 1) : ?>
+                        <?php if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) : ?>
                             <div class="border rounded p-3 ">
                                 <div class="table-responsive p-0">
                                     <table class="table align-items-center mb-0 table-data">

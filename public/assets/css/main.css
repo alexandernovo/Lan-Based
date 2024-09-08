@@ -7,7 +7,13 @@
 ::-webkit-scrollbar {
   width: 5px;
 }
+.notif-scroll::-webkit-scrollbar {
+  width: 10px !important;
+}
 
+.notif-scroll::-webkit-scrollbar-thumb {
+  background: #9e7019 !important;
+}
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
@@ -310,3 +316,12 @@
 /* .fc-today-button {
   background-color: #1a8755 !important;
 } */
+.swal2-cancel {
+  margin-top: 0px !important;
+}
+.swal2-warning {
+  font-size: 20px !important;
+}
+.red-color-confirm {
+  background-color: #d33 !important;
+}

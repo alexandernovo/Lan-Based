@@ -13,6 +13,15 @@ if (isset($_POST['add_class'])) {
         'room' => $_POST['room'],
         'subject' => $_POST['subject'],
         'class_status' => 1,
+
+        'schedclass_lecture' => $_POST['schedclass_lecture'],
+        'schedclass_lab' => $_POST['schedclass_lab'],
+        'room_lab' => $_POST['room_lab'],
+        'course' => $_POST['course'],
+        'program' => $_POST['program'],
+        'classroom_lecture' => $_POST['classroom_lecture'],
+        'classroom_lab' => $_POST['classroom_lab'],
+
         'classaddeddate' => date("Y-m-d"),
         'classcode' => generateRandomString(9)
     ];
@@ -40,7 +49,15 @@ if (isset($_POST['update_class'])) {
         'subject' => $_POST['subject'],
         'class_status' => 1,
         'classaddeddate' => date("Y-m-d"),
-        'classcode' => generateRandomString(9)
+        // 'classcode' => generateRandomString(9),
+        'schedclass_lecture' => $_POST['schedclass_lecture'],
+        'schedclass_lab' => $_POST['schedclass_lab'],
+        'room_lab' => $_POST['room_lab'],
+        'course' => $_POST['course'],
+        'program' => $_POST['program'],
+        'classroom_lecture' => $_POST['classroom_lecture'],
+        'classroom_lab' => $_POST['classroom_lab'],
+
     ];
 
     if ($image != "") {
@@ -65,24 +82,23 @@ if (isset($_POST['join_class'])) {
     ];
 
     $find_teacher = first('class', ['class_id' => $_POST['class_id']]);
-
     $save = save('class_people', $data);
 
     $notification = [
         'user_id' => $find_teacher['user_id'],
-        'notification_title' => "Joining Class",
-        'notification_description' => $_SESSION['firstname'] . ' asked permission to join class',
+        'notification_title' => "Joined Class",
+        'notification_description' => $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . ' has joined ' . $find_teacher['class_name'] . '(' . $find_teacher['section'] . ')',
         'notification_type' => 'class',
         'included_id' =>  $_POST['class_id'],
         'notification_datetime' => date('Y-m-d')
     ];
 
-    save('notification', $notification);
+    save('notifications', $notification);
 
     $message = [
         'user_id' => $find_teacher['user_id'],
-        'description' => $_SESSION['firstname'] . ' asked permission to join class',
-        'title' => 'Joining Class'
+        'description' => $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . ' has joined ' . $find_teacher['class_name'] . '(' . $find_teacher['section'] . ')',
+        'title' => 'Joined Class'
     ];
 
     header('Content-Type: application/json');
@@ -105,4 +121,10 @@ if (isset($_POST['archive_class'])) {
     $message = $_POST['status'] == 1 ? "Class Unarchived Successfully" : "Class Archived Successfully";
     setFlash('success', $message);
     redirect('../index', ['page' => 'archive classes']);
+}
+
+if (isset($_GET['delete_class'])) {
+    $delete = delete('class', ['class_id' => $_GET['class_id']]);
+    setFlash('success', "Class Deleted Successfully");
+    redirect('../index', ['page' => 'classes']);
 }

@@ -65,7 +65,7 @@ if (isset($_GET['class_id'])) {
                         </a>
                     </li>
 
-                    <?php if ($_SESSION['usertype'] == 1) : ?>
+                    <?php if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) : ?>
                         <li class="nav-item">
                             <a class="nav-link" href="?page=users">
                                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -191,7 +191,7 @@ if (isset($_GET['class_id'])) {
                                 <a onclick="showPopup('notif')" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-bell cursor-pointer"><span class="ms-1 rounded-circle bg-danger border border-danger px-2" id="notif_num"></span></i>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4 popup" id="notif" aria-labelledby="dropdownMenuButton">
+                                <ul style="max-height:500px; overflow-y:auto" class="notif-scroll dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4 popup" id="notif" aria-labelledby="dropdownMenuButton">
 
 
                                 </ul>
@@ -245,6 +245,7 @@ if (isset($_GET['class_id'])) {
         <?php if (isset($_SESSION['user_id'])) : ?>
             localStorage.setItem('user_id', <?php echo $_SESSION['user_id'] ?>);
             user_id = <?php echo $_SESSION['user_id'] ?>;
+            console.log(user_id);
         <?php endif; ?>
     </script>
     <!--===============================================================================================-->
@@ -276,6 +277,8 @@ if (isset($_GET['class_id'])) {
     <!--===============================================================================================-->
     <script src="public/assets/js/websocket.js"></script>
     <!--===============================================================================================-->
+    <script src="public/assets/js/websocketfunctions.js"></script>
+    <!--===============================================================================================-->
     <script src="public/assets/js/main.js"></script>
     <!--===============================================================================================-->
     <script src="public/assets/js/extension.js"></script>
@@ -286,6 +289,8 @@ if (isset($_GET['class_id'])) {
         <script src="public/assets/fullcalendar/fullcalendar.min.js"></script>
         <script src="public/assets/fullcalendar/calendarCode.js"></script>
     <?php endif; ?>
+    <!--===============================================================================================-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--===============================================================================================-->
     <?php if ($flash = getFlash('success')) : ?>
         <script>
