@@ -87,9 +87,14 @@ if (isset($_GET['count'])) {
 
 
 if (isset($_GET['notif_data'])) {
-    $user_id = $_SESSION['user_id'];
-    $notification_id = isset($_GET['notification_id']) ? intval($_GET['notification_id']) : 0;
+    $data = getNotifData();
+    echo json_encode(['status' => 'success', 'data' => $data]);
+}
 
+function getNotifData()
+{
+    global $conn;
+    $user_id = $_SESSION['user_id'];
     // Fetch user-specific classes from the database
     $class_ids = [];
     $sql = "SELECT class_id FROM class_people WHERE user_id = ?";
@@ -134,10 +139,10 @@ if (isset($_GET['notif_data'])) {
         // Bind parameters
         if (!empty($placeholders)) {
             $types = str_repeat('i', count($class_ids) + 1); // 'i' for integer type
-            $params = array_merge([$notification_id], $class_ids);
+            $params = array_merge([$user_id], $class_ids);
             $stmt->bind_param($types, ...$params);
         } else if ($_SESSION['usertype'] == 1) {
-            $stmt->bind_param('i', $notification_id);
+            $stmt->bind_param('i', $user_id);
         }
 
         // Execute the statement
@@ -149,15 +154,12 @@ if (isset($_GET['notif_data'])) {
 
         // Close the statement
         $stmt->close();
-
+        return $data;
         // Return the result as JSON
-        echo json_encode(['status' => 'success', 'data' => $data]);
     } else {
-        // Return an error if query preparation fails
         echo json_encode(['status' => 'error', 'message' => 'Query preparation failed.']);
     }
 }
-
 
 if (isset($_POST['markread'])) {
     $notif_id = $_POST['notif_id'];
