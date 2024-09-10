@@ -87,17 +87,18 @@ if (isset($_POST['join_class'])) {
     $notification = [
         'user_id' => $find_teacher['user_id'],
         'notification_title' => "Joined Class",
-        'notification_description' => $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . ' has joined ' . $find_teacher['class_name'] . '(' . $find_teacher['section'] . ')',
-        'notification_type' => 'class',
+        'notification_description' => $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . ' has joined ' . $find_teacher['classname'] . '(' . $find_teacher['section'] . ')',
+        'notification_type' => 'join',
         'included_id' =>  $_POST['class_id'],
-        'notification_datetime' => date('Y-m-d')
+        'notification_datetime' => date('Y-m-d'),
+        'is_read' => 1
     ];
 
     save('notifications', $notification);
 
     $message = [
         'user_id' => $find_teacher['user_id'],
-        'description' => $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . ' has joined ' . $find_teacher['class_name'] . '(' . $find_teacher['section'] . ')',
+        'description' => $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . ' has joined ' . $find_teacher['classname'] . '(' . $find_teacher['section'] . ')',
         'title' => 'Joined Class'
     ];
 

@@ -297,7 +297,7 @@ function getNotifData() {
 
                     return `
                         <li class="mb-2">
-                            <a class="dropdown-item border-radius-md" href="javascript:;" style="color:black !important">
+                            <button type="button" class="dropdown-item border-radius-md" style="${notification.is_read == 1 ? "background-color:lightgray" : ""}" onclick="redirectTo(${notification.included_id}, ${notification.activity_id}, '${notification.notification_type}', ${notification.notification_id})" style="color:black !important">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
                                         <i class="fa fa-bell text-dark" style="font-size:25px; margin-right:10px" style="color:black !important"></i>
@@ -330,6 +330,42 @@ function getNotifData() {
 }
 
 
+function redirectTo(included_id, activity_id, notification_type, notification_id) {
+    console.log("hello");
+    let result = markRead(notification_id);
+    if (result) {
+        if (notification_type == "join") {
+            location.href = `?page=people&class_id=${included_id}`;
+        }
+        else if (notification_type == "activity") {
+            location.href = `?page=activity&activity_id=${activity_id}&class_id=${included_id}`;
+        }
+        else if (notification_type == "question") {
+            location.href = `?page=activity&questions=${activity_id}&class_id=${included_id}`;
+        }
+    }
+}
+
+function markRead(notif_id) {
+    var formData = new FormData();
+    formData.append('notif_id', notif_id);
+    formData.append('markread', true);
+
+    $.ajax({
+        url: "actions/manage_notification.php",
+        type: "POST",
+        data: formData,
+        processData: false, // Prevent jQuery from processing the data
+        contentType: false, // Prevent jQuery from setting the content type header
+        success: function (response) {
+            return true;
+        },
+        error: function (xhr, status, error) {
+            console.error("Error updating notification status:", error);
+        }
+    });
+    return true;
+}
 
 getNotifNumber();
 getNotifData();

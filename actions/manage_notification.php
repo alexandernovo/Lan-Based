@@ -25,31 +25,35 @@ if (isset($_GET['count'])) {
             if ($_SESSION['usertype'] == 0) {
                 $query = "SELECT COUNT(notification_id) AS notification_count 
                           FROM notifications 
-                          WHERE (user_id = ? OR (included_id IN ($placeholders) AND notification_type = 'activity'))";
+                          WHERE (user_id = ? OR (included_id IN ($placeholders) AND notification_type = 'activity'))
+                          AND is_read = 1";
                 $types = str_repeat('i', count($class_ids)) . 'i'; // 'i' for integer type + 1 for notification_id
             } else {
                 $query = "SELECT COUNT(notification_id) AS notification_count 
                           FROM notifications 
-                          WHERE user_id = ? AND NOT notification_type = 'activity'";
+                          WHERE user_id = ? AND NOT notification_type = 'activity'
+                          AND is_read = 1";
                 $types = 'i'; // Just user_id
             }
         } else {
             if ($_SESSION['usertype'] == 0) {
                 $query = "SELECT COUNT(notification_id) AS notification_count 
                 FROM notifications 
-                WHERE user_id = ?";
+                WHERE user_id = ?
+                AND is_read = 1";
                 $types = 'i'; // Just user_id
             } else {
                 $query = "SELECT COUNT(notification_id) AS notification_count 
                 FROM notifications 
-                WHERE user_id = ? AND NOT notification_type = 'activity'";
+                WHERE user_id = ? AND NOT notification_type = 'activity'
+                AND is_read = 1";
                 $types = 'i'; // 
             }
         }
 
         if ($_SESSION['usertype'] == 2) {
             $query = "SELECT COUNT(notification_id) AS notification_count 
-            FROM notifications";
+            FROM notifications AND is_read = 1";
         }
 
         // Prepare and execute the SQL query
@@ -152,4 +156,11 @@ if (isset($_GET['notif_data'])) {
         // Return an error if query preparation fails
         echo json_encode(['status' => 'error', 'message' => 'Query preparation failed.']);
     }
+}
+
+
+if (isset($_POST['markread'])) {
+    $notif_id = $_POST['notif_id'];
+    $update = update("notifications", ['notification_id' => $notif_id], ['is_read' => 0]);
+    echo json_encode(['status' => 'success']);
 }

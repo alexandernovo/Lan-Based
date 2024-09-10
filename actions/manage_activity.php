@@ -76,7 +76,9 @@ if (isset($_POST['add_activity'])) {
                 'notification_description' => $class['classname'] . ' (' . $class['section'] . ')' . ' ' . $_POST['activity_title'] . " Activity Created",
                 'notification_type' => 'activity',
                 'included_id' =>  $_POST['class_id'],
-                'notification_datetime' => date('Y-m-d')
+                'notification_datetime' => date('Y-m-d'),
+                'activity_id' => $save,
+                'is_read' => 1
             ];
 
             save('notifications', $notification);
@@ -184,7 +186,9 @@ if (isset($_POST['add_question'])) {
                 'notification_description' => $class['classname'] . ' (' . $class['section'] . ')' . ' ' . $_POST['activity_title'] . " Question Created",
                 'notification_type' => 'activity',
                 'included_id' =>  $_POST['class_id'],
-                'notification_datetime' => date('Y-m-d')
+                'notification_datetime' => date('Y-m-d'),
+                'activity_id' => $save,
+                'is_read' => 1
             ];
             save('notifications', $notification);
             // setFlash('success', 'Question Created Successfully');
