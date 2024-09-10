@@ -10,7 +10,7 @@ if (isset($_GET['run']) == "go") :
         "username"   => "admin",
         "password"   => password_hash("admin", PASSWORD_DEFAULT),
         "email" => 'admin@gmail.com',
-        "usertype"   => 1,
+        "usertype"   => 2,
         "userstatus"   => 1,
         "registereddate"   => date("Y-m-d"),
     ];
