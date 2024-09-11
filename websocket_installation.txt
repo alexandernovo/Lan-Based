@@ -1,2 +1,14 @@
 change ip in config.json
-php -q C:\xampp\htdocs\LanBased\config\php-socket.php
+change ip in config.json
+php -q C:\xampp\htdocs\Lan-Based\config\php-socket.php
+
+
+1. search cmd
+2. type ipconfig
+3. copy the ipv4 to config.json in visual studio code
+4. run this in cmd  php -q C:\xampp\htdocs\Lan-Based\config\php-socket.php
+
+the ip in the cmd nga gincopy, muna ang i use mo sa secondary laptop or mobile phone
+bsta same network sila
+
+ip address/Lan-based/index.php
