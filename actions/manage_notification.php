@@ -53,7 +53,7 @@ if (isset($_GET['count'])) {
 
         if ($_SESSION['usertype'] == 2) {
             $query = "SELECT COUNT(notification_id) AS notification_count 
-            FROM notifications AND is_read = 1";
+            FROM notifications WHERE is_read = 1";
         }
 
         // Prepare and execute the SQL query
