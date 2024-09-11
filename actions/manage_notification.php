@@ -48,13 +48,15 @@ if (isset($_GET['count'])) {
         // Prepare and execute the SQL query
         if ($stmt = $conn->prepare($query)) {
             // Bind parameters dynamically
-            if ($_SESSION['usertype'] == 0 && !empty($placeholders)) {
-                $params = array_merge([$notification_id], $class_ids);
-                $stmt->bind_param($types, ...$params);
+            if ($_SESSION['usertype'] == 0) {
+                if (!empty($placeholders)) {
+                    $params = array_merge([$notification_id], $class_ids);
+                    $stmt->bind_param($types, ...$params);
+                } else {
+                    $stmt->bind_param($types, $notification_id);
+                }
             } else if ($_SESSION['usertype'] == 1) {
                 $stmt->bind_param($types, $notification_id);
-            } else if ($_SESSION['usertype'] == 2) {
-                // No parameters to bind for usertype 2
             }
 
             // Execute the statement
