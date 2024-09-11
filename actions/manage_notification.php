@@ -11,55 +11,38 @@ if (isset($_GET['count'])) {
         $own_class = find_where("class_people", ['user_id' => $_SESSION['user_id']]);
 
         if ($own_class) {
-            $class_ids = array_column($own_class, 'class_id'); // Adjust 'class_id' to the actual field name
+            $class_ids = array_column($own_class, 'class_id'); // Extract class IDs
         } else {
-            $own_class = ["class_id" => ""];
-            $class_ids = array_column($own_class, 'class_id'); // Adjust 'class_id' to the actual field name
-        }
-        // Extract class IDs into an array
-
-        // If class IDs are available, format them for the SQL query
-        if (!empty($class_ids)) {
-            $placeholders = implode(',', array_fill(0, count($class_ids), '?'));
-        } else {
-            $placeholders = ''; // Handle the case where there are no class IDs
+            $class_ids = []; // Empty array if no classes are found
         }
 
-        // Construct the SQL query with or without the IN clause
-        if (!empty($placeholders)) {
-            if ($_SESSION['usertype'] == 0) {
+        // Construct placeholders for the SQL query
+        $placeholders = !empty($class_ids) ? implode(',', array_fill(0, count($class_ids), '?')) : '';
+
+        // Construct the SQL query based on user type
+        if ($_SESSION['usertype'] == 0) {
+            if (!empty($placeholders)) {
                 $query = "SELECT COUNT(notification_id) AS notification_count 
                           FROM notifications 
                           WHERE (user_id = ? OR (included_id IN ($placeholders) AND notification_type = 'activity'))
                           AND is_read = 1";
-                $types = str_repeat('i', count($class_ids)) . 'i'; // 'i' for integer type + 1 for notification_id
-            } else if ($_SESSION['usertype'] == 1) {
+                $types = str_repeat('i', count($class_ids)) . 'i'; // Type string for class_ids + user_id
+            } else {
                 $query = "SELECT COUNT(notification_id) AS notification_count 
                           FROM notifications 
-                          WHERE user_id = ? AND NOT notification_type = 'activity'
-                          AND is_read = 1";
-                $types = 'i'; // Just user_id
+                          WHERE user_id = ? AND is_read = 1";
+                $types = 'i'; // Type string for user_id only
             }
-        } else {
-            if ($_SESSION['usertype'] == 0) {
-                $query = "SELECT COUNT(notification_id) AS notification_count 
-                FROM notifications 
-                WHERE user_id = ?
-                AND is_read = 1";
-                $types = 'i'; // Just user_id
-            }
-            if ($_SESSION['usertype'] == 1) {
-                $query = "SELECT COUNT(notification_id) AS notification_count 
-                FROM notifications 
-                WHERE user_id = ? AND NOT notification_type = 'activity'
-                AND is_read = 1";
-                $types = 'i'; // 
-            }
-        }
-
-        if ($_SESSION['usertype'] == 2) {
+        } else if ($_SESSION['usertype'] == 1) {
             $query = "SELECT COUNT(notification_id) AS notification_count 
-            FROM notifications WHERE is_read = 1";
+                      FROM notifications 
+                      WHERE user_id = ? AND NOT notification_type = 'activity'
+                      AND is_read = 1";
+            $types = 'i'; // Type string for user_id
+        } else if ($_SESSION['usertype'] == 2) {
+            $query = "SELECT COUNT(notification_id) AS notification_count 
+                      FROM notifications WHERE is_read = 1";
+            $types = ''; // No parameters for usertype 2
         }
 
         // Prepare and execute the SQL query
@@ -70,6 +53,8 @@ if (isset($_GET['count'])) {
                 $stmt->bind_param($types, ...$params);
             } else if ($_SESSION['usertype'] == 1) {
                 $stmt->bind_param($types, $notification_id);
+            } else if ($_SESSION['usertype'] == 2) {
+                // No parameters to bind for usertype 2
             }
 
             // Execute the statement
