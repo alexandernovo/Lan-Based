@@ -18,6 +18,7 @@ if (isset($_GET['count'])) {
             $placeholders = implode(',', array_fill(0, count($class_ids), '?'));
         } else {
             $placeholders = ''; // Handle the case where there are no class IDs
+            $class_ids = [];
         }
 
         // Construct the SQL query with or without the IN clause
