@@ -10,15 +10,19 @@ if (isset($_GET['count'])) {
         // Fetch user-specific classes from the database
         $own_class = find_where("class_people", ['user_id' => $_SESSION['user_id']]);
 
+        if ($own_class) {
+            $class_ids = array_column($own_class, 'class_id'); // Adjust 'class_id' to the actual field name
+        } else {
+            $own_class = ["class_id" => ""];
+            $class_ids = array_column($own_class, 'class_id'); // Adjust 'class_id' to the actual field name
+        }
         // Extract class IDs into an array
-        $class_ids = array_column($own_class, 'class_id'); // Adjust 'class_id' to the actual field name
 
         // If class IDs are available, format them for the SQL query
         if (!empty($class_ids)) {
             $placeholders = implode(',', array_fill(0, count($class_ids), '?'));
         } else {
             $placeholders = ''; // Handle the case where there are no class IDs
-            $class_ids = [];
         }
 
         // Construct the SQL query with or without the IN clause
