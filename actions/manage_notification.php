@@ -28,7 +28,7 @@ if (isset($_GET['count'])) {
                           WHERE (user_id = ? OR (included_id IN ($placeholders) AND notification_type = 'activity'))
                           AND is_read = 1";
                 $types = str_repeat('i', count($class_ids)) . 'i'; // 'i' for integer type + 1 for notification_id
-            } else {
+            } else if ($_SESSION['usertype'] == 1) {
                 $query = "SELECT COUNT(notification_id) AS notification_count 
                           FROM notifications 
                           WHERE user_id = ? AND NOT notification_type = 'activity'
@@ -42,7 +42,8 @@ if (isset($_GET['count'])) {
                 WHERE user_id = ?
                 AND is_read = 1";
                 $types = 'i'; // Just user_id
-            } else {
+            }
+            if ($_SESSION['usertype'] == 1) {
                 $query = "SELECT COUNT(notification_id) AS notification_count 
                 FROM notifications 
                 WHERE user_id = ? AND NOT notification_type = 'activity'
