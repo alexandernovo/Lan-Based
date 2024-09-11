@@ -16,10 +16,10 @@ if (isset($_POST['add_class'])) {
 
         'schedclass_lecture' => $_POST['schedclass_lecture'],
         'schedclass_lab' => $_POST['schedclass_lab'],
-        'room_lab' => $_POST['room_lab'],
+        'room_lab' => $_POST['classroom_lab'],
         'course' => $_POST['course'],
         'program' => $_POST['program'],
-        'classroom_lecture' => $_POST['classroom_lecture'],
+        'classroom_lecture' => $_POST['room'],
         'classroom_lab' => $_POST['classroom_lab'],
 
         'classaddeddate' => date("Y-m-d"),
@@ -52,12 +52,11 @@ if (isset($_POST['update_class'])) {
         // 'classcode' => generateRandomString(9),
         'schedclass_lecture' => $_POST['schedclass_lecture'],
         'schedclass_lab' => $_POST['schedclass_lab'],
-        'room_lab' => $_POST['room_lab'],
+        'room_lab' => $_POST['classroom_lab'],
         'course' => $_POST['course'],
         'program' => $_POST['program'],
-        'classroom_lecture' => $_POST['classroom_lecture'],
+        'classroom_lecture' => $_POST['room'],
         'classroom_lab' => $_POST['classroom_lab'],
-
     ];
 
     if ($image != "") {

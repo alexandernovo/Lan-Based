@@ -51,7 +51,7 @@
                             </div>
                             <div class="form-row mt-2">
                                 <label class="mx-0">Lab</label>
-                                <input name="room_lab" class="form-control">
+                                <input name="classroom_lab" class="form-control">
                             </div>
 
 
