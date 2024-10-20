@@ -1,19 +1,21 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
-            <p class="m-0 text-white class_header"><?= $class_settings['classname'] ?> (<?= $class_settings['section'] ?>)</p>
+            <p class="m-0 text-white class_header"><?= $class_settings['course'] ?> (<?= $class_settings['section'] ?>) - <?= $class_settings['program'] ?></p>
             <div class="card mb-4">
                 <div class="card-header d-flex p-2  align-items-center justify-content-between">
                     <div class="d-flex justify-content-between align-items-center w-100">
                         <?php
                         include 'class-header.php';
                         ?>
-                        <div>
-                            <button data-bs-toggle="modal" data-bs-target="#people" class="btn btn-outline-success btn-sm mb-0 font-bold">
-                                <i class="fa fa-plus-circle"></i>
-                                Add People
-                            </button>
-                        </div>
+                        <?php if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) : ?>
+                            <div>
+                                <button data-bs-toggle="modal" data-bs-target="#people" class="btn btn-outline-success btn-sm mb-0 font-bold">
+                                    <i class="fa fa-plus-circle"></i>
+                                    Add People
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="card-body">
@@ -25,12 +27,14 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Added Date</th>
-                                    <th class="text-secondary opacity-7"></th>
+                                    <?php if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) : ?>
+                                        <th class="text-secondary opacity-7"></th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $peoples = joinTable('users', [['class_people', 'class_people.user_id', 'users.user_id']], ['class_people.class_id' => $_GET['class_id']]);
+                                $peoples = joinTable('users', [['class_people', 'class_people.user_id', 'users.user_id']], conditions: ['class_people.class_id' => $_GET['class_id']]);
                                 ?>
                                 <?php foreach ($peoples as $people) : ?>
                                     <tr>
@@ -54,35 +58,37 @@
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"><?php echo date('F j, Y', strtotime($people['added_date'])); ?></span>
                                         </td>
-                                        <td class="align-middle">
-                                            <?php if ($people['class_people_status'] == 0) { ?>
-                                                <div class="d-flex gap-3 justify-content-center">
-                                                    <form id="approved" method="POST">
-                                                        <input type="hidden" name="approve">
-                                                        <input type="hidden" name="class_people_id" value="<?= $people['class_people_id'] ?>">
-                                                        <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
-                                                        <button type="submit" class="btn btn-transparent mb-0 shadow-none d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-success">
-                                                            <i class="fa fa-check"></i>
-                                                            Approved
-                                                        </button>
-                                                    </form>
-                                                    <form id="reject" method="POST">
-                                                        <input type="hidden" name="remove">
-                                                        <input type="hidden" name="class_people_id" value="<?= $people['class_people_id'] ?>">
-                                                        <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
-                                                        <button type="submit" class=" btn btn-transparent mb-0 shadow-none d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-danger">
-                                                            <i class="fa fa-times"></i>
-                                                            Decline
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            <?php } else { ?>
-                                                <a href="actions/manage_people.php?remove&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-danger">
-                                                    <i class="fa fa-times"></i>
-                                                    Remove
-                                                </a>
-                                            <?php } ?>
-                                        </td>
+                                        <?php if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) : ?>
+                                            <td class="align-middle">
+                                                <?php if ($people['class_people_status'] == 0) { ?>
+                                                    <div class="d-flex gap-3 justify-content-center">
+                                                        <form id="approved" method="POST">
+                                                            <input type="hidden" name="approve">
+                                                            <input type="hidden" name="class_people_id" value="<?= $people['class_people_id'] ?>">
+                                                            <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
+                                                            <button type="submit" class="btn btn-transparent mb-0 shadow-none d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-success">
+                                                                <i class="fa fa-check"></i>
+                                                                Approved
+                                                            </button>
+                                                        </form>
+                                                        <form id="reject" method="POST">
+                                                            <input type="hidden" name="remove">
+                                                            <input type="hidden" name="class_people_id" value="<?= $people['class_people_id'] ?>">
+                                                            <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
+                                                            <button type="submit" class=" btn btn-transparent mb-0 shadow-none d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-danger">
+                                                                <i class="fa fa-times"></i>
+                                                                Decline
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <a href="actions/manage_people.php?remove&class_people_id=<?= $people['class_people_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>" class="d-flex align-items-center text-decoration-none justify-content-center gap-1 remove-button text-danger">
+                                                        <i class="fa fa-times"></i>
+                                                        Remove
+                                                    </a>
+                                                <?php } ?>
+                                            </td>
+                                        <?php endif; ?>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

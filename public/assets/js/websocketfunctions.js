@@ -89,16 +89,18 @@ $('#join_class').on('submit', function (e) {
                     description: $notif.description,
                     user_id: $notif.user_id
                 };
-                sendNotif(content);
-                // success("Please wait for the teacher to accept your request");
                 success("You have join the class successfully");
-                // setTimeout(() => {
-                //     location.reload();  // Reload the page on success
-                // }, 1500);
+                // success("Please wait for the teacher to accept your request");
+                setTimeout(() => {
+                    location.reload();  // Reload the page on success
+                }, 1500);
             }
         },
         error: function (xhr, status, error) {
             console.error("Error:", error);
+        },
+        complete: function () {
+            sendNotif(content);
         }
     });
 });

@@ -68,7 +68,7 @@ if ($_SESSION['usertype'] == 1) {
                                                     <div class="class-images">
                                                         <img src="<?= empty($class['class_image']) || $class['class_image'] == ""  ? "public/assets/img/class_default.jpg" :  $class['class_image'] ?>" class="preview-image ">
                                                     </div>
-                                                    <p class="m-0 mt-1 class-title"><?= $class['classname'] ?> (<?= $class['section'] ?>)</p>
+                                                    <p class="m-0 mt-1 class-title"><?= $class['course'] ?> (<?= $class['section'] ?>)- <?= $class['program'] ?></p>
                                                     <p class="m-0 class-room text-secondary"><?= $class['room'] ?></p>
                                                 </div>
                                                 <div class="card-footer py-0 py-2 px-2">

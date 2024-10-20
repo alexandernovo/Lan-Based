@@ -4,7 +4,7 @@ $find_archive = first('archive_class', ['user_id' => $_SESSION['user_id'], 'clas
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
-            <p class="m-0 text-white class_header"><?= $class_settings['classname'] ?> (<?= $class_settings['section'] ?>)</p>
+            <p class="m-0 text-white class_header"><?= $class_settings['course'] ?> (<?= $class_settings['section'] ?>) - <?= $class_settings['program'] ?></p>
             <div class="card mb-4">
                 <div class="card-header d-flex p-2 align-items-center justify-content-between">
                     <div class="flex">

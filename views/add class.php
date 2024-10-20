@@ -14,22 +14,23 @@
                                 <input type="file" name="image" class="d-none" id="image-upload">
                                 <label for="image-upload" type="button" class="btn btn-sm btn-secondary mt-1 mx-0 px-3">Upload</;>
                             </div>
+                            <div class="form-row">
+                                <!-- <label class="mx-0">Class name</label> -->
+                                <input type="hidden" name="classname" class="form-control">
+                            </div>
+
+                            <div class="form-row">
+                                <!-- <label class="mx-0">Subject</label> -->
+                                <input type="hidden" name="subject" class="form-control">
+                            </div>
+
                             <div class="form-row mt-5">
-                                <label class="mx-0">Class name</label>
-                                <input required name="classname" class="form-control">
+                                <label class="mx-0">Course</label>
+                                <input name="course" class="form-control">
                             </div>
                             <div class="form-row mt-2">
                                 <label class="mx-0">Year and Section</label>
                                 <input required name="section" class="form-control">
-                            </div>
-                            <div class="form-row mt-2">
-                                <label class="mx-0">Subject</label>
-                                <input required name="subject" class="form-control">
-                            </div>
-
-                            <div class="form-row mt-2">
-                                <label class="mx-0">Course</label>
-                                <input name="course" class="form-control">
                             </div>
                             <div class="form-row mt-2">
                                 <label class="mx-0">Program</label>
