@@ -54,6 +54,12 @@ if (isset($_POST['add_activity'])) {
                 ];
 
                 if ($file['size'] != 0) {
+                    //get the dateModified and Date Created of a file
+                    $dateModified = filemtime($file['tmp_name']);
+                    $dateModifiedFormatted = date("Y-m-d H:i:s", $dateModified);
+                    $dateCreated = filectime($file['tmp_name']);
+                    $dateCreatedFormatted = date("Y-m-d H:i:s", $dateCreated);
+
                     $image = move_file($file, 'attachments');
                     if ($image) {
                         $data_attachments = [
@@ -62,7 +68,9 @@ if (isset($_POST['add_activity'])) {
                             'attachment_filetype' => $file['type'],
                             'attachment_name' => $file['name'],
                             'attachment_type' => 'attachments',
-                            'attachment_addeddate' => date('Y-m-d h:i:s')
+                            'attachment_addeddate' => date('Y-m-d h:i:s'),
+                            'attachment_datecreated' =>  $dateCreatedFormatted,
+                            'attachment_modified' => $dateModifiedFormatted
                         ];
                         $save_attachment = save('attachments', $data_attachments);
                     }
@@ -163,6 +171,12 @@ if (isset($_POST['add_question'])) {
 
 
                 if ($file['size'] != 0) {
+
+                    $dateModified = filemtime($file['tmp_name']);
+                    $dateModifiedFormatted = date("Y-m-d H:i:s", $dateModified);
+                    $dateCreated = filectime($file['tmp_name']);
+                    $dateCreatedFormatted = date("Y-m-d H:i:s", $dateCreated);
+
                     $image = move_file($file, 'attachments');
                     if ($image) {
                         $data_attachments = [
@@ -171,7 +185,9 @@ if (isset($_POST['add_question'])) {
                             'attachment_filetype' => $file['type'],
                             'attachment_name' => $file['name'],
                             'attachment_type' => 'attachments',
-                            'attachment_addeddate' => date('Y-m-d h:i:s')
+                            'attachment_addeddate' => date('Y-m-d h:i:s'),
+                            'attachment_datecreated' =>  $dateCreatedFormatted,
+                            'attachment_modified' => $dateModifiedFormatted
                         ];
                         $save_attachment = save('attachments', $data_attachments);
                     }
@@ -281,14 +297,23 @@ if (isset($_POST['edit_activity'])) {
                     }
                     $image = move_file($file, 'attachments');
                     if ($image) {
+
+                        $dateModified = filemtime($file['tmp_name']);
+                        $dateModifiedFormatted = date("Y-m-d H:i:s", $dateModified);
+                        $dateCreated = filectime($file['tmp_name']);
+                        $dateCreatedFormatted = date("Y-m-d H:i:s", $dateCreated);
+    
                         $data_attachments = [
                             'activity_id' =>  $_POST['activity_id'],
                             'attachment_file' => $image,
                             'attachment_filetype' => $file['type'],
                             'attachment_name' => $file['name'],
                             'attachment_type' => 'attachments',
-                            'attachment_addeddate' => date('Y-m-d h:i:s')
+                            'attachment_addeddate' => date('Y-m-d h:i:s'),
+                            'attachment_datecreated' =>  $dateCreatedFormatted,
+                            'attachment_modified' => $dateModifiedFormatted
                         ];
+
                         $save_attachment = save('attachments', $data_attachments);
                     }
                 }
@@ -366,13 +391,20 @@ if (isset($_POST['edit_question'])) {
                     }
                     $image = move_file($file, 'attachments');
                     if ($image) {
+                        $dateModified = filemtime($file['tmp_name']);
+                        $dateModifiedFormatted = date("Y-m-d H:i:s", $dateModified);
+                        $dateCreated = filectime($file['tmp_name']);
+                        $dateCreatedFormatted = date("Y-m-d H:i:s", $dateCreated);
+    
                         $data_attachments = [
                             'activity_id' => $_POST['activity_id'],
                             'attachment_file' => $image,
                             'attachment_filetype' => $file['type'],
                             'attachment_name' => $file['name'],
                             'attachment_type' => 'attachments',
-                            'attachment_addeddate' => date('Y-m-d h:i:s')
+                            'attachment_addeddate' => date('Y-m-d h:i:s'),
+                            'attachment_datecreated' =>  $dateCreatedFormatted,
+                            'attachment_modified' => $dateModifiedFormatted
                         ];
                         $save_attachment = save('attachments', $data_attachments);
                     }

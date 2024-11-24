@@ -32,11 +32,18 @@ if (isset($_POST['add_submission']) || isset($_POST['add_submission_question']))
         ];
 
         if ($file['size'] != 0) {
+            $dateModified = filemtime($file['tmp_name']);
+            $dateModifiedFormatted = date("Y-m-d H:i:s", $dateModified);
+            $dateCreated = filectime($file['tmp_name']);
+            $dateCreatedFormatted = date("Y-m-d H:i:s", $dateCreated);
+
             $image = move_file($file, 'submissions');
             $data2 = [
                 'submission_id' => $save,
                 'submission_file' => $image,
                 'submission_fileName' => $file['name'],
+                'submission_datecreated' => $dateCreatedFormatted,
+                'submission_datemodified' => $dateModifiedFormatted,
             ];
 
             $save2 = save('submission_file', $data2);
@@ -71,11 +78,18 @@ if (isset($_POST['edit_submission']) || isset($_POST['edit_submission_question']
         ];
 
         if ($file['size'] != 0) {
+            $dateModified = filemtime($file['tmp_name']);
+            $dateModifiedFormatted = date("Y-m-d H:i:s", $dateModified);
+            $dateCreated = filectime($file['tmp_name']);
+            $dateCreatedFormatted = date("Y-m-d H:i:s", $dateCreated);
+
             $image = move_file($file, 'submissions');
             $data2 = [
                 'submission_id' => $_POST['submission_id'],
                 'submission_file' => $image,
                 'submission_fileName' => $file['name'],
+                'submission_datecreated' => $dateCreatedFormatted,
+                'submission_datemodified' => $dateModifiedFormatted,
             ];
 
             $save2 = save('submission_file', $data2);
