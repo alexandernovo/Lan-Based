@@ -65,7 +65,7 @@ $attachments = find_where('attachments', ['activity_id' => $_GET['activity_id']]
                                             <?= $attachment['attachment_name'] ?>
                                         </div>
                                         <a href="<?= $attachment['attachment_file'] ?>" download class="text-black download-hover">
-                                            <i class="fa fa-arrow-circle-o-down"></i>
+                                            <i class="fa fa-download"></i>
                                         </a>
                                     </div>
                                 <?php endforeach; ?>

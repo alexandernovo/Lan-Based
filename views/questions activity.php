@@ -54,8 +54,8 @@ $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], '
                                     <i class="fa fa-paperclip"></i>
                                     <?= $attachment['attachment_name'] ?>
                                 </div>
-                                <a href="<?= $attachment['attachment_file'] ?>" download class="text-black download-hover">
-                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                <a href="<?= $attachment['attachment_file'] ?>" download="<?= $attachment['attachment_name'] ?>" class="text-black download-hover">
+                                    <i class="fa fa-download"></i>
                                 </a>
                             </div>
                         <?php endforeach; ?>
@@ -105,7 +105,7 @@ $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], '
                                             <?= $submission['submission_fileName'] ?>
                                         </div>
                                         <a href="<?= $submission['submission_file'] ?>" download class="text-black download-hover">
-                                            <i class="fa fa-arrow-circle-o-down"></i>
+                                            <i class="fa fa-download"></i>
                                         </a>
                                     </div>
                             <?php endforeach;

@@ -39,7 +39,7 @@ $back_button_url = $activity['activity_type'] == "activity"
                                 <?= $submission['submission_fileName'] ?>
                             </div>
                             <a href="<?= $submission['submission_file'] ?>" download class="text-black download-hover">
-                                <i class="fa fa-arrow-circle-o-down"></i>
+                                <i class="fa fa-download"></i>
                             </a>
                         </div>
                     <?php endforeach; ?>

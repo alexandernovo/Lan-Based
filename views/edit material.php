@@ -34,7 +34,7 @@ $attachments = find_where('material_attachment', ['material_id' => $_GET['materi
                                     <?= $attachment['material_fileName'] ?>
                                 </div>
                                 <a href="<?= $attachment['material_file'] ?>" download class="text-black download-hover">
-                                    <i class="fa fa-arrow-circle-o-down"></i>
+                                    <i class="fa fa-download"></i>
                                 </a>
                             </div>
                         <?php endforeach; ?>

@@ -26,7 +26,7 @@
                                         <i class="fa fa-times"></i>
                                     </a>
                                     <a href="<?= $save_file['material_file'] ?>" download=" <?= $save_file['material_fileName'] ?>" class="download-hover">
-                                        <i class="fa fa-arrow-circle-o-down"></i>
+                                        <i class="fa fa-download"></i>
                                     </a>
                                 </div>
                             </div>

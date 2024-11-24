@@ -42,8 +42,8 @@ $material = first('material', ['material_id' => $_GET['material_id']]);
                                     <?= $mat['material_fileName'] ?>
                                 </div>
                                 <div class="d-flex gap-4">
-                                    <a href="<?= $mat['material_file'] ?>" download class="download-hover">
-                                        <i class="fa fa-arrow-circle-o-down"></i>
+                                    <a href="<?= $mat['material_file'] ?>" download="<?= $mat['material_fileName'] ?>" class="download-hover">
+                                        <i class="fa fa-download"></i>
                                         Download
                                     </a>
                                     <?php
