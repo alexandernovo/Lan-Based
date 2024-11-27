@@ -10,6 +10,10 @@ if (isset($_POST['login'])) {
             if (password_verify($_POST['password'], $users['password'])) {
                 setSession($users);
                 setFlash('success', 'Welcome Back ' . $users['firstname']);
+                if($users['usertype'] == 2)
+                {
+                    redirect('../index', ['page' => 'users']);
+                }
                 redirect('../index', ['page' => 'classes']);
             } else {
                 retainValue();
