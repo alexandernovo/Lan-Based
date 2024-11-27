@@ -112,7 +112,29 @@ function move_file($file, $directory)
         return false;
     }
 }
+function move_file2($file, $directory)
+{
+    // Check if file was uploaded
+    if (!isset($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
+        return false;
+    }
+    // Get the extension of the uploaded file
+    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
 
+    // Generate a unique random name
+    $newName = uniqid(rand(), true) . '.' . $extension;
+
+    // Create the new path
+    $newPath = '../public/assets/' . $directory . '/' . $newName;
+    $returnPath = 'public/assets/' . $directory . '/' . $newName;
+
+    // Move the uploaded file
+    if (move_uploaded_file($file['tmp_name'], $newPath)) {
+        return $newName;
+    } else {
+        return false;
+    }
+}
 function deleteFile($filePath)
 {
     // Check if the file exists and is a file (not a directory)
@@ -158,7 +180,77 @@ function dateDue($date)
         return "<span class='text-danger attachment_text'>Overdue by " . $interval->days . " days</span>";
     }
 }
+function getFileTimes($filePath)
+{
+    // Escape the file path to prevent command injection
+    $escapedFilePath = escapeshellarg($filePath);
 
+    // Ensure file path is correctly quoted for cmd execution (Windows can have spaces in paths)
+    $escapedFilePath = '"' . $escapedFilePath . '"';
+
+    // Command to get modified time (last modified)
+    $modifiedTimeCommand = "forfiles /P " . dirname($escapedFilePath) . " /M " . basename($escapedFilePath) . " /C \"cmd /c echo @fdate @ftime\"";
+    $modifiedTime = [];
+    $modifiedTimeStatus = null;
+    $modifiedTimeOutput = exec($modifiedTimeCommand, $modifiedTime, $modifiedTimeStatus);
+
+    // Command to get creation time
+    $creationTimeCommand = "forfiles /P " . dirname($escapedFilePath) . " /M " . basename($escapedFilePath) . " /C \"cmd /c echo @creation\"";
+    $creationTime = [];
+    $creationTimeStatus = null;
+    $creationTimeOutput = exec($creationTimeCommand, $creationTime, $creationTimeStatus);
+
+    // Check if the commands were successful
+    if ($modifiedTimeStatus !== 0 || $creationTimeStatus !== 0) {
+        return [
+            'error' => 'Could not retrieve file times. Please check the file path or permissions.',
+            'modified_time_status' => $modifiedTimeStatus,
+            'creation_time_status' => $creationTimeStatus,
+            'modified_time_output' => $modifiedTimeOutput,
+            'creation_time_output' => $creationTimeOutput,
+        ];
+    }
+
+    // Combine the outputs and return the results
+    return [
+        'modified_time' => trim(implode("\n", $modifiedTime)),
+        'creation_time' => trim(implode("\n", $creationTime)),
+    ];
+}
+
+function getJsonValue($var)
+{
+    $rootPath = realpath(dirname(__FILE__) . '/..');
+
+    // Absolute path to config.json
+    $configFilePath = $rootPath . '/config.json';
+
+    if (!file_exists($configFilePath)) {
+        die('Error: config.json file not found');
+    }
+
+    $config_data = file_get_contents($configFilePath);
+    if ($config_data === false) {
+        die('Error reading config.json');
+    }
+
+    $config_json = json_decode($config_data, true);
+    if ($config_json === null && json_last_error() !== JSON_ERROR_NONE) {
+        die('Error decoding config.json: ' . json_last_error_msg());
+    }
+
+    $variable = $config_json[$var];
+    return $variable;
+}
+
+function utcToDateTime($utcDate)
+{
+    $date = new DateTime($utcDate);
+    $date->setTimezone(new DateTimeZone('Asia/Manila'));
+    
+    $dateModifiedFormatted = $date->format('Y-m-d H:i:s');
+    return $dateModifiedFormatted;
+}
 // $randomString = generateRandomString();
 // echo $randomString;
 

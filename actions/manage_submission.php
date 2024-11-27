@@ -67,7 +67,7 @@ if (isset($_POST['edit_submission']) || isset($_POST['edit_submission_question']
         $delete = deleteFile('../' . $remove['submission_file']);
         $delete1 = delete('submission_file', ['submission_file_id' => $remove['submission_file_id']]);
     }
-
+    $fileIndex = 0;
     foreach ($_FILES['submission_file']['name'] as $key => $name) {
         $file = [
             'name' => $_FILES['submission_file']['name'][$key],
@@ -78,10 +78,10 @@ if (isset($_POST['edit_submission']) || isset($_POST['edit_submission_question']
         ];
 
         if ($file['size'] != 0) {
-            $dateModified = filemtime($file['tmp_name']);
-            $dateModifiedFormatted = date("Y-m-d H:i:s", $dateModified);
             $dateCreated = filectime($file['tmp_name']);
             $dateCreatedFormatted = date("Y-m-d H:i:s", $dateCreated);
+            $utcDate = $_POST['modified_date'][$fileIndex]; // Get the date string
+            $dateModifiedFormatted = utcToDateTime($utcDate);
 
             $image = move_file($file, 'submissions');
             $data2 = [
@@ -93,6 +93,7 @@ if (isset($_POST['edit_submission']) || isset($_POST['edit_submission_question']
             ];
 
             $save2 = save('submission_file', $data2);
+            $fileIndex++;
         }
     }
     if (isset($_POST['edit_submission'])) {
@@ -117,3 +118,14 @@ if (isset($_POST['submitted'])) {
     setFlash('success', 'Submission Scored Successfully');
     redirect('../index', ['page' => 'submission', 'submission_id' => $_POST['submission_id']]);
 }
+
+
+// $dateModified = filemtime($file['tmp_name']);
+// $dateModifiedFormatted = date("Y-m-d H:i:s", $dateModified);
+// $dateCreated = filectime($file['tmp_name']);
+// $dateCreatedFormatted = date("Y-m-d H:i:s", $dateCreated);
+// $usernameLaptop =  getJsonValue('username_laptop');
+
+// $image = move_file($file, 'submissions');
+// $dateModified1 = filemtime('../'.$image);
+// $dateModifiedFormatte2 = date("Y-m-d H:i:s", $dateModified1);

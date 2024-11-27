@@ -130,7 +130,7 @@ $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], '
 
                     <?php if ($submission_check) : ?>
                         <div class="border rounded p-3 w-50 d-none" id="activity_edit">
-                            <form method="POST" action="actions/manage_submission.php" enctype="multipart/form-data">
+                            <form method="POST" action="actions/manage_submission.php" enctype="multipart/form-data" id="submissionForm">
                                 <label class="mb-0 mx-0">Submission File</label>
                                 <input type="hidden" name="activity_id" value="<?php echo $_GET['activity_id'] ?>">
                                 <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
