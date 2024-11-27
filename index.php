@@ -186,16 +186,15 @@ if (isset($_GET['class_id'])) {
                                     </li>
                                 </ul>
                             </li>
-
-                            <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                                <a onclick="showPopup('notif')" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-bell cursor-pointer"><span class="ms-1 rounded-circle bg-danger border border-danger px-2" id="notif_num"></span></i>
-                                </a>
-                                <ul style="max-height:500px; overflow-y:auto" class="notif-scroll dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4 popup" id="notif" aria-labelledby="dropdownMenuButton">
-
-
-                                </ul>
-                            </li>
+                            <?php if ($_SESSION['usertype'] != 1): ?>
+                                <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                                    <a onclick="showPopup('notif')" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-bell cursor-pointer"><span class="ms-1 rounded-circle bg-danger border border-danger px-2" id="notif_num"></span></i>
+                                    </a>
+                                    <ul style="max-height:500px; overflow-y:auto" class="notif-scroll dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4 popup" id="notif" aria-labelledby="dropdownMenuButton">
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>
