@@ -84,14 +84,16 @@ if (isset($_GET['class_id'])) {
                             <span class="nav-link-text ms-1">Calendar</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="?page=notification">
-                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fa fa-bell cursor-pointer text-success text-sm opacity-10"></i>
-                            </div>
-                            <span class="nav-link-text ms-1">Notification</span>
-                        </a>
-                    </li>
+                    <?php if ($_SESSION['usertype'] != 2): ?>
+                        <li class="nav-item">
+                            <a class="nav-link " href="?page=notification">
+                                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                    <i class="fa fa-bell cursor-pointer text-success text-sm opacity-10"></i>
+                                </div>
+                                <span class="nav-link-text ms-1">Notification</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
 
                     <?php if ($_SESSION['usertype'] == 0) : ?>
                         <li class="nav-item">
@@ -186,7 +188,7 @@ if (isset($_GET['class_id'])) {
                                     </li>
                                 </ul>
                             </li>
-                            <?php if ($_SESSION['usertype'] != 1): ?>
+                            <?php if ($_SESSION['usertype'] != 2): ?>
                                 <li class="nav-item dropdown pe-2 d-flex align-items-center">
                                     <a onclick="showPopup('notif')" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-bell cursor-pointer"><span class="ms-1 rounded-circle bg-danger border border-danger px-2" id="notif_num"></span></i>
