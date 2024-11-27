@@ -325,3 +325,7 @@
 .red-color-confirm {
   background-color: #d33 !important;
 }
+
+#DataTables_Table_1_filter input{
+  width: 80%;
+}
