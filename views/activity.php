@@ -84,7 +84,7 @@ $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], '
                     <?php if ($_SESSION['usertype'] == 0) : ?>
                         <?php if (!$submission_check) { ?>
                             <div class="border rounded p-3 w-50">
-                                <form method="POST" action="actions/manage_submission.php" enctype="multipart/form-data">
+                                <form method="POST" action="actions/manage_submission.php" class="submissionForm" enctype="multipart/form-data">
                                     <label class="mb-0 mx-0">Submission File</label>
                                     <input type="hidden" name="activity_id" value="<?php echo $_GET['activity_id'] ?>">
                                     <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
@@ -130,7 +130,7 @@ $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], '
 
                     <?php if ($submission_check) : ?>
                         <div class="border rounded p-3 w-50 d-none" id="activity_edit">
-                            <form method="POST" action="actions/manage_submission.php" enctype="multipart/form-data" id="submissionForm">
+                            <form method="POST" action="actions/manage_submission.php" enctype="multipart/form-data" class="submissionForm">
                                 <label class="mb-0 mx-0">Submission File</label>
                                 <input type="hidden" name="activity_id" value="<?php echo $_GET['activity_id'] ?>">
                                 <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
@@ -198,7 +198,40 @@ $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], '
                                                 <td class="align-middle text-center">
                                                     <span class="text-secondary text-xs font-weight-bold"><?php echo date('F j, Y', strtotime($people['submission_date'])); ?></span>
                                                 </td>
-                                                <td class="align-middle">
+                                                <td class="align-middle" width="20%">
+                                                    <button data-bs-toggle="modal" data-bs-target="#detailsFileModal" class="btn btn-success btn-sm px-4 rounded mb-0 py-1">
+                                                        <i class="fa fa-eye"></i>
+                                                        Details
+                                                    </button>
+                                                    <div class="modal fade" id="detailsFileModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="detailsFileModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title fs-5" id="detailsFileModalLabel">
+                                                                        <i class="fa fa-file"></i>
+                                                                        File Submitted Details
+                                                                    </h1>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <?php $files = find_where('submission_file', ['submission_id' => $people['submission_id']]) ?>
+                                                                    <?php foreach ($files as $file): ?>
+                                                                        <div class="border shadow-sm p-3 mb-2 gap-2 rounded d-flex align-items-center">
+                                                                            <i class="fa fa-file" style="font-size:60px"></i>
+                                                                            <div>
+                                                                                <p class="mb-0" style="font-size: 11.6px"><span class="fw-semibold">File Name:</span> <?= $file['submission_fileName'] ?></p>
+                                                                                <p class="mb-0" style="font-size: 11.6px"><span class="fw-semibold">File Uploaded Date:</span> <?= $file['submission_datecreated'] == null ? 'N/A' : date('F d Y h:i:s a', strtotime($file['submission_datecreated'])) ?></p>
+                                                                                <p class="mb-0" style="font-size: 11.6px"><span class="fw-semibold">File Last Modified Date:</span> <?= $file['submission_datemodified'] == null ? 'N/A' : date('F d Y h:i:s a', strtotime($file['submission_datemodified'])) ?></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php endforeach; ?>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <a href="?page=submission&submission_id=<?= $people['submission_id'] ?>" class="btn btn-primary btn-sm px-4 rounded mb-0 py-1">
                                                         <i class="fa fa-eye"></i>
                                                         View

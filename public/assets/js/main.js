@@ -158,48 +158,97 @@ $(".delete-class").on("click", function (e) {
   });
 });
 
-const submissionForm = document.getElementById("submissionForm");
+// const submissionForm = document.getElementById("submissionForm");
 
-submissionForm.addEventListener("change", function (event) {
-  const files = event.target.files;
-  const modifiedDates = [];
+// submissionForm.addEventListener("change", function (event) {
+//   const files = event.target.files;
+//   const modifiedDates = [];
 
-  // The time zone for Manila
-  const manilaTimeZone = "Asia/Manila";
+//   // The time zone for Manila
+//   const manilaTimeZone = "Asia/Manila";
 
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
-    const modifiedDate = file.lastModified || new Date(); // Use lastModified timestamp or current date
+//   for (let i = 0; i < files.length; i++) {
+//     const file = files[i];
+//     const modifiedDate = file.lastModified || new Date(); // Use lastModified timestamp or current date
 
-    // Create a Date object using the lastModified timestamp
-    const dateInManila = new Date(modifiedDate);
+//     // Create a Date object using the lastModified timestamp
+//     const dateInManila = new Date(modifiedDate);
 
-    // Adjust the date to Asia/Manila timezone using Intl.DateTimeFormat
-    const formattedDate = new Intl.DateTimeFormat("en-US", {
-      timeZone: manilaTimeZone,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-    }).format(dateInManila);
+//     // Adjust the date to Asia/Manila timezone using Intl.DateTimeFormat
+//     const formattedDate = new Intl.DateTimeFormat("en-US", {
+//       timeZone: manilaTimeZone,
+//       year: "numeric",
+//       month: "2-digit",
+//       day: "2-digit",
+//       hour: "2-digit",
+//       minute: "2-digit",
+//       second: "2-digit",
+//       hour12: true,
+//     }).format(dateInManila);
 
-    // Parse the formatted date back into a Date object with the correct time zone offset
-    const manilaDate = new Date(Date.parse(formattedDate + " GMT+0800"));
+//     // Parse the formatted date back into a Date object with the correct time zone offset
+//     const manilaDate = new Date(Date.parse(formattedDate + " GMT+0800"));
 
-    // Convert the date to ISO format (this will be in UTC but with the correct Manila time)
-    modifiedDates.push(manilaDate.toISOString());
-  }
+//     // Convert the date to ISO format (this will be in UTC but with the correct Manila time)
+//     modifiedDates.push(manilaDate.toISOString());
+//   }
 
-  // Set the modified dates as hidden inputs to send to the server
-  for (let i = 0; i < modifiedDates.length; i++) {
-    const inputName = `modified_date[]`;
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = inputName;
-    input.value = modifiedDates[i];
-    submissionForm.appendChild(input);
-  }
+//   // Set the modified dates as hidden inputs to send to the server
+//   for (let i = 0; i < modifiedDates.length; i++) {
+//     const inputName = `modified_date[]`;
+//     const input = document.createElement("input");
+//     input.type = "hidden";
+//     input.name = inputName;
+//     input.value = modifiedDates[i];
+//     submissionForm.appendChild(input);
+//   }
+// });
+$(document).ready(function () {
+  // Use class selector for form
+  $(".submissionForm").on("change", function (event) {
+    const files = event.target.files;
+    const modifiedDates = [];
+
+    // The time zone for Manila
+    const manilaTimeZone = "Asia/Manila";
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const modifiedDate = file.lastModified || new Date(); // Use lastModified timestamp or current date
+
+      // Create a Date object using the lastModified timestamp
+      const dateInManila = new Date(modifiedDate);
+
+      // Adjust the date to Asia/Manila timezone using Intl.DateTimeFormat
+      const formattedDate = new Intl.DateTimeFormat("en-US", {
+        timeZone: manilaTimeZone,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }).format(dateInManila);
+
+      // Parse the formatted date back into a Date object with the correct time zone offset
+      const manilaDate = new Date(Date.parse(formattedDate + " GMT+0800"));
+
+      // Convert the date to ISO format (this will be in UTC but with the correct Manila time)
+      modifiedDates.push(manilaDate.toISOString());
+    }
+
+    // Set the modified dates as hidden inputs to send to the server
+    for (let i = 0; i < modifiedDates.length; i++) {
+      const inputName = `modified_date[]`;
+      const input = $("<input>", {
+        type: "hidden",
+        name: inputName,
+        value: modifiedDates[i],
+      });
+
+      // Append the input to the form
+      $(".submissionForm").append(input);
+    }
+  });
 });
