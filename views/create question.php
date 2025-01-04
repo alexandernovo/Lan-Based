@@ -5,7 +5,7 @@
             <div class="card mb-4">
                 <div class="card-header d-flex p-2  align-items-center justify-content-between">
                     <div class="d-flex justify-content-between align-items-center w-100">
-                        <a href="?page=lab activities&class_id=<?php echo $_GET['class_id'] ?>" class="btn btn-secondary btn-sm px-4 mb-0">
+                        <a href="?page=questions&class_id=<?php echo $_GET['class_id'] ?>" class="btn btn-secondary btn-sm px-4 mb-0">
                             <i class="fa fa-arrow-left"></i>
                             Back
                         </a>
@@ -14,6 +14,7 @@
                 <div class="card-body">
                     <form action="actions/manage_activity.php" id="add_question" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="class_id" value="<?php echo $_GET['class_id'] ?>">
+                        <input type="hidden" name="typeAct" id="typeAct" value="question">
                         <div class="d-flex gap-2">
                             <div class="w-50">
                                 <div class="form-row">
@@ -26,6 +27,7 @@
                                 <div class="form-row">
                                     <label class="mx-0">Question Title</label>
                                     <input required value="<?php echo getValue('activity_title') ?>" class="form-control" name="activity_title" placeholder="Question Title" />
+                                    <p class="mb-0 text-danger d-none" id="duplicateMessage" style="font-size: 11px">Question title already exist in this class!</p>
                                     <?php if (showError('activity_title')) :
                                         echo showError('activity_title');
                                     endif; ?>

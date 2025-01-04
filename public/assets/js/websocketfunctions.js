@@ -149,6 +149,7 @@ $("#add_activity").on("submit", function (e) {
         processData: false,  // Prevent jQuery from processing the data
         contentType: false,  // Prevent jQuery from setting contentType
         success: function (response) {
+            $("#duplicateMessage").addClass('d-none');
             if (response.status == "success") {
                 let $notif = response.data;
 
@@ -163,6 +164,10 @@ $("#add_activity").on("submit", function (e) {
                 setTimeout(() => {
                     location.href = $notif.route;
                 }, 1000);
+            }
+            else if(response.status == "duplicate")
+            {
+                $("#duplicateMessage").removeClass('d-none');
             }
             else {
                 location.href = $notif.route;
@@ -186,6 +191,7 @@ $("#add_question").on("submit", function (e) {
         processData: false,  // Prevent jQuery from processing the data
         contentType: false,  // Prevent jQuery from setting contentType
         success: function (response) {
+            $("#duplicateMessage").addClass('d-none');
             if (response.status == "success") {
                 let $notif = response.data;
 
@@ -200,6 +206,10 @@ $("#add_question").on("submit", function (e) {
                 setTimeout(() => {
                     location.href = $notif.route;
                 }, 1000);
+            }
+            else if(response.status == "duplicate")
+            {
+                $("#duplicateMessage").removeClass('d-none');
             }
             else {
                 location.href = $notif.route;
@@ -263,7 +273,12 @@ function getNotifNumber() {
             if (response.status == "success") {
                 let notif = response.data;
                 console.log(notif.number);
-                $("#notif_num").text(notif.number);
+                $("#notif_num").html(
+                   notif.number != 0 ? `
+                    <span class="ms-1 rounded-circle bg-danger border border-danger px-2">${notif.number}</span>
+                   ` : 
+                   ``
+                );
             }
         },
         error: function (xhr, status, error) {

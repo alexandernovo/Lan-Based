@@ -14,11 +14,13 @@
                 <div class="card-body">
                     <form action="actions/manage_activity.php" method="post" id="add_activity" enctype="multipart/form-data">
                         <input type="hidden" name="class_id" id="class_id" value="<?php echo $_GET['class_id'] ?>">
+                        <input type="hidden" name="typeAct" id="typeAct" value="activity">
                         <div class="d-flex gap-2">
                             <div class="w-50">
                                 <div class="form-row">
                                     <label class="mx-0">Activity Title</label>
-                                    <input required value="<?php echo getValue('activity_title') ?>" class="form-control" name="activity_title" placeholder="Activity Title" />
+                                    <input id="activity_title" required value="<?php echo getValue('activity_title') ?>" class="form-control" name="activity_title" placeholder="Activity Title" />
+                                    <p class="mb-0 text-danger d-none" id="duplicateMessage" style="font-size: 11px">Activity title already exist in this class!</p>
                                     <?php if (showError('activity_title')) :
                                         echo showError('activity_title');
                                     endif; ?>

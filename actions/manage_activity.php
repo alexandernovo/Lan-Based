@@ -2,6 +2,14 @@
 
 require_once('../config/config.php');
 if (isset($_POST['add_activity'])) {
+    $typeAct = $_POST['typeAct'];
+    $find = first('activity', ['class_id' => $_POST['class_id'], 'activity_title' => $_POST['activity_title'], 'activity_type' => $typeAct]);
+
+    if ($find) {
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'duplicate']);
+        exit;
+    }
 
     $data = [
         'class_id' => $_POST['class_id'],
@@ -117,6 +125,15 @@ if (isset($_POST['add_activity'])) {
 
 
 if (isset($_POST['add_question'])) {
+
+    $typeAct = $_POST['typeAct'];
+    $find = first('activity', ['class_id' => $_POST['class_id'], 'activity_title' => $_POST['activity_title'], 'activity_type' => $typeAct]);
+
+    if ($find) {
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'duplicate']);
+        exit;
+    }
 
     $data = [
         'class_id' => $_POST['class_id'],
@@ -302,7 +319,7 @@ if (isset($_POST['edit_activity'])) {
                         $dateModifiedFormatted = date("Y-m-d H:i:s", $dateModified);
                         $dateCreated = filectime($file['tmp_name']);
                         $dateCreatedFormatted = date("Y-m-d H:i:s", $dateCreated);
-    
+
                         $data_attachments = [
                             'activity_id' =>  $_POST['activity_id'],
                             'attachment_file' => $image,
@@ -395,7 +412,7 @@ if (isset($_POST['edit_question'])) {
                         $dateModifiedFormatted = date("Y-m-d H:i:s", $dateModified);
                         $dateCreated = filectime($file['tmp_name']);
                         $dateCreatedFormatted = date("Y-m-d H:i:s", $dateCreated);
-    
+
                         $data_attachments = [
                             'activity_id' => $_POST['activity_id'],
                             'attachment_file' => $image,

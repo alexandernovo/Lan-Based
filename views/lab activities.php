@@ -24,7 +24,7 @@
                         ?>
                         <?php foreach ($activities as $activity) : ?>
                             <div class="col-4 mb-xl-0 mb-4">
-                                <div class="card">
+                                <div class="card mb-3">
                                     <div class="card-body p-3">
                                         <div class="activities-images">
                                             <img src="public/assets/img/lab_activity.jpeg" class="preview-image-options border">

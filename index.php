@@ -151,10 +151,10 @@ if (isset($_GET['class_id'])) {
             <nav class="navbar navbar-main navbar-expand-lg px-0 me-2 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
                 <div class="container-fluid py-1 px-3">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <!-- <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
                             <li class="breadcrumb-item text-sm text-white active text-capitalize" aria-current="page"><?php echo isset($_GET['page']) ? $_GET['page'] : '' ?></li>
-                        </ol>
+                        </ol> -->
                         <h6 class="font-weight-bolder text-white mb-0 text-capitalize"><?php echo isset($_GET['page']) ? $_GET['page'] : '' ?></h6>
                     </nav>
                     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
@@ -193,7 +193,7 @@ if (isset($_GET['class_id'])) {
                             <?php if ($_SESSION['usertype'] != 2): ?>
                                 <li class="nav-item dropdown pe-2 d-flex align-items-center">
                                     <a onclick="showPopup('notif')" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fa fa-bell cursor-pointer"><span class="ms-1 rounded-circle bg-danger border border-danger px-2" id="notif_num"></span></i>
+                                        <i class="fa fa-bell cursor-pointer" id="notif_num"></i>
                                     </a>
                                     <ul style="max-height:500px; overflow-y:auto" class="notif-scroll dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4 popup" id="notif" aria-labelledby="dropdownMenuButton">
                                     </ul>
