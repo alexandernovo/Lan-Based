@@ -122,7 +122,7 @@ if (isset($_POST['geTimeRedirect'])) {
     $sched = joinTable(
         'schedule',
         [['schedule_time', 'schedule_time.schedule_id', 'schedule.schedule_id']],
-        ['schedule.class_id' => $class_id]
+        ['schedule.class_id' => $class_id, 'schedule_time.day' => $num]
     );
     $current_time = date('H:i');
 
@@ -133,8 +133,7 @@ if (isset($_POST['geTimeRedirect'])) {
             return true;
         }
     }
-    if($result == false)
-    {
+    if ($result == false) {
         setFlash('failed', "You cannot access this class at the current time. Please consult to your adviser.");
     }
     http_response_code(200);
