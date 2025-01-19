@@ -2,6 +2,7 @@ let schedule_table;
 let schedule_data;
 let timesched = [];
 let schedule_id;
+let day;
 let removedtime = [];
 
 let schedule_tableOptions = {
@@ -41,9 +42,9 @@ let schedule_tableOptions = {
             data-day="monday" class="cursor-pointer check_schedule" value="1">
             <button ${
               row.monday && row.monday == 1 ? "" : "disabled"
-            } data-schedule_id="${
-          row.schedule_id
-        }" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button>
+            } data-schedule_id="${row.schedule_id}"
+            data-day="monday"
+            class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button>
           </div>`;
       },
     },
@@ -64,7 +65,7 @@ let schedule_tableOptions = {
         ${row.tuesday && row.tuesday == 1 ? "" : "disabled"}
         data-schedule_id="${
           row.schedule_id
-        }" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button>
+        }" data-day="tuesday" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button>
         </div>`;
       },
     },
@@ -82,7 +83,7 @@ let schedule_tableOptions = {
           row.wednesday && row.wednesday == 1 ? "" : "disabled"
         } data-schedule_id="${
           row.schedule_id
-        }" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button></div>`;
+        }" data-day="wednesday" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button></div>`;
       },
     },
     {
@@ -99,7 +100,7 @@ let schedule_tableOptions = {
           row.thursday && row.thursday == 1 ? "" : "disabled"
         } data-schedule_id="${
           row.schedule_id
-        }" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button></div>`;
+        }" data-day="thursday" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button></div>`;
       },
     },
     {
@@ -116,7 +117,7 @@ let schedule_tableOptions = {
           row.friday && row.friday == 1 ? "" : "disabled"
         } data-schedule_id="${
           row.schedule_id
-        }" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button></div>`;
+        }" data-day="friday" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button></div>`;
       },
     },
     {
@@ -133,7 +134,7 @@ let schedule_tableOptions = {
           row.saturday && row.saturday == 1 ? "" : "disabled"
         } data-schedule_id="${
           row.schedule_id
-        }" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button></div>`;
+        }" data-day="saturday" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button></div>`;
       },
     },
     {
@@ -150,7 +151,7 @@ let schedule_tableOptions = {
           row.sunday && row.sunday == 1 ? "" : "disabled"
         } data-schedule_id="${
           row.schedule_id
-        }" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button></div>`;
+        }" data-day="sunday" class="openScheduleTimeModal btn btn-primary mb-0 btn-sm" style="padding: 2px 5px !important">Set Time</button></div>`;
       },
     },
   ],
@@ -242,6 +243,7 @@ function reloadTableSchedule() {
 
 $(document).on("click", ".openScheduleTimeModal", function () {
   schedule_id = $(this).data("schedule_id");
+  day = $(this).data("day");
   getTimeScheds();
   $("#schedule_modal").modal("show");
 });
@@ -251,7 +253,9 @@ $(document).on("click", "#time_sched_btn", function () {
     timefrom: "",
     timeto: "",
     scheduletime_id: 0,
+    day: day,
   });
+  console.log(day);
   populateTime();
 });
 
@@ -264,11 +268,15 @@ function populateTime() {
       <div class="d-flex justify-content-between align-items-end gap-2">
         <div class="form-group pe-1 mb-0" style="width: 46%">
           <label>Time From:</label>
-          <input data-index="${index}" value="${x.timefrom == "00:00:00" ? '' : x.timefrom}" class="form-control timeFrom" type="time">
+          <input data-index="${index}" value="${
+          x.timefrom == "00:00:00" ? "" : x.timefrom
+        }" class="form-control timeFrom" type="time">
         </div>
         <div class="form-group ps-1 mb-0" style="width: 46%">
           <label>Time To:</label>
-          <input data-index="${index}" value="${x.timeto == "00:00:00" ? '' : x.timeto}" class="form-control timeTo" type="time">
+          <input data-index="${index}" value="${
+          x.timeto == "00:00:00" ? "" : x.timeto
+        }" class="form-control timeTo" type="time">
         </div>
         <i data-index="${index}" class="removeTime fa fa-trash text-danger cursor-pointer" style="margin-bottom: 11px"></i>
       </div>  
@@ -344,6 +352,7 @@ function getTimeScheds() {
     data: {
       getTimeScheds: true,
       schedule_id: schedule_id,
+      day: day,
     },
     success: function (response) {
       console.log(response.data);

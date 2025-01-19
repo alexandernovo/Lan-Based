@@ -252,3 +252,8 @@ $(document).ready(function () {
     }
   });
 });
+
+$(document).on("click", ".redirectClass", function () {
+  let route = $(this).attr("href");
+  window.location.href = route;
+});

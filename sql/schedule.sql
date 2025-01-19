@@ -15,6 +15,7 @@ CREATE TABLE schedule (
 CREATE TABLE schedule_time (
     scheduletime_id INT(11) AUTO_INCREMENT PRIMARY KEY,
     schedule_id INT(11) NOT NULL,
+    day varchar(255),
     timefrom TIME DEFAULT NULL,
     timeto TIME DEFAULT NULL,
     createdby int(255),

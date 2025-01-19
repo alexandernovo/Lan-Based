@@ -69,6 +69,7 @@ if (isset($_POST['timesaveupdate'])) {
                 $data = [
                     'timefrom' => $time['timefrom'],
                     'timeto' => $time['timeto'],
+                    'day' => $time['day'],
                     'schedule_id' => $_POST['schedule_id'],
                     'createdby' => $_SESSION['user_id'],
                     'created_at' => date('Y-m-d h:i:s')
@@ -95,7 +96,8 @@ if (isset($_POST['timesaveupdate'])) {
 
 if (isset($_POST['getTimeScheds'])) {
     $schedule_id = $_POST['schedule_id'];
-    $data = find_where('schedule_time', ['schedule_id' => $schedule_id]);
+    $day = $_POST['day'];
+    $data = find_where('schedule_time', ['schedule_id' => $schedule_id, 'day' => $day]);
     http_response_code(200);
     echo json_encode(["status" => "success", "data" => $data]);
 }
