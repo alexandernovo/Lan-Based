@@ -101,3 +101,42 @@ if (isset($_POST['getTimeScheds'])) {
     http_response_code(200);
     echo json_encode(["status" => "success", "data" => $data]);
 }
+
+if (isset($_POST['geTimeRedirect'])) {
+    if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) {
+        return true;
+    }
+    $day = [
+        1 => 'monday',
+        2 => 'tuesday',
+        3 => 'wednesday',
+        4 => 'thursday',
+        5 => 'friday',
+        6 => 'saturday',
+        7 => 'sunday'
+    ];
+    $result = false;
+    $num = $day[date('N')];
+    $class_id = $_POST['class_id'];
+
+    $sched = joinTable(
+        'schedule',
+        [['schedule_time', 'schedule_time.schedule_id', 'schedule.schedule_id']],
+        ['schedule.class_id' => $class_id]
+    );
+    $current_time = date('H:i');
+
+    foreach ($sched as $tim) {
+        $timefrom = date("H:i", strtotime($tim['timefrom']));
+        $timeto = date("H:i", strtotime($tim['timeto']));
+        if ($current_time >= $timefrom && $current_time <= $timeto) {
+            return true;
+        }
+    }
+    if($result == false)
+    {
+        setFlash('failed', "You cannot access this class at the current time. Please consult to your adviser.");
+    }
+    http_response_code(200);
+    echo json_encode(["status" => "success", "result" => $result]);
+}

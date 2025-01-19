@@ -257,3 +257,54 @@ $(document).on("click", ".redirectClass", function () {
   let route = $(this).attr("href");
   window.location.href = route;
 });
+
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+const pagesRestricted = [
+  "work",
+  "class work",
+  "people",
+  "lab activities",
+  "questions",
+  "materials",
+  "activity",
+  "questions activity",
+];
+
+function getDateTimeSchedMatic(class_id) {
+  $.ajax({
+    url: "./ajax/getSchedules.php",
+    method: "POST",
+    data: {
+      geTimeRedirect: true,
+      class_id: class_id,
+    },
+    dataType: "json",
+    success: function (response) {
+      if (response.status == "success") {
+        if (response.result == false) {
+          window.location.href = "?page=classes";
+        }
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error("AJAX Error:", error);
+    },
+  });
+}
+
+function redirectIfNoAccess() {
+  let page = getQueryParam("page");
+  let class_id = getQueryParam("class_id");
+  console.log(page);
+  if (page && pagesRestricted.includes(page) && class_id) {
+    getDateTimeSchedMatic(class_id);
+  }
+}
+
+$(document).ready(function () {
+  redirectIfNoAccess();
+});

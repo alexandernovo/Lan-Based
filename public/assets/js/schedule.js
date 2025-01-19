@@ -244,6 +244,7 @@ function reloadTableSchedule() {
 $(document).on("click", ".openScheduleTimeModal", function () {
   schedule_id = $(this).data("schedule_id");
   day = $(this).data("day");
+  $("#day_text").text(day);
   getTimeScheds();
   $("#schedule_modal").modal("show");
 });
