@@ -20,10 +20,16 @@ if ($_SESSION['usertype'] == 1) {
                         <h6 class="mb-0">Classes</h6>
                     </div>
                     <?php if ($_SESSION['usertype'] == 1) : ?>
-                        <a href="?page=add class" class="btn font-bold btn-sm btn-outline-success mb-0 btn-outline">
-                            <i class="fa fa-plus-circle"></i>
-                            Create Class
-                        </a>
+                        <div>
+                            <a href="?page=schedule" class="btn font-bold btn-sm btn-outline-primary mb-0 btn-outline">
+                                <i class="fa fa-calendar"></i>
+                                Set Schedule
+                            </a>
+                            <a href="?page=add class" class="btn font-bold btn-sm btn-outline-success mb-0 btn-outline">
+                                <i class="fa fa-plus-circle"></i>
+                                Create Class
+                            </a>
+                        </div>
                     <?php endif; ?>
                     <?php if ($_SESSION['usertype'] == 0) : ?>
                         <a href="?page=join class" class="btn font-bold btn-sm btn-outline-success mb-0 btn-outline">

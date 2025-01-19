@@ -241,7 +241,7 @@ if (isset($_GET['class_id'])) {
     </div>
 
     <!--===============================================================================================-->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="public/assets/js/jquery.js"></script>
     <!--===============================================================================================-->
     <script>
         let user_id = 0;
@@ -258,9 +258,9 @@ if (isset($_GET['class_id'])) {
     <!--===============================================================================================-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--===============================================================================================-->
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js" defer></script>
     <!--===============================================================================================-->
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js" defer></script>
     <!--===============================================================================================-->
     <script src="public/assets/js/core/popper.min.js"></script>
     <!--===============================================================================================-->
@@ -276,7 +276,7 @@ if (isset($_GET['class_id'])) {
     <!--===============================================================================================-->
     <script src="public/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
     <!--===============================================================================================-->
-    <script src="public/assets/js/datatable.js"></script>
+    <script src="public/assets/js/datatable.js" defer></script>
     <!--===============================================================================================-->
     <script src="public/assets/js/websocket.js"></script>
     <!--===============================================================================================-->
@@ -291,6 +291,10 @@ if (isset($_GET['class_id'])) {
         <script src="public/assets/fullcalendar/lib/moment.min.js"></script>
         <script src="public/assets/fullcalendar/fullcalendar.min.js"></script>
         <script src="public/assets/fullcalendar/calendarCode.js"></script>
+    <?php endif; ?>
+    <!--===============================================================================================-->
+    <?php if (isset($_GET['page']) == 'schedule') : ?>
+        <script src="public/assets/js/schedule.js" defer></script>
     <?php endif; ?>
     <!--===============================================================================================-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -315,8 +319,6 @@ if (isset($_GET['class_id'])) {
         </script>
     <?php endif; ?>
     <!--===============================================================================================-->
-
-
 
 </body>
 
