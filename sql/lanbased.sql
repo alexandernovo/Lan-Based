@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2024 at 02:15 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Jan 20, 2025 at 01:18 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,7 +39,7 @@ CREATE TABLE `activity` (
   `activity_dateAdded` datetime NOT NULL,
   `activity_status` int(2) NOT NULL,
   `question_type` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `activity`
@@ -69,7 +69,17 @@ INSERT INTO `activity` (`activity_id`, `class_id`, `activity_title`, `activity_d
 (37, 6, 'Culpa adipisci rem e', 'Reiciendis corrupti', 1, '2010-08-05 00:32:00', 84, 'activity', '2024-09-02 00:00:00', 1, NULL),
 (38, 6, 'Nesciunt odio deser', 'Nihil non illo accus', 1, '2014-09-15 06:13:00', 71, 'activity', '2024-09-04 00:00:00', 1, NULL),
 (39, 6, 'Quasi esse pariatur', 'Ipsum mollit totam ', 1, '1981-07-09 16:52:00', 62, 'activity', '2024-09-04 00:00:00', 1, NULL),
-(40, 6, 'Laborum Temporibus ', 'Et voluptatem Porro', 1, '1998-11-24 06:37:00', 69, 'activity', '2024-09-10 00:00:00', 1, NULL);
+(40, 6, 'Laborum Temporibus ', 'Et voluptatem Porro', 1, '1998-11-24 06:37:00', 69, 'activity', '2024-09-10 00:00:00', 1, NULL),
+(41, 6, 'Culpa adipisci rem e', 'Culpa adipisci rem e', 1, '2025-01-11 19:33:00', 344, 'activity', '2025-01-04 00:00:00', 1, NULL),
+(42, 6, 'Culpa adipisci rem e', 'Culpa adipisci rem e', 1, '2025-01-11 19:33:00', 344, 'activity', '2025-01-04 00:00:00', 1, NULL),
+(43, 6, 'Culpa adipisci rem e', 'Culpa adipisci rem e', 1, '2025-01-11 19:36:00', 34, 'activity', '2025-01-04 00:00:00', 1, NULL),
+(44, 6, 'Culpa adipisci rem e', 'Culpa adipisci rem e', 1, '2025-01-11 19:37:00', 34, 'activity', '2025-01-04 00:00:00', 1, NULL),
+(45, 6, 'Culpa adipisci rem e', 'Culpa adipisci rem e', 1, '2025-01-11 19:37:00', 34, 'activity', '2025-01-04 00:00:00', 1, NULL),
+(46, 6, 'Culpa adipisci rem e', 'Culpa adipisci rem e', 1, '2025-01-11 19:37:00', 34, 'activity', '2025-01-04 00:00:00', 1, NULL),
+(47, 6, 'Culpa adipisci rem e', 'Culpa adipisci rem e', 1, '2025-01-11 19:42:00', 34, 'activity', '2025-01-04 00:00:00', 1, NULL),
+(48, 6, 'Culpa adipisci rem e', 'Culpa adipisci rem e', 1, '2025-01-11 19:42:00', 34, 'activity', '2025-01-04 00:00:00', 1, NULL),
+(49, 6, 'Culpa adipisci rem e', 'Culpa adipisci rem e', 1, '2025-01-11 19:48:00', 34, 'question', '2025-01-04 00:00:00', 1, 'Short Answer'),
+(50, 6, 'Laborum Temporibus', 'Laborum Temporibus', 1, '2025-01-11 19:50:00', 34, 'question', '2025-01-04 00:00:00', 1, 'Short Answer');
 
 -- --------------------------------------------------------
 
@@ -86,7 +96,7 @@ CREATE TABLE `announcement` (
   `announcement_type` varchar(255) NOT NULL,
   `announcement_date` datetime NOT NULL,
   `announcement_assID` int(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `announcement`
@@ -113,7 +123,7 @@ CREATE TABLE `archive_class` (
   `archive_class_id` int(255) NOT NULL,
   `class_id` int(255) NOT NULL,
   `user_id` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -128,40 +138,51 @@ CREATE TABLE `attachments` (
   `attachment_filetype` varchar(255) NOT NULL,
   `attachment_name` varchar(255) NOT NULL,
   `attachment_type` varchar(20) NOT NULL,
+  `attachment_datecreated` datetime DEFAULT NULL,
+  `attachment_modified` datetime DEFAULT NULL,
   `attachment_addeddate` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `attachments`
 --
 
-INSERT INTO `attachments` (`attachment_id`, `activity_id`, `attachment_file`, `attachment_filetype`, `attachment_name`, `attachment_type`, `attachment_addeddate`) VALUES
-(46, 17, 'public/assets/attachments/1876070561666307e8e7d744.69139285.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'ABSTRACT.docx', 'attachments', '2024-06-07 09:15:20'),
-(47, 17, 'public/assets/attachments/196035958666307e8eb5b24.50677775.png', 'image/png', 'typing test.png', 'attachments', '2024-06-07 09:15:20'),
-(48, 18, 'public/assets/attachments/1640983202666929e91045a8.10555995.png', 'image/png', 'jlahjslhdkgasgkjd.png', 'attachments', '2024-06-12 12:54:01'),
-(49, 18, 'public/assets/attachments/1388647491666929e9148047.12864514.png', 'image/png', 'sadasd.png', 'attachments', '2024-06-12 12:54:01'),
-(50, 19, 'public/assets/attachments/40580094566d1c4008b2b73.47466638.jpeg', 'image/jpeg', 'download (1).jpeg', 'attachments', '2024-08-30 09:07:12'),
-(51, 20, 'public/assets/attachments/65469828266d1c4456affd9.73161041.png', 'image/png', 'jlahjslhdkgasgkjd.png', 'attachments', '2024-08-30 09:08:21'),
-(52, 21, 'public/assets/attachments/195279666566d1c4959921f2.64044117.png', 'image/png', 'websocket.png', 'attachments', '2024-08-30 09:09:41'),
-(53, 22, 'public/assets/attachments/199840161366d1c49bb7c446.18942355.png', 'image/png', 'websocket.png', 'attachments', '2024-08-30 09:09:47'),
-(54, 23, 'public/assets/attachments/197368150566d1c54e432d54.17955875.png', 'image/png', 'jlahjslhdkgasgkjd.png', 'attachments', '2024-08-30 09:12:46'),
-(55, 24, 'public/assets/attachments/198049894866d1c5f7473ef3.21319670.png', 'image/png', 'jlahjslhdkgasgkjd.png', 'attachments', '2024-08-30 09:15:35'),
-(56, 25, 'public/assets/attachments/182583053866d1c60b2dd770.04798712.png', 'image/png', 'asdasdasdsd.png', 'attachments', '2024-08-30 09:15:55'),
-(57, 26, 'public/assets/attachments/82666140266d1c65c3a51e9.31348815.png', 'image/png', 'asdasdasdsd.png', 'attachments', '2024-08-30 09:17:16'),
-(58, 27, 'public/assets/attachments/70508393066d1c6fce72378.77568317.png', 'image/png', 'websocket.png', 'attachments', '2024-08-30 09:19:56'),
-(59, 28, 'public/assets/attachments/62226179566d1c7433ec776.86672761.png', 'image/png', 'sadasd.png', 'attachments', '2024-08-30 09:21:07'),
-(60, 29, 'public/assets/attachments/60892579466d1c7b5015661.01067432.png', 'image/png', 'sadasdasdasd.png', 'attachments', '2024-08-30 09:23:01'),
-(61, 30, 'public/assets/attachments/213016481066d1c94052e248.64194285.jpeg', 'image/jpeg', 'OIP.jpeg', 'attachments', '2024-08-30 09:29:36'),
-(62, 31, 'public/assets/attachments/185398334166d1cebf6c2046.32755157.png', 'image/png', 'asdasdasdsd.png', 'attachments', '2024-08-30 09:53:03'),
-(63, 32, 'public/assets/attachments/154024204666d1cefed20a37.37248168.png', 'image/png', 'asdasdasdsd.png', 'attachments', '2024-08-30 09:54:06'),
-(64, 33, 'public/assets/attachments/84747929566d5a24c7d2ef0.76111042.jpeg', 'image/jpeg', 'adlawon3.jpeg', 'attachments', '2024-09-02 07:32:28'),
-(65, 34, 'public/assets/attachments/74020078166d5a2ca714fc3.27651312.txt', 'text/plain', 'php-socket.txt', 'attachments', '2024-09-02 07:34:34'),
-(66, 35, 'public/assets/attachments/1663884366d5a319d91392.75094290.jpg', 'image/jpeg', 'att.qN0i68w1KIyy28kOlJ_LluI6BdzOOZAipckf9TNy0Ak.jpg', 'attachments', '2024-09-02 07:35:53'),
-(67, 36, 'public/assets/attachments/98469520966d5a3b4705e88.08056933.jpeg', 'image/jpeg', 'images.jpeg', 'attachments', '2024-09-02 07:38:28'),
-(68, 37, 'public/assets/attachments/95472680166d5a3d08d8177.27529033.jpeg', 'image/jpeg', 'images.jpeg', 'attachments', '2024-09-02 07:38:56'),
-(69, 38, 'public/assets/attachments/129737318966d85ae70eaac5.67965640.jpg', 'image/jpeg', 'att.qN0i68w1KIyy28kOlJ_LluI6BdzOOZAipckf9TNy0Ak.jpg', 'attachments', '2024-09-04 09:04:39'),
-(70, 39, 'public/assets/attachments/95841989866d85b14ba2918.98405326.jpeg', 'image/jpeg', 'images.jpeg', 'attachments', '2024-09-04 09:05:24'),
-(71, 40, 'public/assets/attachments/68634265266e02d201161b1.29627108.jpeg', 'image/jpeg', 'images.jpeg', 'attachments', '2024-09-10 07:27:28');
+INSERT INTO `attachments` (`attachment_id`, `activity_id`, `attachment_file`, `attachment_filetype`, `attachment_name`, `attachment_type`, `attachment_datecreated`, `attachment_modified`, `attachment_addeddate`) VALUES
+(46, 17, 'public/assets/attachments/1876070561666307e8e7d744.69139285.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'ABSTRACT.docx', 'attachments', NULL, NULL, '2024-06-07 09:15:20'),
+(47, 17, 'public/assets/attachments/196035958666307e8eb5b24.50677775.png', 'image/png', 'typing test.png', 'attachments', NULL, NULL, '2024-06-07 09:15:20'),
+(48, 18, 'public/assets/attachments/1640983202666929e91045a8.10555995.png', 'image/png', 'jlahjslhdkgasgkjd.png', 'attachments', NULL, NULL, '2024-06-12 12:54:01'),
+(49, 18, 'public/assets/attachments/1388647491666929e9148047.12864514.png', 'image/png', 'sadasd.png', 'attachments', NULL, NULL, '2024-06-12 12:54:01'),
+(50, 19, 'public/assets/attachments/40580094566d1c4008b2b73.47466638.jpeg', 'image/jpeg', 'download (1).jpeg', 'attachments', NULL, NULL, '2024-08-30 09:07:12'),
+(51, 20, 'public/assets/attachments/65469828266d1c4456affd9.73161041.png', 'image/png', 'jlahjslhdkgasgkjd.png', 'attachments', NULL, NULL, '2024-08-30 09:08:21'),
+(52, 21, 'public/assets/attachments/195279666566d1c4959921f2.64044117.png', 'image/png', 'websocket.png', 'attachments', NULL, NULL, '2024-08-30 09:09:41'),
+(53, 22, 'public/assets/attachments/199840161366d1c49bb7c446.18942355.png', 'image/png', 'websocket.png', 'attachments', NULL, NULL, '2024-08-30 09:09:47'),
+(54, 23, 'public/assets/attachments/197368150566d1c54e432d54.17955875.png', 'image/png', 'jlahjslhdkgasgkjd.png', 'attachments', NULL, NULL, '2024-08-30 09:12:46'),
+(55, 24, 'public/assets/attachments/198049894866d1c5f7473ef3.21319670.png', 'image/png', 'jlahjslhdkgasgkjd.png', 'attachments', NULL, NULL, '2024-08-30 09:15:35'),
+(56, 25, 'public/assets/attachments/182583053866d1c60b2dd770.04798712.png', 'image/png', 'asdasdasdsd.png', 'attachments', NULL, NULL, '2024-08-30 09:15:55'),
+(57, 26, 'public/assets/attachments/82666140266d1c65c3a51e9.31348815.png', 'image/png', 'asdasdasdsd.png', 'attachments', NULL, NULL, '2024-08-30 09:17:16'),
+(58, 27, 'public/assets/attachments/70508393066d1c6fce72378.77568317.png', 'image/png', 'websocket.png', 'attachments', NULL, NULL, '2024-08-30 09:19:56'),
+(59, 28, 'public/assets/attachments/62226179566d1c7433ec776.86672761.png', 'image/png', 'sadasd.png', 'attachments', NULL, NULL, '2024-08-30 09:21:07'),
+(60, 29, 'public/assets/attachments/60892579466d1c7b5015661.01067432.png', 'image/png', 'sadasdasdasd.png', 'attachments', NULL, NULL, '2024-08-30 09:23:01'),
+(61, 30, 'public/assets/attachments/213016481066d1c94052e248.64194285.jpeg', 'image/jpeg', 'OIP.jpeg', 'attachments', NULL, NULL, '2024-08-30 09:29:36'),
+(62, 31, 'public/assets/attachments/185398334166d1cebf6c2046.32755157.png', 'image/png', 'asdasdasdsd.png', 'attachments', NULL, NULL, '2024-08-30 09:53:03'),
+(63, 32, 'public/assets/attachments/154024204666d1cefed20a37.37248168.png', 'image/png', 'asdasdasdsd.png', 'attachments', NULL, NULL, '2024-08-30 09:54:06'),
+(64, 33, 'public/assets/attachments/84747929566d5a24c7d2ef0.76111042.jpeg', 'image/jpeg', 'adlawon3.jpeg', 'attachments', NULL, NULL, '2024-09-02 07:32:28'),
+(65, 34, 'public/assets/attachments/74020078166d5a2ca714fc3.27651312.txt', 'text/plain', 'php-socket.txt', 'attachments', NULL, NULL, '2024-09-02 07:34:34'),
+(66, 35, 'public/assets/attachments/1663884366d5a319d91392.75094290.jpg', 'image/jpeg', 'att.qN0i68w1KIyy28kOlJ_LluI6BdzOOZAipckf9TNy0Ak.jpg', 'attachments', NULL, NULL, '2024-09-02 07:35:53'),
+(67, 36, 'public/assets/attachments/98469520966d5a3b4705e88.08056933.jpeg', 'image/jpeg', 'images.jpeg', 'attachments', NULL, NULL, '2024-09-02 07:38:28'),
+(68, 37, 'public/assets/attachments/95472680166d5a3d08d8177.27529033.jpeg', 'image/jpeg', 'images.jpeg', 'attachments', NULL, NULL, '2024-09-02 07:38:56'),
+(69, 38, 'public/assets/attachments/129737318966d85ae70eaac5.67965640.jpg', 'image/jpeg', 'att.qN0i68w1KIyy28kOlJ_LluI6BdzOOZAipckf9TNy0Ak.jpg', 'attachments', NULL, NULL, '2024-09-04 09:04:39'),
+(70, 39, 'public/assets/attachments/95841989866d85b14ba2918.98405326.jpeg', 'image/jpeg', 'images.jpeg', 'attachments', NULL, NULL, '2024-09-04 09:05:24'),
+(71, 40, 'public/assets/attachments/68634265266e02d201161b1.29627108.jpeg', 'image/jpeg', 'images.jpeg', 'attachments', NULL, NULL, '2024-09-10 07:27:28'),
+(72, 42, 'public/assets/attachments/125777497067791d1234e651.00836531.sql', 'application/octet-stream', 'lanbased.sql', 'attachments', '2025-01-04 19:35:46', '2025-01-04 19:35:46', '2025-01-04 07:35:46'),
+(73, 43, 'public/assets/attachments/124014952267791d4b6b5417.53040572.sql', 'application/octet-stream', 'lanbased.sql', 'attachments', '2025-01-04 19:36:43', '2025-01-04 19:36:43', '2025-01-04 07:36:43'),
+(74, 44, 'public/assets/attachments/130828947767791d63e73130.87448517.sql', 'application/octet-stream', 'lanbased.sql', 'attachments', '2025-01-04 19:37:07', '2025-01-04 19:37:07', '2025-01-04 07:37:07'),
+(75, 45, 'public/assets/attachments/20979429567791d7cac0694.67478557.sql', 'application/octet-stream', 'lanbased.sql', 'attachments', '2025-01-04 19:37:32', '2025-01-04 19:37:32', '2025-01-04 07:37:32'),
+(76, 46, 'public/assets/attachments/17599268967791d9790a5c5.04671153.sql', 'application/octet-stream', 'lanbased.sql', 'attachments', '2025-01-04 19:37:59', '2025-01-04 19:37:59', '2025-01-04 07:37:59'),
+(77, 47, 'public/assets/attachments/53810211867791eabb8c8e9.80906505.sql', 'application/octet-stream', 'lanbased.sql', 'attachments', '2025-01-04 19:42:35', '2025-01-04 19:42:35', '2025-01-04 07:42:35'),
+(78, 48, 'public/assets/attachments/196734180667791eb0b40511.49301207.sql', 'application/octet-stream', 'lanbased.sql', 'attachments', '2025-01-04 19:42:40', '2025-01-04 19:42:40', '2025-01-04 07:42:40'),
+(79, 49, 'public/assets/attachments/1938982136779202b574c10.22951280.sql', 'application/octet-stream', 'lanbased.sql', 'attachments', '2025-01-04 19:48:59', '2025-01-04 19:48:59', '2025-01-04 07:48:59'),
+(80, 50, 'public/assets/attachments/18723291826779209e12aec8.01112305.sql', 'application/octet-stream', 'lanbased.sql', 'attachments', '2025-01-04 19:50:54', '2025-01-04 19:50:54', '2025-01-04 07:50:54');
 
 -- --------------------------------------------------------
 
@@ -187,7 +208,7 @@ CREATE TABLE `class` (
   `program` varchar(255) NOT NULL,
   `classroom_lecture` varchar(255) NOT NULL,
   `classroom_lab` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `class`
@@ -210,7 +231,7 @@ CREATE TABLE `class_people` (
   `class_id` int(255) NOT NULL,
   `added_date` datetime NOT NULL,
   `class_people_status` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `class_people`
@@ -231,7 +252,7 @@ CREATE TABLE `material` (
   `class_id` int(255) NOT NULL,
   `material_name` varchar(255) NOT NULL,
   `material_addedDate` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `material`
@@ -254,7 +275,7 @@ CREATE TABLE `material_attachment` (
   `material_file` varchar(255) NOT NULL,
   `material_type` varchar(255) NOT NULL,
   `material_dateAdded` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `material_attachment`
@@ -282,7 +303,7 @@ CREATE TABLE `notifications` (
   `user_id` int(11) DEFAULT NULL,
   `activity_id` int(255) DEFAULT NULL,
   `is_read` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `notifications`
@@ -291,7 +312,16 @@ CREATE TABLE `notifications` (
 INSERT INTO `notifications` (`notification_id`, `notification_datetime`, `notification_description`, `notification_title`, `notification_type`, `included_id`, `user_id`, `activity_id`, `is_read`) VALUES
 (13, '2024-09-10 00:00:00', 'Lynn Salas has joined IT-138(3-A)', 'Joined Class', 'join', 6, 1, NULL, 0),
 (14, '2024-10-01 00:00:00', 'Aimees Hutchinson has joined Joel Haney(Dicta deserunt volup)', 'Joined Class', 'join', 7, 1, NULL, 0),
-(15, '2024-10-01 00:00:00', 'Aimees Hutchinson has joined Joel Haney(Dicta deserunt volup)', 'Joined Class', 'join', 7, 1, NULL, 0);
+(15, '2024-10-01 00:00:00', 'Aimees Hutchinson has joined Joel Haney(Dicta deserunt volup)', 'Joined Class', 'join', 7, 1, NULL, 0),
+(16, '2025-01-04 00:00:00', 'IT-138 (3-A) Culpa adipisci rem e Activity Created', 'Created Activity', 'activity', 6, 1, 42, 1),
+(17, '2025-01-04 00:00:00', 'IT-138 (3-A) Culpa adipisci rem e Activity Created', 'Created Activity', 'activity', 6, 1, 43, 1),
+(18, '2025-01-04 00:00:00', 'IT-138 (3-A) Culpa adipisci rem e Activity Created', 'Created Activity', 'activity', 6, 1, 44, 1),
+(19, '2025-01-04 00:00:00', 'IT-138 (3-A) Culpa adipisci rem e Activity Created', 'Created Activity', 'activity', 6, 1, 45, 1),
+(20, '2025-01-04 00:00:00', 'IT-138 (3-A) Culpa adipisci rem e Activity Created', 'Created Activity', 'activity', 6, 1, 46, 1),
+(21, '2025-01-04 00:00:00', 'IT-138 (3-A) Culpa adipisci rem e Activity Created', 'Created Activity', 'activity', 6, 1, 47, 1),
+(22, '2025-01-04 00:00:00', 'IT-138 (3-A) Culpa adipisci rem e Activity Created', 'Created Activity', 'activity', 6, 1, 48, 1),
+(23, '2025-01-04 00:00:00', 'IT-138 (3-A) Culpa adipisci rem e Question Created', 'Created Question', 'activity', 6, 1, 49, 1),
+(24, '2025-01-04 00:00:00', 'IT-138 (3-A) Laborum Temporibus Question Created', 'Created Question', 'activity', 6, 1, 50, 1);
 
 -- --------------------------------------------------------
 
@@ -305,7 +335,7 @@ CREATE TABLE `saved_file` (
   `attachment_id` int(255) NOT NULL,
   `attachment_type` varchar(10) NOT NULL,
   `saved_datetime` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `saved_file`
@@ -315,6 +345,60 @@ INSERT INTO `saved_file` (`saved_file_id`, `user_id`, `attachment_id`, `attachme
 (3, 6, 16, 'material', '2024-07-02 08:46:12'),
 (4, 6, 17, 'material', '2024-07-02 08:54:28'),
 (7, 9, 16, 'material', '2024-08-24 08:21:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedule`
+--
+
+CREATE TABLE `schedule` (
+  `schedule_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `monday` int(2) DEFAULT NULL,
+  `tuesday` int(2) DEFAULT NULL,
+  `wednesday` int(2) DEFAULT NULL,
+  `thursday` int(2) DEFAULT NULL,
+  `friday` int(2) DEFAULT NULL,
+  `saturday` int(2) DEFAULT NULL,
+  `sunday` int(2) DEFAULT NULL,
+  `createdby` int(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`schedule_id`, `class_id`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday`, `createdby`, `created_at`) VALUES
+(1, 6, 1, 0, 0, 0, 0, 0, 1, NULL, NULL),
+(2, 7, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 8, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedule_time`
+--
+
+CREATE TABLE `schedule_time` (
+  `scheduletime_id` int(11) NOT NULL,
+  `schedule_id` int(11) NOT NULL,
+  `day` varchar(255) DEFAULT NULL,
+  `timefrom` time DEFAULT NULL,
+  `timeto` time DEFAULT NULL,
+  `createdby` int(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `schedule_time`
+--
+
+INSERT INTO `schedule_time` (`scheduletime_id`, `schedule_id`, `day`, `timefrom`, `timeto`, `createdby`, `created_at`) VALUES
+(3, 1, 'monday', '12:19:00', '12:21:00', 1, '2025-01-19 12:14:27'),
+(4, 1, 'sunday', '12:21:00', '13:01:00', 1, '2025-01-19 12:22:03'),
+(5, 1, 'sunday', '18:21:00', '20:21:00', 1, '2025-01-19 01:21:33');
 
 -- --------------------------------------------------------
 
@@ -331,7 +415,7 @@ CREATE TABLE `submission` (
   `submission_score` int(255) DEFAULT NULL,
   `submission_remarks` varchar(255) NOT NULL,
   `submission_date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `submission`
@@ -352,7 +436,7 @@ CREATE TABLE `submission_file` (
   `submission_id` int(255) NOT NULL,
   `submission_file` varchar(255) NOT NULL,
   `submission_fileName` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `submission_file`
@@ -382,7 +466,7 @@ CREATE TABLE `users` (
   `usertype` int(2) NOT NULL,
   `userstatus` int(2) NOT NULL,
   `registereddate` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
@@ -464,6 +548,18 @@ ALTER TABLE `saved_file`
   ADD PRIMARY KEY (`saved_file_id`);
 
 --
+-- Indexes for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD PRIMARY KEY (`schedule_id`);
+
+--
+-- Indexes for table `schedule_time`
+--
+ALTER TABLE `schedule_time`
+  ADD PRIMARY KEY (`scheduletime_id`);
+
+--
 -- Indexes for table `submission`
 --
 ALTER TABLE `submission`
@@ -489,7 +585,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `activity_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `activity_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `announcement`
@@ -507,7 +603,7 @@ ALTER TABLE `archive_class`
 -- AUTO_INCREMENT for table `attachments`
 --
 ALTER TABLE `attachments`
-  MODIFY `attachment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `attachment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `class`
@@ -537,13 +633,25 @@ ALTER TABLE `material_attachment`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `notification_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `saved_file`
 --
 ALTER TABLE `saved_file`
   MODIFY `saved_file_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `schedule`
+--
+ALTER TABLE `schedule`
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `schedule_time`
+--
+ALTER TABLE `schedule_time`
+  MODIFY `scheduletime_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `submission`
