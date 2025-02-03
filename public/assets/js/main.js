@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
   var win = navigator.platform.indexOf("Win") > -1;
   if (win && document.querySelector("#sidenav-scrollbar")) {
@@ -308,3 +309,20 @@ function redirectIfNoAccess() {
 $(document).ready(function () {
   redirectIfNoAccess();
 });
+
+$(document).on("click", ".routeFile", function (e) {
+  e.preventDefault();
+  let href = $(this).attr("href");
+  let message = $(this).attr("message");
+  Swal.fire({
+    icon: "warning",
+    title: message,
+    showConfirmButton: true,
+    showCancelButton: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      location.href = href;
+    }
+  });
+});
+

@@ -332,3 +332,13 @@
 .width20 {
   width: 20% !important;
 }
+#calendarAdmin .fc-header-toolbar {
+  display: none;
+}
+
+#calendarAdmin .fc-time {
+  display: none;
+}
+#calendarAdmin .fc-content {
+  cursor: pointer;
+}

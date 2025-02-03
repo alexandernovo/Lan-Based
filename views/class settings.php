@@ -45,21 +45,20 @@
                             </div>
                             <div class="form-row mt-2">
                                 <p class="mb-0 font-bold">Schedule of Classes</p>
-                                <label class="mx-0">Lecture</label>
-                                <input value="<?= $class_settings['schedclass_lecture'] ?>" name="schedclass_lecture" class="form-control">
+                                <!-- <label class="mx-0">Lecture</label> -->
+                                <select name="schedclass_lecture" class="form-select">
+                                    <option value="Lecture">Lecture</option>
+                                    <option value="Lab">Lab</option>
+                                </select>
                             </div>
-                            <div class="form-row mt-2">
-                                <label class="mx-0">Lab</label>
-                                <input value="<?= $class_settings['schedclass_lab'] ?>" name="schedclass_lab" class="form-control">
-                            </div>
-                            <div class="form-row mt-2">
+                            <!-- <div class="form-row mt-2">
                                 <p class="mb-0 font-bold">Class Room</p>
                                 <label class="mx-0">Lecture</label>
-                                <input value="<?= $class_settings['room'] ?>" name="room" class="form-control">
-                            </div>
+                            </div> -->
                             <div class="form-row mt-2">
+                                <p class="mb-0 font-bold">Class Room</p>
                                 <label class="mx-0">Lab</label>
-                                <input value="<?= $class_settings['room_lab'] ?>" name="room_lab" class="form-control">
+                                <input value="<?= $class_settings['classroom_lab'] ?>" name="classroom_lab" class="form-control">
                             </div>
                             <div class="form-row mt-3 mb-5">
                                 <button name="update_class" class="btn btn-success w-100 button-text-size">Update Class</button>

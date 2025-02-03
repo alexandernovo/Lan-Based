@@ -54,9 +54,28 @@ $submission_check = last('submission', ['activity_id' => $_GET['activity_id'], '
                                     <i class="fa fa-paperclip"></i>
                                     <?= $attachment['attachment_name'] ?>
                                 </div>
-                                <a href="<?= $attachment['attachment_file'] ?>" download="<?= $attachment['attachment_name'] ?>" class="text-black download-hover">
-                                    <i class="fa fa-download"></i>
-                                </a>
+                                <div class="d-flex gap-4">
+                                    <a href="<?= $attachment['attachment_file'] ?>" download="<?= $attachment['attachment_name'] ?>" class="text-black download-hover text-decoration-none">
+                                        <i class="fa fa-download"></i>
+                                        Download
+                                    </a>
+                                    <?php
+                                    $find_saved = first('saved_file', ['user_id' => $_SESSION['user_id'], 'attachment_id' => $attachment['attachment_id'], 'attachment_type' => 'activity']);
+                                    ?>
+                                    <?php if ($_SESSION['usertype'] == 0): ?>
+
+                                        <?php if ($find_saved) { ?>
+                                            <p class="text-decoration-none text-dark mb-0" style="font-size:12px">
+                                                <i class="fa fa-save"></i>
+                                                Saved
+                                            </p>
+                                        <?php } else { ?>
+                                            <a href="actions/manage_saved_file.php?save_file_activity&attachment_id=<?= $attachment['attachment_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>&activity_id=<?php echo $_GET['activity_id'] ?>" message="Save this File?" class="text-decoration-none text-dark routeFile">
+                                                <i class="fa fa-save"></i>
+                                                Save File</a>
+                                        <?php } ?>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         <?php endforeach; ?>
                     </div>

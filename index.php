@@ -1,10 +1,56 @@
 <?php require_once('config/config.php');
-
-
 if (isset($_GET['class_id'])) {
     $class_settings = first('class', ['class_id' => $_GET['class_id']]);
 }
+?>
 
+<?php
+$class_route = [
+    'classes',
+    'class work',
+    'class settings',
+    'stream',
+    'people',
+    'lab activities',
+    'activity',
+    'edit activity',
+    'print activity',
+    'create activity',
+    'create question',
+    'questions activity',
+    'edit question',
+    'materials',
+    'add materials',
+    'schedule'
+];
+
+$users_route = [
+    'users'
+];
+
+$calendar_route = [
+    'calendar'
+];
+
+$notification_route = [
+    'notification'
+];
+
+$settings_route = [
+    'settings',
+    'account settings',
+];
+
+$help_route = [
+    'help',
+];
+
+$save_files_route = [
+    'saved files'
+];
+$archive_class_route = [
+    'archive classes'
+];
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,6 +89,13 @@ if (isset($_GET['class_id'])) {
 <body class="g-sidenav-show bg-gray-100 h-height-100">
     <div class="min-height-300 bg-success position-absolute w-100"></div>
     <?php
+    function getActive($pages)
+    {
+        if (isset($_GET['page']) && in_array($_GET['page'], $pages)) {
+            return 'active';
+        }
+        return '';
+    }
     if (isset($_SESSION['username'])) {
     ?>
         <aside class="sidenav bg-white navbar border navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
@@ -58,7 +111,7 @@ if (isset($_GET['class_id'])) {
                 <ul class="navbar-nav">
                     <?php if ($_SESSION['usertype'] != 2): ?>
                         <li class="nav-item">
-                            <a class="nav-link active" href="?page=classes">
+                            <a class="nav-link <?php echo getActive($class_route); ?>" href="?page=classes">
                                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
                                 </div>
@@ -69,7 +122,7 @@ if (isset($_GET['class_id'])) {
 
                     <?php if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) : ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="?page=users">
+                            <a class="nav-link <?php echo getActive($users_route); ?>" href="?page=users">
                                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa fa-users text-primary text-sm opacity-10"></i>
                                 </div>
@@ -79,7 +132,7 @@ if (isset($_GET['class_id'])) {
                     <?php endif; ?>
 
                     <li class="nav-item">
-                        <a class="nav-link " href="?page=calendar">
+                        <a class="nav-link <?php echo getActive($calendar_route); ?>" href="?page=calendar">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                             </div>
@@ -88,7 +141,7 @@ if (isset($_GET['class_id'])) {
                     </li>
                     <?php if ($_SESSION['usertype'] != 2): ?>
                         <li class="nav-item">
-                            <a class="nav-link " href="?page=notification">
+                            <a class="nav-link <?php echo getActive($notification_route); ?>" href="?page=notification">
                                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa fa-bell cursor-pointer text-success text-sm opacity-10"></i>
                                 </div>
@@ -97,33 +150,37 @@ if (isset($_GET['class_id'])) {
                         </li>
                     <?php endif; ?>
 
-                    <?php if ($_SESSION['usertype'] == 0) : ?>
+                    <?php if ($_SESSION['usertype'] == 0) :
+                    ?>
                         <li class="nav-item">
-                            <a class="nav-link align-items-center" href="?page=saved files">
+                            <a class="nav-link align-items-center <?php echo getActive($save_files_route); ?>" href="?page=saved files">
                                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa fa-file cursor-pointer text-secondary text-sm opacity-10"></i>
                                 </div>
                                 <span class="nav-link-text ms-1">Saved Files</span>
                             </a>
                         </li>
-                    <?php endif; ?>
+                    <?php endif;
+                    ?>
 
-                    <?php if ($_SESSION['usertype'] == 0) : ?>
+                    <?php if ($_SESSION['usertype'] == 0) :
+                    ?>
                         <li class="nav-item">
-                            <a class="nav-link " href="?page=archive classes">
+                            <a class="nav-link <?php echo getActive($archive_class_route); ?>" href="?page=archive classes">
                                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="fa fa-cloud-download cursor-pointer text-primary text-sm opacity-10"></i>
                                 </div>
                                 <span class="nav-link-text ms-1">Archived Classes</span>
                             </a>
                         </li>
-                    <?php endif; ?>
+                    <?php endif;
+                    ?>
 
                     <li class="nav-item mt-3">
                         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="?page=settings">
+                        <a class="nav-link <?php echo getActive($settings_route); ?>" href="?page=settings">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa fa-cog text-dark text-sm opacity-10"></i>
                             </div>
@@ -131,7 +188,7 @@ if (isset($_GET['class_id'])) {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="?page=help">
+                        <a class="nav-link <?php echo getActive($help_route); ?>" href="?page=help">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa fa-question-circle text-dark text-sm opacity-10"></i>
                             </div>
@@ -256,7 +313,7 @@ if (isset($_GET['class_id'])) {
     <!--===============================================================================================-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <!--===============================================================================================-->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="public/assets/js/sweetalert.js"></script>
     <!--===============================================================================================-->
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js" defer></script>
     <!--===============================================================================================-->
@@ -296,8 +353,6 @@ if (isset($_GET['class_id'])) {
     <?php if (isset($_GET['page']) == 'schedule') : ?>
         <script src="public/assets/js/schedule.js" defer></script>
     <?php endif; ?>
-    <!--===============================================================================================-->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--===============================================================================================-->
     <?php if ($flash = getFlash('success')) : ?>
         <script>

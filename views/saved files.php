@@ -12,22 +12,56 @@
                 </div>
                 <div class="card-body">
                     <?php
-                    $save_files = joinTable('saved_file', [['material_attachment', 'saved_file.attachment_id', 'material_attachment.material_attachment_id']], ['saved_file.user_id' => $_SESSION['user_id']]);
+                    $session_user_id = $_SESSION['user_id'];
+                    // $save_files = joinTable('saved_file', [['material_attachment', 'saved_file.attachment_id', 'material_attachment.material_attachment_id']], ['saved_file.user_id' => $_SESSION['user_id']]);
+                    $query = "
+                        SELECT 
+                            ma.material_fileName AS filename,
+                            sf.attachment_type,
+                            sf.saved_file_id,
+                            ma.material_file AS file,
+                            sf.saved_datetime
+                        FROM material_attachment as ma INNER JOIN saved_file AS sf ON sf.attachment_id = ma.material_attachment_id
+                        WHERE sf.user_id = $session_user_id
+
+                        UNION ALL
+
+                         SELECT 
+                            at.attachment_name AS filename,
+                            sf.attachment_type,
+                            sf.saved_file_id,
+                            at.attachment_file AS file,
+                            sf.saved_datetime
+                        FROM attachments as at INNER JOIN saved_file AS sf ON sf.attachment_id = at.attachment_id
+                        WHERE sf.user_id = $session_user_id
+                        
+                        ORDER BY saved_datetime DESC
+                    ";
+
+                    $result = mysqli_query($conn, $query);
+                    $save_files = [];
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $save_files[] = $row;
+                    }
                     ?>
-                    <div class="d-flex gap-2">
+                    <div class="d-flex w-100">
                         <?php foreach ($save_files as $save_file) : ?>
-                            <div class="activity-file text-decoration-none d-flex gap-1 justify-content-between align-items-center mb-1 text-dark border w-50 p-3 rounded mt-1 shadow shadow-sm">
-                                <div class="d-flex align-items-center gap-2">
-                                    <i class="fa fa-paperclip"></i>
-                                    <?= $save_file['material_fileName'] ?>
-                                </div>
-                                <div class="d-flex gap-4">
-                                    <a href="actions/manage_saved_file.php?remove&type=<?= $save_file['attachment_type'] ?>&saved_file_id=<?= $save_file['saved_file_id'] ?>" class="download-hover text-danger">
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                    <a href="<?= $save_file['material_file'] ?>" download=" <?= $save_file['material_fileName'] ?>" class="download-hover">
-                                        <i class="fa fa-download"></i>
-                                    </a>
+                            <div class="col-2 d-flex justify-content-center align-items-center flex-column p-2">
+                                <div class="border p-3 rounded">
+                                    <div class="border p-2 rounded" style="height: 130px; width:100%">
+                                        <img src="public/assets/img/defaultfile.png" class="w-100 h-100 object-fit-cover" alt="">
+                                    </div>
+                                    <hr class="my-1">
+                                    <p style="font-size: 12px; width: 80%" class="mb-0 text-truncate"><?= $save_file['filename'] ?></p>
+                                    <div class="d-flex gap-4">
+                                        <a href="actions/manage_saved_file.php?remove&type=<?= $save_file['attachment_type'] ?>&saved_file_id=<?= $save_file['saved_file_id'] ?>" message="Remove this File?" class="download-hover text-danger routeFile">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                        <a href="<?= $save_file['file'] ?>" download=" <?= $save_file['filename'] ?>" class="download-hover">
+                                            <i class="fa fa-download"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>

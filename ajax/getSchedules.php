@@ -5,10 +5,11 @@ require_once('../config/config.php');
 if (isset($_POST['table_schedule'])) {
     $start = isset($_POST['start']) ? (int)$_POST['start'] : 0;
     $length = isset($_POST['length']) ? (int)$_POST['length'] : 10;
-
+    $user_id =  $_SESSION['user_id'];
     $query = "SELECT schedule.*, class.* 
               FROM class 
               LEFT JOIN schedule ON class.class_id = schedule.class_id 
+              WHERE class.user_id = $user_id
               LIMIT $length OFFSET $start";
 
     $result = mysqli_query($conn, $query);

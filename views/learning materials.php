@@ -51,7 +51,7 @@ $material = first('material', ['material_id' => $_GET['material_id']]);
                                     ?>
 
                                     <?php if (!$find_save) : ?>
-                                        <a href="actions/manage_saved_file.php?save_file&attachment_id=<?= $mat['material_attachment_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>&material_id=<?php echo $_GET['material_id'] ?>">
+                                        <a href="actions/manage_saved_file.php?save_file&attachment_id=<?= $mat['material_attachment_id'] ?>&class_id=<?php echo $_GET['class_id'] ?>&material_id=<?php echo $_GET['material_id'] ?>" class="routeFile" message="Save this File?">
                                             <i class="fa fa-check"></i>
                                             Save
                                         </a>

@@ -38,19 +38,23 @@
                             </div>
                             <div class="form-row mt-2">
                                 <p class="mb-0 font-bold">Schedule of Classes</p>
-                                <label class="mx-0">Lecture</label>
-                                <input name="schedclass_lecture" class="form-control">
+                                <select name="schedclass_lecture" class="form-select">
+                                    <option value="Lecture">Lecture</option>
+                                    <option value="Lab">Lab</option>
+                                </select>
+                                <!-- <label class="mx-0">Lecture</label> -->
+                                <!-- <input name="schedclass_lecture" class="form-control"> -->
                             </div>
-                            <div class="form-row mt-2">
+                            <!-- <div class="form-row mt-2">
                                 <label class="mx-0">Lab</label>
                                 <input name="schedclass_lab" class="form-control">
+                            </div> -->
+                            <div class="form-row mt-2">
+                                <!-- <label class="mx-0">Lecture</label>
+                                <input name="room" class="form-control"> -->
                             </div>
                             <div class="form-row mt-2">
                                 <p class="mb-0 font-bold">Class Room</p>
-                                <label class="mx-0">Lecture</label>
-                                <input name="room" class="form-control">
-                            </div>
-                            <div class="form-row mt-2">
                                 <label class="mx-0">Lab</label>
                                 <input name="classroom_lab" class="form-control">
                             </div>
