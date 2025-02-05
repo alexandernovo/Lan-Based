@@ -342,3 +342,7 @@
 #calendarAdmin .fc-content {
   cursor: pointer;
 }
+.fc-header-toolbar
+{
+  margin-left: 20px;
+}

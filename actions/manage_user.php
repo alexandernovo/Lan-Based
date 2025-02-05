@@ -8,7 +8,7 @@ if (isset($_POST['register'])) {
         'middlename' => $_POST['middlename'],
         'lastname' => $_POST['lastname'],
         'userstatus' => 1,
-        'email' => $_POST['email'],
+        // 'email' => $_POST['email'],
         'username' => $_POST['username'],
         'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
         "registereddate"   => date("Y-m-d"),

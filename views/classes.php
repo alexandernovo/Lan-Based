@@ -108,13 +108,13 @@ function isDisabled($schedule)
                                             <?php
                                             $schedule = first('schedule', ['class_id' => $class['class_id']]);
                                             ?>
-                                            <div class="col-sm-12 col-md-4  mb-xl-0 mb-4">
-                                                <div class="card">
+                                            <div class="col-sm-12 col-md-4  mb-xl-0 mb-4 ">
+                                                <div class="card" style="min-height: 316px;">
                                                     <div class="card-body p-3">
                                                         <div class="class-images">
                                                             <img src="<?= empty($class['class_image']) || $class['class_image'] == ""  ? "public/assets/img/class_default.jpg" :  $class['class_image'] ?>" class="preview-image ">
                                                         </div>
-                                                        <p class="m-0 mt-1 class-title"><?= $class['course'] ?> (<?= $class['section'] ?>)- <?= $class['program'] ?></p>
+                                                        <p class="m-0 mt-1 class-title w-100 text-truncate"><?= $class['course'] ?> (<?= $class['section'] ?>)- <?= $class['program'] ?></p>
                                                         <p class="m-0 class-room text-secondary"><?= $class['room'] ?></p>
                                                     </div>
                                                     <div class="card-footer py-0 py-2 px-2">
@@ -128,12 +128,12 @@ function isDisabled($schedule)
                                             </div>
                                         <?php else: ?>
                                             <div class="col-sm-12 col-md-4  mb-xl-0 mb-4">
-                                                <div class="card">
+                                                <div class="card" style="min-height: 316px;">
                                                     <div class="card-body p-3">
                                                         <div class="class-images">
                                                             <img src="<?= empty($class['class_image']) || $class['class_image'] == ""  ? "public/assets/img/class_default.jpg" :  $class['class_image'] ?>" class="preview-image ">
                                                         </div>
-                                                        <p class="m-0 mt-1 class-title"><?= $class['course'] ?> (<?= $class['section'] ?>)- <?= $class['program'] ?></p>
+                                                        <p class="m-0 mt-1 class-title  w-100 text-truncate"><?= $class['course'] ?> (<?= $class['section'] ?>)- <?= $class['program'] ?></p>
                                                         <p class="m-0 class-room text-secondary"><?= $class['room'] ?></p>
                                                     </div>
                                                     <div class="card-footer py-0 py-2 px-2">

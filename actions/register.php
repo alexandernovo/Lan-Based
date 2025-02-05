@@ -23,16 +23,16 @@ if (isset($_POST['register'])) {
         'lastname' => [
             'required' => true,
         ],
-        'email' => [
-            'required' => true,
-            'email' => true,
-            'unique' => [
-                [
-                    'fieldName' => 'email',
-                    'tableName' => 'users'
-                ]
-            ]
-        ],
+        // 'email' => [
+        //     'required' => true,
+        //     'email' => true,
+        //     'unique' => [
+        //         [
+        //             'fieldName' => 'email',
+        //             'tableName' => 'users'
+        //         ]
+        //     ]
+        // ],
         'username' => [
             'required' => true,
             'unique' => [
@@ -58,7 +58,7 @@ if (isset($_POST['register'])) {
             'firstname' => $_POST['firstname'],
             'middlename' => $_POST['middlename'],
             'lastname' => $_POST['lastname'],
-            'email' => $_POST['email'],
+            // 'email' => $_POST['email'],
             'username' => $_POST['username'],
             'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
             'usertype' => 0,

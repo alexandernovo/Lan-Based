@@ -31,17 +31,20 @@ function getNotifData()
                   WHERE (users.user_id = ? OR (notifications.included_id IN ($placeholders) AND notifications.notification_type = 'activity'))";
     } else {
         if ($_SESSION['usertype'] == 1) {
+            $id_string = strval($user_id);
             $query = "SELECT notifications.*, users.*
             FROM notifications
             JOIN users ON users.user_id = notifications.user_id
-            WHERE users.user_id = ?";
+            WHERE users.user_id = ?
+            AND (clear IS NULL OR clear = '' OR NOT JSON_CONTAINS(clear, JSON_QUOTE(1), '$'))
+            ";
         } else {
             $query = "SELECT notifications.*, users.*
             FROM notifications
             JOIN users ON users.user_id = notifications.user_id";
         }
     }
-
+    // echo $query;
     // Prepare and execute the SQL query
     if ($stmt = $conn->prepare($query)) {
         // Bind parameters
@@ -80,9 +83,9 @@ function getNotifData()
                             <h6 class="mb-0">Notification</h6>
                         </div>
                         <div>
-                            <button data-bs-toggle="modal" data-bs-target="#people" class="btn btn-outline-success btn-sm mb-0">
-                                Mark all as read
-                            </button>
+                            <a href="actions/manage_notification.php?clear_notif=1" class="btn btn-outline-success btn-sm mb-0">
+                                Clear Notification
+                            </a>
                         </div>
                     </div>
                 </div>

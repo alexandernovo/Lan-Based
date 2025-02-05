@@ -97,7 +97,7 @@ function getDayDate($day)
         }
     }
 
-    $mondayDate = date('Y-m-d', strtotime('monday'));
+    $mondayDate = date('Y-m-d', strtotime('monday this week'));
     // If today is not Sunday, calculate the days based on the current week
     switch (strtolower($day)) {
         case 'sunday':

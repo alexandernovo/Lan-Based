@@ -42,7 +42,7 @@
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm"><?= $people['firstname'] . ' ' . $people['lastname'] ?></h6>
-                                                    <p class="text-xs text-secondary mb-0"><?= $people['email'] ?></p>
+                                                    <!-- <p class="text-xs text-secondary mb-0"><?= $people['email'] ?></p> -->
                                                 </div>
                                             </div>
                                         </td>
@@ -94,10 +94,10 @@
                                                             <label class="mb-1 mx-0">Lastname</label>
                                                             <input name="lastname" value="<?= $people['lastname'] ?>" class="form-control" placeholder="Lastname">
                                                         </div>
-                                                        <div class="form-row">
+                                                        <!-- <div class="form-row">
                                                             <label class="mb-1 mx-0">Email</label>
                                                             <input name="email" value="<?= $people['email'] ?>" type="email" class="form-control" placeholder="Email">
-                                                        </div>
+                                                        </div> -->
                                                         <div class="form-row">
                                                             <label class="mb-1 mx-0">Username</label>
                                                             <input name="username" value="<?= $people['username'] ?>" class="form-control" placeholder="Username">
@@ -157,10 +157,10 @@
                         <label class="mb-1 mx-0">Lastname</label>
                         <input name="lastname" class="form-control" placeholder="Lastname">
                     </div>
-                    <div class="form-row">
+                    <!-- <div class="form-row">
                         <label class="mb-1 mx-0">Email</label>
                         <input name="email" type="email" class="form-control" placeholder="Email">
-                    </div>
+                    </div> -->
                     <div class="form-row">
                         <label class="mb-1 mx-0">Username</label>
                         <input name="username" class="form-control" placeholder="Username">

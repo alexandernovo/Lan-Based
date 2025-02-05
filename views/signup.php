@@ -25,13 +25,13 @@
                 echo showError('lastname');
             endif; ?>
         </div>
-        <div class="form-row">
+        <!-- <div class="form-row">
             <label>Email</label>
             <input name="email" placeholder="Email" value="<?php echo getValue('email') ?>" class="form-control">
             <?php if (showError('email')) :
                 echo showError('email');
             endif; ?>
-        </div>
+        </div> -->
         <div class="form-row">
             <label>Username</label>
             <input name="username" placeholder="Username" value="<?php echo getValue('username') ?>" class="form-control">

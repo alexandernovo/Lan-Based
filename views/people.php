@@ -45,7 +45,7 @@
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm"><?= $people['firstname'] . ' ' . $people['lastname'] ?></h6>
-                                                    <p class="text-xs text-secondary mb-0"><?= $people['email'] ?></p>
+                                                    <!-- <p class="text-xs text-secondary mb-0"><?= $people['email'] ?></p> -->
                                                 </div>
                                             </div>
                                         </td>
@@ -158,7 +158,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm  px-3 btn-secondary" data-bs-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
-                    <button type="submit" class="btn btn-sm  px-3 btn-primary" name="add_people"><i class="fa fa-plus-circle"></i> Add</button>
+                    <button type="submit" <?php echo mysqli_num_rows($result) == 0 ? 'disabled' : ''?> class="btn btn-sm  px-3 btn-primary" name="add_people"><i class="fa fa-plus-circle"></i> Add</button>
                 </div>
             </form>
         </div>

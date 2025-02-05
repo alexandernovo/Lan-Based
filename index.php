@@ -187,14 +187,14 @@ $archive_class_route = [
                             <span class="nav-link-text ms-1">Settings</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link <?php echo getActive($help_route); ?>" href="?page=help">
                             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa fa-question-circle text-dark text-sm opacity-10"></i>
                             </div>
                             <span class="nav-link-text ms-1">Help</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </aside>
@@ -275,7 +275,13 @@ $archive_class_route = [
                 require_once("views/" . $_GET['page'] . ".php");
             }
         } else {
-            require_once("views/login.php");
+            if (!isset($_SESSION['username'])) {
+                require_once("views/login.php");
+            }
+            else
+            {
+                require_once("views/classes.php");
+            }
         }
         ?>
     </main>

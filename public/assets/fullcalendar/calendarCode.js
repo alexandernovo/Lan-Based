@@ -90,7 +90,7 @@ function formatTime(timeString) {
 function notAdminCalendar() {
   calendar = $("#calendar").fullCalendar({
     header: {
-      left: "prev,next today",
+      left: "",
       center: "title",
     },
     defaultView: "agendaWeek",
@@ -281,6 +281,7 @@ $("#teacher_filter").on("input", function () {
 
   if (data || $(this).val() == "All") {
     user_idteacher = $(this).val() == "All" ? "All" : data.user_id;
+    $(".printSchedule").attr('href', `?page=print%20schedule&user_id=${user_idteacher}`);
     calendar.fullCalendar("refetchEvents");
   }
 });
