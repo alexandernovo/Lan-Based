@@ -36,7 +36,7 @@ function getNotifData()
             FROM notifications
             JOIN users ON users.user_id = notifications.user_id
             WHERE users.user_id = ?
-            AND (clear IS NULL OR clear = '' OR NOT JSON_CONTAINS(clear, JSON_QUOTE(1), '$'))
+            AND (clear IS NULL OR clear = '' OR NOT JSON_CONTAINS(clear, JSON_QUOTE($id_string), '$'))
             ";
         } else {
             $query = "SELECT notifications.*, users.*

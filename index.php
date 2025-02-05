@@ -105,7 +105,7 @@ $archive_class_route = [
                     <img src="public/assets/img/logo.png" class="navbar-brand-img h-100" alt="main_logo">
                     <div>
                         <span class="ms-1 font-weight-bold">LAN BASED AFRS</span>
-                        <p class="ms-1 mb-0 font-weight-bold" style="font-size: 11px;">(<?php echo $_SESSION['usertype'] == 1 ? 'Teacher' : ($_SESSION['usertype'] == 2 ? 'Admin' : 'Student') ?>)</p>
+                        <p class="ms-1 mb-0 font-weight-bold" style="font-size: 11px;">(<?php echo $_SESSION['usertype'] == 1 ? 'Instructor' : ($_SESSION['usertype'] == 2 ? 'Admin' : 'Student') ?>)</p>
                     </div>
                 </a>
                 <hr class="horizontal dark mt-0">
