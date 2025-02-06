@@ -47,7 +47,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0"><?= $people['usertype'] == 1 ? "Teacher" : ($people['usertype'] == 2 ? "Admin" : "Student") ?></p>
+                                            <p class="text-xs font-weight-bold mb-0"><?= $people['usertype'] == 1 ? "Instructor" : ($people['usertype'] == 2 ? "Admin" : "Student") ?></p>
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <span class="badge badge-sm <?= $people['userstatus'] == 1 ? "bg-gradient-success" : "bg-gradient-danger" ?>"><?= $people['userstatus'] == 1 ? "Active" : "Inactive" ?></span>
@@ -77,7 +77,7 @@
                                                             <label class="mb-1 mx-0">Type</label>
                                                             <select name="usertype" class="form-select">
                                                                 <option <?= $people['usertype'] == 0 ? "selected" : "" ?> value="0">Student</option>
-                                                                <option <?= $people['usertype'] == 1 ? "selected" : "" ?> value="1">Teacher</option>
+                                                                <option <?= $people['usertype'] == 1 ? "selected" : "" ?> value="1">Instructor</option>
                                                                 <option <?= $people['usertype'] == 2 ? "selected" : "" ?> value="2">Admin</option>
                                                             </select>
                                                         </div>
@@ -141,7 +141,7 @@
                         <label class="mb-1 mx-0">Type</label>
                         <select name="usertype" class="form-select">
                             <option value="0">Student</option>
-                            <option value="1">Teacher</option>
+                            <option value="1">Instructor</option>
                             <option value="2">Admin</option>
                         </select>
                     </div>
