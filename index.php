@@ -123,7 +123,7 @@ $archive_class_route = [
                         </li>
                     <?php endif; ?>
 
-                    <?php if ($_SESSION['usertype'] == 1 || $_SESSION['usertype'] == 2) : ?>
+                    <?php if ($_SESSION['usertype'] == 2) : ?>
                         <li class="nav-item">
                             <a class="nav-link <?php echo getActive($users_route); ?>" href="?page=users">
                                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
