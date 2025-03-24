@@ -204,87 +204,96 @@ $archive_class_route = [
     <?php
     }
     ?>
-    <main class="main-content position-relative border-radius-lg h-height-100">
-        <?php
-        if (isset($_SESSION['username'])) {
-        ?>
-            <nav class="navbar navbar-main navbar-expand-lg px-0 me-2 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
-                <div class="container-fluid py-1 px-3">
-                    <nav aria-label="breadcrumb">
-                        <!-- <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+    <main class="main-content position-relative border-radius-lg h-height-100 d-flex flex-column justify-content-between" style="height: 100vh;">
+        <div>
+            <?php
+            if (isset($_SESSION['username'])) {
+            ?>
+                <nav class="navbar navbar-main navbar-expand-lg px-0 me-2 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+                    <div class="container-fluid py-1 px-3">
+                        <nav aria-label="breadcrumb">
+                            <!-- <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
                             <li class="breadcrumb-item text-sm text-white active text-capitalize" aria-current="page"><?php echo isset($_GET['page']) ? $_GET['page'] : '' ?></li>
                         </ol> -->
-                        <h6 class="font-weight-bolder text-white mb-0 text-capitalize"><?php echo isset($_GET['page']) ? $_GET['page'] : '' ?></h6>
-                    </nav>
-                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <h6 class="font-weight-bolder text-white mb-0 text-capitalize"><?php echo isset($_GET['page']) ? $_GET['page'] : '' ?></h6>
+                        </nav>
+                        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
 
-                        </div>
-                        <ul class="navbar-nav  justify-content-end">
-                            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                                <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
-                                    <div class="sidenav-toggler-inner">
-                                        <i class="sidenav-toggler-line bg-white"></i>
-                                        <i class="sidenav-toggler-line bg-white"></i>
-                                        <i class="sidenav-toggler-line bg-white"></i>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item px-3 d-flex align-items-center dropdown dropstart">
-                                <button type="button" class="btn btn-transparent shadow-none px-1 dropdown-toggle mb-0 text-white" id="dropdownMenuLink" aria-expanded="false">
-                                    <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-                                    <li>
-                                        <a href="?page=settings" class="dropdown-item" type="button">
-                                            <i class="fa fa-cog "></i>
-                                            Settings
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="actions/login.php?logout" class="dropdown-item" type="button">
-                                            <i class="fa fa-sign-out "></i>
-                                            Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <?php if ($_SESSION['usertype'] != 2): ?>
-                                <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                                    <a onclick="showPopup('notif')" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fa fa-bell cursor-pointer" id="notif_num"></i>
+                            </div>
+                            <ul class="navbar-nav  justify-content-end">
+                                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                                    <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                                        <div class="sidenav-toggler-inner">
+                                            <i class="sidenav-toggler-line bg-white"></i>
+                                            <i class="sidenav-toggler-line bg-white"></i>
+                                            <i class="sidenav-toggler-line bg-white"></i>
+                                        </div>
                                     </a>
-                                    <ul style="max-height:500px; overflow-y:auto" class="notif-scroll dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4 popup" id="notif" aria-labelledby="dropdownMenuButton">
+                                </li>
+                                <li class="nav-item px-3 d-flex align-items-center dropdown dropstart">
+                                    <button type="button" class="btn btn-transparent shadow-none px-1 dropdown-toggle mb-0 text-white" id="dropdownMenuLink" aria-expanded="false">
+                                        <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                                        <li>
+                                            <a href="?page=settings" class="dropdown-item" type="button">
+                                                <i class="fa fa-cog "></i>
+                                                Settings
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="actions/login.php?logout" class="dropdown-item" type="button">
+                                                <i class="fa fa-sign-out "></i>
+                                                Logout
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
-                            <?php endif; ?>
-                        </ul>
+                                <?php if ($_SESSION['usertype'] != 2): ?>
+                                    <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                                        <a onclick="showPopup('notif')" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-bell cursor-pointer" id="notif_num"></i>
+                                        </a>
+                                        <ul style="max-height:500px; overflow-y:auto" class="notif-scroll dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4 popup" id="notif" aria-labelledby="dropdownMenuButton">
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
-        <?php
-        }
-        ?>
-        <?php
-        if (isset($_GET['page'])) {
-            if (!isset($_SESSION['username'])) {
-                if ($_GET['page'] == "signup") {
-                    require_once("views/signup.php");
+                </nav>
+            <?php
+            }
+            ?>
+            <div>
+                <?php
+                if (isset($_GET['page'])) {
+                    if (!isset($_SESSION['username'])) {
+                        if ($_GET['page'] == "signup") {
+                            require_once("views/signup.php");
+                        } else {
+                            require_once("views/login.php");
+                        }
+                    } else {
+                        require_once("views/" . $_GET['page'] . ".php");
+                    }
                 } else {
-                    require_once("views/login.php");
+                    if (!isset($_SESSION['username'])) {
+                        require_once("views/login.php");
+                    } else {
+                        require_once("views/classes.php");
+                    }
                 }
-            } else {
-                require_once("views/" . $_GET['page'] . ".php");
-            }
-        } else {
-            if (!isset($_SESSION['username'])) {
-                require_once("views/login.php");
-            } else {
-                require_once("views/classes.php");
-            }
-        }
-        ?>
+                ?>
+            </div>
+        </div>
+        <footer class="p-2 bg-white">
+            <p class="mb-0 text-center">
+                © 2025 KeyFour. All Rights Reserved.
+            </p>
+        </footer>
     </main>
     <!--===============================================================================================-->
     <!-- Toast Message Notification -->
